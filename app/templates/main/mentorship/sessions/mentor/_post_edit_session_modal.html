@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h3 style="display: inline-block; margin-top: 0">Review Mentorship Session</h3>
+        <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <p style="color: #818181; margin: 5px 0">{{ moment(appointment.start_time).format('LL') }}: {{ moment(appointment.start_time).format('LT') }} -- {{ moment(appointment.end_time).format('LT') }}</p>
+    </div>
+    <div class="col-sm-12">
+        {% if appointment.participants|length == 0 %}
+            <p style="color: #818181; text-align: center">Not booked yet</p>
+        {% else %}
+            <div class="participant" style="margin: 0 10px">
+                <img class="img-rounded" src="{{ appointment.participants[0].avatar(50) }}" style="display: inline">
+                <p style="display:inline; font-size: 20px; line-height: 30px; margin: 0 5px">{{ appointment.participants[0].name }} <a class="menu-item" href="{{ appointment.participants[0].get_resume() }}" target="_blank" style="margin: 0 5px"><i class="far fa-file" data-toggle="popover" data-placement="top" data-content="View Resume"></i></a><i class="far fa-calendar" count="{{appointment.participants[0].mentor_ratings.count() }}" data-toggle="popover" data-placement="top" data-content="Previous Mentorship Sessions"></i></p>
+                <br>
+                <div class="participant_option activated" id="personal_notes_toggle" app-id="{{ appointment.id }}">
+                    Personal Notes (<span id="total_notes">{{ appointment.notes.count() }}</span>)
+                </div>
+                <div class="participant_option" id="message_toggle_participant" app-id="{{ appointment.id }}">
+                    Messages (<span id="total_messages">{{ appointment.message_board.messages.count() }}</span>)
+                </div>
+            </div>
+            <hr style="margin: 5px 0">
+            <div id="participant_extra_area">
+                {% include 'main/mentorship/sessions/mentor/participant_notes.html' %}
+            </div>
+
+        {% endif %}
+    </div>
+</div>

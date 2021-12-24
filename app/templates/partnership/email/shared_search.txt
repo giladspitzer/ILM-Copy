@@ -1,0 +1,7 @@
+Dear {{ recipient.name }},
+{{ sender.name }} has shared you on their Talent Search ({{ search.title }}). Click below to begin interacting with {{ sender.name }} on this search.
+Sincerely,
+The ILMJTCV Team
+
+
+{{ url_for('partnership.saved_search', id=search.id, _external=True) }}

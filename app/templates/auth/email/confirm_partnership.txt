@@ -1,0 +1,10 @@
+Dear {{ user }},
+
+Thank you for your interest in partnering with ILMJTCV. In order to complete your application and confirm your email address, please click the following link:
+
+{{ url_for('auth.confirm_partnership_inquiry', token=token, _external=True) }}
+
+If you have not inquired about a partnership with ILMJTCV then simply ignore this message.
+
+Sincerely,
+The ILMJTCV Team

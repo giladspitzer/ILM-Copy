@@ -1,0 +1,4 @@
+Dear {{ user.username }},
+We hope that you found your recent mentorship appointment valuable and productive. Feel free to rate your mentor and sign up for another session by clicking below. Have a great day!
+Sincerely,
+The ILMJTCV team

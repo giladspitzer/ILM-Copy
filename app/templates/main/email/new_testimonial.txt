@@ -1,0 +1,4 @@
+Hello all,
+There has been a new testimonial submitted by {{ t.user.name }}:
+
+{{ t.message }} -- (FOR PUBLIC USE: {{ t.testimonial }})

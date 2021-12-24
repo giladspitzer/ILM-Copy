@@ -1,0 +1,6 @@
+Dear admins of {{ recruiter.agency.name }},
+
+We wanted to let you know that {{ recruiter.user.name }} has completed their registration and is now apart of your team.
+
+Sincerely,
+The ILMJTCV Team

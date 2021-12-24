@@ -1,0 +1,13 @@
+{% extends 'email_base.html' %}
+{% block title %}
+    <p>Job Posting Deleted</p>
+{% endblock %}
+
+{% block email_content %}
+    <p>Dear {{ recruiter.user.name }},</p>
+    <p>Your job posting for <b>{{ job.job_title }}</b> at <b>{{ job.company }}</b> has officially been <b>deleted</b>.</p>
+    <p>Sincerely,</p>
+    <p>The ILMJTCV Team</p>
+{% endblock %}
+
+

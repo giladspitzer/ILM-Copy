@@ -1,0 +1,5 @@
+Dear {{ recruiter.user.name }},
+Your job posting for {{ job.job_title }} at {{ job.company }} has officially been posted.
+You can track the analytics for this posting or edit its details by clicking below.
+Sincerely,
+The ILMJTCV Team

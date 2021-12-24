@@ -1,0 +1,5 @@
+Dear {{ user }},
+Thank you for your interest in partnering with ILMJTCV. We will be in touch with you as we review your application. You will be unable to create an account with this email moving forward.
+If you have not inquired about a partnership with ILMJTCV then simply ignore this message.
+Sincerely,
+The ILMJTCV Team

@@ -1,0 +1,7 @@
+A new partnership has been requested by {{ org.request_name }} ({{ org.request_email }})
+
+The organization is called {{ org.name }}: {{org.website}}
+
+Here is the additional data they included:
+
+{{org.additional_info}}

@@ -1,0 +1,20 @@
+<div class="row mentor_profile" style="margin: 10px 0">
+    <div class="col-sm-3 col-xs-12">
+        <img class="img-rounded" src="{{ current_user.avatar(80) }}" style="text-align: center; display: block; margin: 5px auto">
+    </div>
+    <div class="col-sm-9 col-xs-12">
+        <p style="display: inline; font-size: 12px; color: #818181; margin: 5px 10px 5px 0; cursor: pointer" data-toggle="popover" data-content="Completed Appointments" data-placement="bottom"><i class="fas fa-calendar-alt" style="color: #92ca91"></i> {{ current_user.get_completed_sessions() }}</p>
+        <p class="edit_mentor" data-toggle="modal" data-target="#edit_mentee_info"><i class="fas fa-pen"></i></p>
+        <h3 style="margin-top: 0" class="centered_small">{{ current_user.name }}</h3>
+        {% if current_user.resume == False %}
+            <p class="menu-item edit_mentee_profile_toggle" data-toggle="modal" data-target="#edit_mentee_info" style="display:block;"><i class="far fa-file"></i> + Upload Resume!!</p>
+        {% else %}
+            <a href="{{ current_user.get_resume() }}" class="menu-item" target="_blank" style="display:block;"><i class="far fa-file"></i> Resume</a>
+        {% endif %}
+        {% if current_user.get_linked_in() == None %}
+            <p class="menu-item edit_mentee_profile_toggle" data-toggle="modal" data-target="#edit_mentee_info" style="display:block;"><i class="fab fa-linkedin"></i> Add Linkedin Profile!!</p>
+        {% else %}
+            <a href="{{ current_user.get_linked_in() }}" class="menu-item" target="_blank" style="display:block;"><i class="fab fa-linkedin"></i> Linkedin Profile</a>
+        {% endif %}
+    </div>
+</div>

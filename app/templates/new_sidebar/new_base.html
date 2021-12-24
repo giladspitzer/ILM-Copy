@@ -1,0 +1,178 @@
+{% extends "new_sidebar/new_base_full.html" %}
+{% block left_content %}
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/homepage.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/test.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+
+                {% if current_user.admin %}
+        {# ADMIN       #}
+        <p class="main_navbar_tab {% if '/admin' in request.path %}open{% endif %}">Admin <i class="fa fa-caret-{% if '/admin' in request.path %}right{% else %}down{% endif %}"></i></p>
+        <div id="admin_tab" class="content_tab" style="{% if '/admin' in request.path %}display:block;{% endif %}">
+            {% if '/admin/events' in request.path %}
+                <a href="{{ url_for('admin.events') }}" class="current">Events</a>
+            {% else %}
+                 <a href="{{ url_for('admin.events') }}">Events</a>
+            {% endif %}
+            {% if '/admin/email' in request.path %}
+                <a href="{{ url_for('admin.emails') }}" class="current">Emails</a>
+            {% else %}
+                 <a href="{{ url_for('admin.emails') }}">Emails</a>
+            {% endif %}
+            {% if '/admin/news' in request.path %}
+                <a href="{{ url_for('admin.news') }}" class="current">News</a>
+            {% else %}
+                 <a href="{{ url_for('admin.news') }}">News</a>
+            {% endif %}
+            {% if '/admin/mentors' in request.path %}
+                <a href="{{ url_for('admin.mentors') }}" class="current">Mentors</a>
+            {% else %}
+                 <a href="{{ url_for('admin.mentors') }}">Mentors</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {# COMMUNITY       #}
+        <p class="main_navbar_tab {% if '/user' in request.path or '/unemployment_map' in request.path or '/chat' in request.path or '/forum' in request.path or '/post' in request.path or '/meet' in request.path %}open{% endif %}">Community <i class="fa fa-caret-{% if '/user' in request.path or '/unemployment_map' in request.path or '/chat' in request.path or '/forum' in request.path or '/post' in request.path or '/meet' in request.path %}right{% else %}down{% endif %}"></i></p>
+        <div id="community_tab" class="content_tab" style="{% if '/user' in request.path or '/unemployment_map' in request.path or '/chat' in request.path or '/forum' in request.path or '/post' in request.path or '/meet' in request.path %}display:block;{% endif %}">
+            <p id="profile"><i>Social</i> Profile</p>
+        {% if current_user.is_authenticated %}
+            {% if '/user/' + current_user.username in request.path %}
+                <a href="{{ url_for('main.user', username=current_user.username) }}" class="current"><i class="far fa-id-card"></i> {{current_user.username}}</a>
+            {% else %}
+                 <a href="{{ url_for('main.user', username=current_user.username) }}"><i class="far fa-id-card"></i> {{current_user.username}}</a>
+            {% endif %}
+        {% endif %}
+        {% if 'unemployment_map' in request.path %}
+            <a href="{{ url_for('main.unemployment_map') }}" class="current"><i class="fas fa-map-marked-alt"></i> Interactive Map</a>
+        {% else %}
+             <a href="{{ url_for('main.unemployment_map') }}"><i class="fas fa-map-marked-alt"></i> Interactive Map</a>
+        {% endif %}
+        {% if '/meet' in request.path %}
+             <a href="{{ url_for('main.meet') }}" class="current"><i class="fas fa-users"></i> Meet Others</a>
+        {% else %}
+             <a href="{{ url_for('main.meet') }}"><i class="fas fa-users"></i> Meet Others</a>
+        {% endif %}
+        {% if 'chat' in request.path or '/forum' in request.path or '/post' in request.path %}
+             <a href="{{ url_for('main.chat') }}" class="current"><i class="fas fa-comments"></i> Communities</a>
+        {% else %}
+             <a href="{{ url_for('main.chat') }}"><i class="fas fa-comments"></i> Communities</a>
+        {% endif %}
+
+    </div>
+
+        {# JOBS       #}
+        <p class="main_navbar_tab {% if '/professional_profile' in request.path or '/recruiting' in request.path or '/job_search' in request.path %}open{% endif %}">Jobs <i class="fa fa-caret-{% if '/professional_profile' in request.path or '/recruiting' in request.path or '/job_search' in request.path %}right{% else %}down{% endif %}"></i></p>
+        <div id="recruiting_tab" class="content_tab" style="{% if '/professional_profile' in request.path or '/recruiting' in request.path or '/job_search' in request.path %}display:block;{% endif %}">
+            <p id="job_searches"><i>Professional</i> Profile</p>
+            {% if current_user.is_authenticated %}
+                {% if '/professional_profile' in request.path %}
+                    <a href="{{ url_for('main.professional_profile') }}" class="current"><i class="far fa-id-card"></i> <span id="name_side">{{current_user.name}}</span> <span id="username_side" style="display: none">{{current_user.username}}</span></a>
+                {% else %}
+                     <a href="{{ url_for('main.professional_profile') }}"><i class="far fa-id-card"></i> <span id="name_side">{{current_user.name}}</span> <span id="username_side" style="display: none">{{current_user.username}}</span></a>
+                {% endif %}
+            {% endif %}
+            {% if '/recruiting' in request.path %}
+                <a href="{{ url_for('main.recruiting') }}" class="current"><i class="fas fa-user-tie"></i> Recruiting Activity</a>
+            {% else %}
+                 <a href="{{ url_for('main.recruiting') }}"><i class="fas fa-user-tie"></i> Recruiting Activity</a>
+            {% endif %}
+            {% if '/job_search' in request.path %}
+                <a href="{{ url_for('main.job_searches') }}" class="current"><i class="fas fa-search"></i> Job Searches</a>
+            {% else %}
+                 <a href="{{ url_for('main.job_searches') }}"><i class="fas fa-search"></i> Job Searches</a>
+            {% endif %}
+        </div>
+
+
+        {# DIRECT MESSAGES       #}
+        <p class="main_navbar_tab {% if '/message' in request.path %}open{% endif %}">Messages <i class="fa fa-caret-{% if '/message' in request.path %}right{% else %}down{% endif %}"></i></p>
+        <div id="chat_tab" class="content_tab" style="{% if '/message' in request.path %}display:block;{% endif %}">
+        {% if '/message' in request.path %}
+            <a href="{{ url_for('main.messages') }}" class="current"><i class="fab fa-facebook-messenger"></i> Conversations</a>
+        {% else %}
+             <a href="{{ url_for('main.messages') }}"><i class="fab fa-facebook-messenger"></i> Conversations</a>
+        {% endif %}
+        </div>
+
+        {# MENTORSHIP       #}
+        <p class="main_navbar_tab {% if '/mentorship' in request.path or '/resources' in request.path or '/blog' in request.path or '/partners' in request.path or '/events' in request.path or '/sessions' in request.path %}open{% endif %}"><img src="https://simpleicon.com/wp-content/uploads/new.svg" style="width: 22px; height: 22px"/> Mentorship <i class="fa fa-caret-{% if '/mentorship' in request.path or '/resources' in request.path or '/blog' in request.path or '/partners' in request.path or '/events' in request.path or '/sessions' in request.path %}right{% else %}down{% endif %}"></i></p>
+        <div id="mentorship_tab" class="content_tab" style="{% if '/mentorship' in request.path or '/resources' in request.path or '/blog' in request.path or '/partners' in request.path or '/events' in request.path or '/sessions' in request.path %}display:block;{% endif %}">
+        {% if '/resources' in request.path %}
+            <a href="{{ url_for('main.resources') }}" class="current"><i class="fas fa-paperclip"></i> Resources</a>
+        {% else %}
+             <a href="{{ url_for('main.resources') }}"><i class="fas fa-paperclip"></i> Resources</a>
+        {% endif %}
+        {% if '/blog' in request.path %}
+            <a href="{{ url_for('main.blogs') }}" class="current" id="blogs"><i class="fas fa-blog"></i> Blogs</a>
+        {% else %}
+             <a href="{{ url_for('main.blogs') }}" id="blogs"><i class="fas fa-blog"></i> Blogs</a>
+        {% endif %}
+        {% if '/partners' in request.path %}
+            <a href="{{ url_for('main.partners') }}" class="current"><i class="far fa-handshake"></i> Exclusive Partners</a>
+        {% else %}
+             <a href="{{ url_for('main.partners') }}"><i class="far fa-handshake"></i> Exclusive Partners</a>
+        {% endif %}
+        {% if '/events' in request.path %}
+            <a href="{{ url_for('main.events') }}" class="current"><i class="far fa-calendar-plus"></i> Exclusive Events</a>
+        {% else %}
+             <a href="{{ url_for('main.events') }}"><i class="far fa-calendar-plus"></i> Exclusive Events</a>
+        {% endif %}
+        {% if '/sessions' in request.path %}
+            <a href="{{ url_for('main.sessions') }}" class="current" id="sessions"><i class="fas fa-people-arrows" aria-hidden="true"></i> 1 on 1 Sessions</a>
+        {% else %}
+             <a href="{{ url_for('main.sessions') }}" id="sessions"><i class="fas fa-people-arrows" aria-hidden="true"></i> 1 on 1 Sessions</a>
+        {% endif %}
+        </div>
+
+        {# ABOUT       #}
+        <p class="main_navbar_tab {% if '/about' in request.path or '/contact' in request.path or '/news' in request.path or '/thx' in request.path or '/terms' in request.path or 'privacy' in request.path or 'community_guidelines' in request.path%}open{% endif %}">About <i class="fa fa-caret-{% if '/about' in request.path or '/contact' in request.path or '/news' in request.path or '/thx' in request.path or '/terms' in request.path or 'privacy' in request.path or 'community_guidelines' in request.path%}right{% else %}down{% endif %}"></i></p>
+        <div id="about_tab" class="content_tab" style="{% if '/about' in request.path or '/contact' in request.path or '/news' in request.path or '/thx' in request.path or '/terms' in request.path or 'privacy' in request.path or 'community_guidelines' in request.path%}display:block;{% endif %}">
+            <p>Who we are</p>
+            {% if '/about' in request.path %}
+                <a href="{{ url_for('main.about') }}" class="current"><i class="far fa-id-card"></i> About Us</a>
+            {% else %}
+                 <a href="{{ url_for('main.about') }}"><i class="far fa-id-card"></i> About Us</a>
+            {% endif %}
+            {% if '/contact' in request.path %}
+                <a href="{{ url_for('main.contact') }}" class="current"><i class="fas fa-phone"></i> Contact Us</a>
+            {% else %}
+                 <a href="{{ url_for('main.contact') }}"><i class="fas fa-phone"></i> Contact Us</a>
+            {% endif %}
+            {% if '/news' in request.path %}
+                <a href="{{ url_for('main.news') }}" class="current"><i class="fas fa-newspaper"></i> ILMJTCV in the News</a>
+            {% else %}
+                 <a href="{{ url_for('main.news') }}"><i class="fas fa-newspaper"></i> ILMJTCV in the News</a>
+            {% endif %}
+            {% if '/thx' in request.path %}
+                <a href="{{ url_for('main.thx') }}" class="current"><i class="fas fa-hands"></i> Our Thank You's</a>
+            {% else %}
+                 <a href="{{ url_for('main.thx') }}"><i class="fas fa-hands"></i> Our Thank You's</a>
+            {% endif %}
+
+            <p>For the geeks</p>
+            {% if '/terms' in request.path %}
+                <a href="{{ url_for('main.terms') }}" class="current"><i class="fas fa-sticky-note"></i> Terms of Use</a>
+            {% else %}
+                 <a href="{{ url_for('main.terms') }}"><i class="fas fa-sticky-note"></i> Terms of Use</a>
+            {% endif %}
+            {% if '/privacy' in request.path %}
+                <a href="{{ url_for('main.privacy') }}" class="current"><i class="fas fa-user-secret"></i> Privacy Policies</a>
+            {% else %}
+                 <a href="{{ url_for('main.privacy') }}"><i class="fas fa-user-secret"></i> Privacy Policies</a>
+            {% endif %}
+            {% if '/community_guidelines' in request.path %}
+                <a href="{{ url_for('main.community_guidelines') }}" class="current"><i class="fas fa-universal-access"></i> Community Guidelines</a>
+            {% else %}
+                 <a href="{{ url_for('main.community_guidelines') }}"><i class="fas fa-universal-access"></i> Community Guidelines</a>
+            {% endif %}
+        </div>
+
+        <br>
+
+{% endblock %}
+
+
+{% block main_content %}{% endblock %}
+
+
+

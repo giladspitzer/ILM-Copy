@@ -1,0 +1,9 @@
+{% include 'background/email/custom/custom_message.html' %}
+
+{% block extra %}
+    {{ num }} people will receive this message
+
+    <a href="{{ url_for('admin.confirm_send_email', token=token, _external=True) }}">Approve It</a>
+
+{% endblock %}
+

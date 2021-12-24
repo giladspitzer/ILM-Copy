@@ -1,0 +1,10 @@
+Congratulations {{ recruiter.user.name }}!
+
+Welcome to ILMJTCV! You recently signed up as a recruiter on our platform, but have not yet completed your registration. We are excited to provide you with unlimited access to our diverse talent base and to all functionalities on our platform for free!
+
+To proceed, please finish setting up your account and login by clicking below. Good luck and please don't hesitate to reach out with any questions!
+
+{{ url_for('auth.confirm_recruiter', token=token, _external=True) }}
+
+Sincerely,
+The ILMJTCV Team

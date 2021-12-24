@@ -1,0 +1,59 @@
+<div class="post-option" data-dismiss="modal" style="display: inline-block; float: right; margin-right: 2%;">X</div>
+<div class="partner_header row" style="margin: 10px">
+  <div class="col-sm-3 col-xs-12 centered_small">
+    <img class="main_img" src="{{ partner.avatar() }}">
+  </div>
+  <div class="col-sm-9 col-xs-12 centered_small">
+    <h4 class="name">{{ partner.name }}</h4>
+    <p class="snippet">ILMJTCV members receive <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">unlimited access</span> to the webcasts, jobs, blogs, tools, events and experienced squad.</p>
+    <div class="hidden-print hidden-lg hidden-md hidden-sm visit_btn" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+  </div>
+</div>
+<hr style="margin: 5px 0 0 0">
+<div class="main_partner">
+  <div class="partner_content col-sm-9 col-xs-12" style="height: 58vh">
+    <div class="about">
+      <h3>About</h3>
+      <p style="font-size: 15px">We are dedicated to answering all furlough-related questions. In response to the recent influx of furloughed workers, our team rushed to create this site to provide info, support, and resources for the talented, hard-working people who find themselves on temporary furlough.</p>
+      <p style="font-size: 15px">Our team is comprised of really smart contributors, all of whom have also had their careers significantly impacted by the effects of the recent epidemic.</p>
+      <p style="font-size: 15px">We're here to help our community get through these times together. We're also committed to building a community. Let's get together and support each other now, as we prepare for the resurgence ahead!</p>
+    </div>
+    <div class="promotions">
+      <h3>Specialty Fields</h3>
+      <ul class="wftj_fields">
+        <li>Education</li>
+        <li>Transportation</li>
+        <li>Apparel & Fashion</li>
+        <li>Broadcast Media</li>
+        <li>Civic & Social Organization</li>
+        <li>Design</li>
+        <li>Education Management</li>
+        <li>Executive Office</li>
+        <li>Fundraising</li>
+        <li>Health</li>
+        <li>Graphic Design</li>
+        <li>Wellness & Fitness</li>
+        <li>Human Resources</li>
+        <li>Real Estate</li>
+        <li>Writing & editing </li>
+        <li>Wellness</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-3 col-xs-12">
+    <div class="visit_btn hidden-xs" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+    <div class="partner_sidebar">
+      <h3>Meet The Founders</h3>
+      <img src="{{ url_for('static', filename='images/partners/sean.png') }}" class="img-rounded" style="width: 20%">
+      <p style="display: inline-block; font-size: 20px">Sean W. Hand</p>
+      <p style="padding: 5px 10px">Life is crazy right now in 2020. I got one too many calls from incredibly smart, talented people saying "I've been furloughed". I decided I wanted to do something about it, and here we are! By day, I am a business development director at a global professional services firm. By night, I also have a website/podcast called Awkward Networker where I help people build their personal/professional networks. Not much handshaking happening right now, so I'm building this out instead. Stay positive. Do good.</p>
+      <img src="{{ url_for('static', filename='images/partners/lauren.png') }}" class="img-rounded" style="width: 20%; margin-top: 10px">
+      <p style="display: inline-block; font-size: 20px; margin-top: 10px">Lauren Scherwin</p>
+      <p style="padding: 5px 10px">Motivated and strategic regional account manager with over 7+ years of experience in account management, sales and operations within The Walt Disney Company. Lauren currently serves as the regional account manager with Disney Institute supporting the northeast market.</p>
+    </div>
+  </div>
+</div>
+
+{#<p class="snippet">{{ partner.description }}</p>#}
+{#<hr style="margin-bottom: 10px">#}
+{#<div class="learn_more" partner-id="{{ partner.id }}">Learn More</div>#}

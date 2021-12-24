@@ -1,0 +1,117 @@
+{% extends "auth/base_external.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block external_content %}
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 login-bg">
+        <div class="row">
+            {% if special == True %}
+            <div id="results_space" style="display: block;">
+                <h3 style="text-align: center"><span style="font-size: 40px"><span id="job_num">{{ j }}</span> jobs &amp; <span id="recruiter_num">{{ r }}</span> recruiters</span> <br>in our database are hiring people like you</h3>
+            </div>
+            {% else %}
+            <div id="normal">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10" style="text-align: center">
+                    <h3 style="margin-top: 18px">Recruiter Sign Up<br><span style="font-weight: normal; font-size: 11px">It's free and easy!</span></h3>
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+            {% endif %}
+        </div>
+        <div class="row" style="margin-top: 15px">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <form action="/auth/partnership_inquiry_submit" method="post" novalidate id="recruiter_register">
+                    <div class="row">
+                        {{ form.hidden_tag() }}
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input_form_test">
+                                        <input class="special_input register-first transparent" id="g_name" name="name" placeholder="John Smith" required="" type="text" value="">
+                                        <label class="special_label" for="g_name">Full Name *</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input_form_test">
+                                        <input class="special_input register-email transparent" id="g_email" maxlength="64" name="email" placeholder="johnsmith@gmail.com" required="" type="email" value="">
+                                        <label class="special_label" for="g_email">Email *</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input_form_test">
+                                        <input class="special_input register-company-name transparent" id="g_company" name="company" placeholder="johnsmith@gmail.com" required="" type="text" value="">
+                                        <label class="special_label" for="g_company">Company Name *</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input_form_test">
+                                        <input class="special_input register-website transparent" id="g_link" name="link" placeholder="johnsmith@gmail.com" required="" type="text" value="">
+                                        <label class="special_label" for="g_link">Company Website *</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="additional_info" style="transform: scale(1.02); color: #999999">Additional Info</label>
+                                        <textarea class="form-control" id="additional_info" maxlength="150" name="additional_info" placeholder="If you have any additional information that you would like to share with us, you may add it here." style="resize:none; height:100px; overflow: auto; background: none"></textarea>
+                                    </div>
+{#                                    {{ wtf.form_field(form.recaptcha) }}#}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-default btn-block register-submit transparent" disabled="" id="recruiter_submit"  style="margin-bottom: 20px; width: 100%">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </div>
+    <div class="col-sm-3"></div>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/homepage.css') }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{ url_for('static', filename='js/homepage_forms.js') }}"></script>
+    <script>
+    $(function () {
+        var available_industries = ['Education', 'Janitorial Services', 'Transportation', 'Accounting', 'Airlines/Aviation', 'Alternative Dispute Resolution', 'Alternative Medicine', 'Animation', 'Apparel & Fashion', 'Architecture & Planning', 'Arts & Crafts', 'Automotive', 'Aviation & Aerospace', 'Banking', 'Biotechnology', 'Broadcast Media', 'Building Materials', 'Business Supplies & Equipment', 'Capital Markets', 'Chemicals', 'Civic & Social Organization', 'Civil Engineering', 'Commercial Real Estate', 'Computer & Network Security', 'Computer Games', 'Computer Hardware', 'Computer Networking', 'Computer Software', 'Construction', 'Consumer Electronics', 'Consumer Goods', 'Consumer Services', 'Cosmetics', 'Dairy', 'Defense & Space', 'Design', 'E-learning', 'Education Management', 'Electrical & Electronic Manufacturing', 'Entertainment', 'Environmental Services', 'Events Services', 'Executive Office', 'Facilities Services', 'Farming', 'Financial Services', 'Fine Art', 'Fishery', 'Food & Beverages', 'Food Production', 'Fundraising', 'Furniture', 'Gambling & Casinos', 'Glass', 'Ceramics & Concrete', 'Government Administration', 'Government Relations', 'Graphic Design', 'Health', 'Wellness & Fitness', 'Higher Education', 'Hospital & Health Care', 'Hospitality', 'Human Resources', 'Import & Export', 'Individual & Family Services', 'Industrial Automation', 'Information Services', 'Information Technology & Services', 'Insurance', 'International Affairs', 'International Trade & Development', 'Internet', 'Investment Banking', 'Investment Management', 'Judiciary', 'Law Enforcement', 'Law Practice', 'Legal Services', 'Legislative Office', 'Leisure', 'Travel & Tourism', 'Libraries', 'Logistics & Supply Chain', 'Luxury Goods & Jewelry', 'Machinery', 'Management Consulting', 'Maritime', 'Market Research', 'Marketing & Advertising', 'Mechanical Or Industrial Engineering', 'Media Production', 'Medical Device', 'Medical Practice', 'Mental Health Care', 'Military', 'Mining & Metals', 'Motion Pictures & Film', 'Museums & Institutions', 'Music', 'Nanotechnology', 'Newspapers', 'Non-profit Organization Management', 'Oil & Energy', 'Online Media', 'Outsourcing/Offshoring', 'Package/Freight Delivery', 'Packaging & Containers', 'Paper & Forest Products', 'Performing Arts', 'Pharmaceuticals', 'Philanthropy', 'Photography', 'Plastics', 'Political Organization', 'Primary/Secondary Education', 'Printing', 'Professional Training & Coaching', 'Program Development', 'Public Policy', 'Public Relations & Communications', 'Public Safety', 'Publishing', 'Railroad Manufacture', 'Ranching', 'Real Estate', 'Recreational Facilities & Services', 'Religious Institutions', 'Renewables & Environment', 'Research', 'Restaurants', 'Retail', 'Security & Investigations', 'Semiconductors', 'Shipbuilding', 'Sporting Goods', 'Sports', 'Staffing & Recruiting', 'Supermarkets', 'Telecommunications', 'Textiles', 'Think Tanks', 'Tobacco', 'Translation & Localization', 'Trucking/Railroad', 'Utilities', 'Venture Capital & Private Equity', 'Veterinary', 'Warehousing', 'Wholesale', 'Wine & Spirits', 'Wireless', 'Writing & Editing'];
+        $( "#industry_test" ).autocomplete({
+            source: available_industries
+        });
+    })
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+          // Global settings:
+          disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
+          startEvent: 'DOMContentLoaded', // name of the event dispatched on the document, that AOS should initialize on
+          initClassName: 'aos-init', // class applied after initialization
+          animatedClassName: 'aos-animate', // class applied on animation
+          useClassNames: false, // if true, will add content of `data-aos` as classes on scroll
+          disableMutationObserver: false, // disables automatic mutations' detections (advanced)
+          debounceDelay: 50, // the delay on debounce used while resizing window (advanced)
+          throttleDelay: 99, // the delay on throttle used while scrolling the page (advanced)
+
+
+          // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+          offset: 120, // offset (in px) from the original trigger point
+          delay: 0, // values from 0 to 3000, with step 50ms
+          duration: 400, // values from 0 to 3000, with step 50ms
+          easing: 'ease', // default easing for AOS animations
+          once: false, // whether animation should happen only once - while scrolling down
+          mirror: false, // whether elements should animate out while scrolling past them
+          anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
+
+});
+
+    </script>
+{% endblock %}

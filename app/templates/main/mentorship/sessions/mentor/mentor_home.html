@@ -1,0 +1,333 @@
+{% extends "new_sidebar/new_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block main_content %}
+    <script>
+    function update_date(element) {
+        $('#error_box').text('')
+        if($(element).val() !== ''){
+            $('#time_start').data("DateTimePicker").show()
+            $('#time_end').data("DateTimePicker").show()
+            $('.timepicker-picker').each(function () {
+                $($(this).children()[0]).css({'margin': 'auto'})
+            })
+            if(new Date($(element).val()) > new Date()){
+                $('#time_start').data("DateTimePicker").minDate(0);
+            }else{
+                $('#time_end').data("DateTimePicker").minDate(new Date());
+                $('#time_start').data("DateTimePicker").minDate(new Date());
+            }
+        }
+    }
+    function getSearchParams(k){
+         var p={};
+         location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+         return k?p[k]:p;
+    }
+    function update_slots(){
+        $('#error_box').text('')
+        var e = moment.duration($("#time_end").data("DateTimePicker").date().diff($("#time_start").data("DateTimePicker").date()));
+        var num = (parseInt(e['_milliseconds'] / 60000) / 30).toString()
+        $('#num_slots').text(num)
+        if(num === '1'){
+            $('#slots_text').text('SLOT')
+        }else{
+            $('#slots_text').text('SLOTS')
+        }
+    }
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover({
+                trigger : 'hover',
+                placeholder: 'bottom'
+            });
+            {% if current_user.is_mentor() %}
+                refresh_mentor_appointments()
+                $('#slot_date').datepicker({
+                    minDate: 0
+                })
+                $('#time_start').datetimepicker({
+                    inline: true,
+                    format: 'LT',
+                    stepping: 30,
+                    minDate: new Date()
+                })
+                $('#time_end').datetimepicker({
+                    inline: true,
+                    format: 'LT',
+                    stepping: 30,
+                    minDate: new Date(),
+                    maxDate: new Date(new Date().setHours(23,30,1,0))
+                })
+                $('#time_start').data("DateTimePicker").disable()
+                $('#time_end').data("DateTimePicker").disable()
+                $("#time_start").on("dp.change", function (e) {
+                    update_slots()
+                    $('#time_end').data("DateTimePicker").minDate(e.date);
+                });
+                $("#time_end").on("dp.change", function (e) {
+                    update_slots()
+                    $('#time_start').data("DateTimePicker").maxDate(e.date);
+                });
+                $('.timepicker-picker').each(function () {
+                    $($(this).children()[0]).css({'margin': 'auto'})
+                })
+            {% else %}
+                $(document).on('click', '.step', function(){
+                    $(this).addClass('active').siblings().removeClass('active')
+                })
+            {% endif %}
+        })
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha512-GDey37RZAxFkpFeJorEUwNoIbkTwsyC736KNSYucu1WJWFK9qTdzYub8ATxktr6Dwke7nbFaioypzbDOQykoRg==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css" integrity="sha512-2e0Kl/wKgOUm/I722SOPMtmphkIjECJFpJrTRRyL8gjJSJIP2VofmEbqyApMaMfFhU727K3voz0e5EgE3Zf2Dg==" crossorigin="anonymous" />
+    <div id="goes_here" class="col-sm-12" style="height:100vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+        <div class="row">
+            <div class="col-sm-12" style="padding: 10px 15px">
+                <p style="line-height: 40px; font-size: 36px; font-weight: bold; display: inline-block">1 on 1 Sessions <i class="fas fa-people-arrows" aria-hidden="true"></i></p><a class="menu-item" style="display: inline-block; float:right;" href="{{ url_for('main.sessions') }}">Mentee Portal <i class="fas fa-chevron-circle-right"></i></a>
+                <p style="font-size: 18px; line-height: 26px; font-weight: 300">An individualized coaching adventure to enhance your future prospects </p>
+                <hr style="margin-top: 10px; margin-bottom: 0">
+                {% if current_user.is_mentor() %}
+                    <div class="row">
+                        <div class="col-sm-8 mentor_big_col">
+                            {% set mentor = current_user.mentor_profile %}
+                            {% include 'main/mentorship/sessions/mentor/_mentor_profile.html' %}
+                            <p style="font-size: 16px; font-weight: 600; margin: 5px 0">Review Past Appointments</p>
+                            <hr style="margin: 5px 0">
+                            <div id="past_appointments" data-set="0" onscroll="load_more_past(this)" style="overflow-x: hidden; overflow-y: auto; max-height: 50vh; min-height: 10vh">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="loadingio-spinner-spinner-ok7idc80he9" style="display: block; margin: auto; text-align: center"><div class="ldio-u1oevpwp8f">
+                                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                        </div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" >
+                            <p style="font-size: 16px; font-weight: 600; margin: 5px 0">Upcoming Appointments</p>
+                            <hr style="margin: 5px 0">
+                            <button class='sidenav_btn' id='add_availability' style="margin: 10px auto">ADD AVAILABILITY</button>
+                            <div id="upcoming_appointments" data-set="0" onscroll="load_more_upcoming(this)" style="overflow-x: hidden; overflow-y: auto; height: 70vh">
+                                <div class="row" id="loading_spinner_more"><div class="col-sm-12" style="margin: auto; text-align: center; display: block"><div class="loadingio-spinner-spinner-lmswu5gqlpl"><div class="ldio-ysqxvp0pznb">
+                                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                    </div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    {% if current_user.mentor_profile == None %}
+                        <div class="external_option_btn" data-target="#apply_mentor_modal" data-toggle="modal" style="margin: 20px auto; max-width: 380px">Apply NOW!</div>
+                    {% else %}
+                    <p style="font-size: 20px; line-height: 24px; color: #30415d; font-weight: 700; text-align: center; margin: 20px auto">We have received your mentor application and will be in touch with you shortly.</p>
+                    {% endif %}
+                    <h4 style="font-weight: normal; text-align: center; margin-bottom: 5px">Being a mentor is fun, rewarding, and educational! </h4>
+                     <div class="how_it_works">
+                        <div class="row" >
+                            <div class="col-sm-1"></div>
+                            <div class="carousel slide carousel-fade" id="carousel-hiw">
+                                <div class="col-sm-5 steps">
+                                    <h2 style="margin: 15px 0">How It Works</h2>
+                                    <ol class="step-list">
+                                        <li class="step active" data-target="#carousel-hiw" data-slide-to="0">
+                                            <span>Step 1: Add your availability.</span>
+                                            We'll let you know as soon as somebody <br>signs up for one of your mentorship appointments.
+
+                                        </li>
+                                        <li class="step" data-target="#carousel-hiw" data-slide-to="1">
+                                            <span>Step 2: Begin the conversation.</span>
+                                            Start conversing with your client before you meet over Zoom <br>to figure out exactly what your session will focus on.
+
+                                        </li>
+                                        <li class="step" data-target="#carousel-hiw" data-slide-to="2">
+                                            <span>Step 3: Have a productive appointment.</span>
+                                            Meet over Zoom for 30 min. and feel free <br>to continue the conversation afterwards!
+
+                                        </li>
+                                    </ol>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="carousel-inner" role="listbox" style="margin-top: 20%">
+                                            <div class="item active">
+                                                <div class="hiw-slide">
+                                                    <video id="mentorvid1" autoplay="autoplay" loop="loop" muted="muted" width="100%" height="100%" preload="auto" autobuffer="true" playsinline="playsinline">
+                                                        <source type="video/mp4" src="{{ url_for('static', filename='images/mentor1.mp4') }}">
+                                                    </video>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <video id="mentorvid2" autoplay="autoplay" loop="loop" muted="muted" width="100%" height="100%" preload="auto" autobuffer="true" playsinline="playsinline">
+                                                    <source type="video/mp4" src="{{ url_for('static', filename='images/mentor2.mp4') }}">
+                                                </video>
+                                            </div>
+                                            <div class="item">
+                                                <div class="hiw-slide">
+                                                    <video id="mentorvid3" autoplay="autoplay" loop="loop" muted="muted" width="100%" height="100%" preload="auto" autobuffer="true" playsinline="playsinline">
+                                                        <source type="video/mp4" src="{{ url_for('static', filename='images/mentor3.mp4') }}">
+                                                    </video>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if current_user.is_mentor() %}
+        <div class="modal fade" id="availability_modal" tabindex="-1" role="dialog" aria-labelledby="availability_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; min-height: 40vh">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 style="display: inline-block">Add Availability <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="bottom" data-content="Add 30 min. time slots that users can sign up to meet with you" style="cursor: pointer" aria-hidden="true" data-original-title="" title=""></i></h3>
+                                <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin: 0">
+                            <p style="color: #818181">Select a time range which we will break into 30 min. time slots.</p>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class='col-sm-6'>
+                                        <div class='input-group date' id='slot_date_main'>
+                                            <input class="date form-control" id="slot_date" name="slot_date" type="text" placeholder="MM/DD/YYYY" onchange="update_date(this)">
+                                            <span class="input-group-addon">
+                                                 <span class="glyphicon glyphicon-calendar" onclick="$(this).parent().prev().datepicker('show')" style="cursor:pointer;"></span>
+                                            </span>
+                                        </div>
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div id="time_start" style="text-align: center"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div id="time_end" style="text-align: center"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1"></div>
+                            </div>
+                            <div class="row">
+                                <p id="error_box" style="color: #a94442; text-transform: uppercase; margin: 0 10px 10px 10px; text-align: center; font-size: 12px"></p>
+                                <div class="sidenav_btn" style="font-size: 16px" id="add_availability_btn">ADD <span id="num_slots">0</span> <span id="slots_text">SLOTS</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="edit_app_modal" tabindex="-1" role="dialog" aria-labelledby="edit_app_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="width: fit-content">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; min-height: 70vh; width: 70vw; min-width: 300px">
+                    <div class="modal-body" id="edit_session_content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="loadingio-spinner-spinner-ok7idc80he9" style="display: block; margin: auto; text-align: center"><div class="ldio-u1oevpwp8f">
+                                <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                </div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="edit_zoom_info" tabindex="-1" role="dialog" aria-labelledby="edit_zoom_info" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: fit-content">
+            <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; height: 90vh; width: 20vw; min-width: 300px; min-height: 400px">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 style="display: inline-block">Edit</h3>
+                            <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                        </div>
+                        <div class="col-sm-12">
+                            <p style="font-size: 10px; font-weight: 500; color: #818181">please copy and paste links from their sources</p>
+                        </div>
+                    </div>
+                    <div class="input_form_test" style="margin-top: 0">
+                        <input class="special_input transparent" id="appointment_zoom_link" name="appointment_zoom_link" required="" type="text" value="{{ mentor.zoom_link }}" style="font-size: 15px">
+                        <label class="special_label blurred" for="appointment_zoom_link">Zoom Link *</label>
+                    </div>
+                    <div class="row" style="margin-top: 15px">
+                        <div class="col-sm-2">
+                            <input type="checkbox" id="zoom_password_check" name="zoom_password_check" style="margin: auto; display: block; margin-top: 5px" onchange="$('#zoom_password_container').toggle()" {% if mentor.zoom_password != None and mentor.zoom_password|length > 0 %}checked="checked"{% endif %}>
+                        </div>
+                        <div class="col-sm-10">
+                            <label for="zoom_password_check" style="font-size: 12px">Does your Zoom meeting have an entrance password?</label>
+                        </div>
+                    </div>
+                    <div class="input_form_test" style="margin-top: 0; {% if mentor.zoom_password == None or mentor.zoom_password|length == 0 %}display:none{% endif %}" id="zoom_password_container">
+                        <input class="special_input transparent" id="appointment_zoom_password" name="appointment_zoom_password" required="" type="text" value="{% if mentor.zoom_password != None and mentor.zoom_password|length > 0 %}{{ mentor.zoom_password }}{% endif %}" style="font-size: 15px">
+                        <label class="special_label {% if mentor.zoom_password != None and mentor.zoom_password|length > 0 %}blurred{% endif %}" for="appointment_zoom_password">Zoom Password *</label>
+                    </div>
+                    <div class="input_form_test" style="margin-top: 0; " id="linked_in_link_container">
+                        <input class="special_input transparent" id="linked_in_link" name="linked_in_link" required="" type="text" value="{{ mentor.linked_in }}" style="font-size: 15px">
+                        <label class="special_label blurred" for="linked_in_link"><i class="fab fa-linkedin-in"></i> | LinkedIn Profile *</label>
+                    </div>
+                    <label for="user_bio" style="color: #999999;">Mentor Bio</label>
+                    <textarea class="form-control special_text" id="mentor_bio" name="mentor_bio" placeholder="Add a personal bio that your mentees will see." required="" style="height:100px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px">{{ mentor.bio }}</textarea>
+                    <div class="check_btn" id="confirm_mentor_info"><i class="fas fa-check"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        <div class="modal fade" id="apply_mentor_modal" tabindex="-1" role="dialog" aria-labelledby="apply_mentor_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: fit-content">
+            <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; height: 90vh; width: 20vw; min-width: 300px; min-height: 400px; overflow-y: auto; overflow-x: hidden">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 style="display: inline-block">Apply</h3>
+                            <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                        </div>
+                        <div class="col-sm-12">
+                            <p style="font-size: 10px; font-weight: 500; color: #a94442">** you must have a working Zoom account and LinkedIn profile</p>
+                            <p style="font-size: 10px; font-weight: 500; color: #818181">please copy and paste links directly from their sources</p>
+                        </div>
+                    </div>
+                    <div class="input_form_test" style="margin-top: 0">
+                        <input class="special_input transparent" id="appointment_zoom_link" name="appointment_zoom_link" required="" type="text" value="" style="font-size: 15px">
+                        <label class="special_label" for="appointment_zoom_link">Zoom Link *</label>
+                    </div>
+                    <div class="row" style="margin-top: 15px">
+                        <div class="col-sm-2">
+                            <input type="checkbox" id="zoom_password_check" name="zoom_password_check" style="margin: auto; display: block; margin-top: 5px" onchange="$('#zoom_password_container').toggle()">
+                        </div>
+                        <div class="col-sm-10">
+                            <label for="zoom_password_check" style="font-size: 12px">Does your Zoom meeting have an entrance password?</label>
+                        </div>
+                    </div>
+                    <div class="input_form_test" style="margin-top: 0; display: none" id="zoom_password_container">
+                        <input class="special_input transparent" id="appointment_zoom_password" name="appointment_zoom_password" required="" type="text" value="" style="font-size: 15px">
+                        <label class="special_label" for="appointment_zoom_password">Zoom Password *</label>
+                    </div>
+                    <div class="input_form_test" style="margin-top: 0; " id="linked_in_link_container">
+                        <input class="special_input transparent" id="linked_in_link" name="linked_in_link" required="" type="text" value="{% if current_user.get_linked_in() != None %}{{ current_user.get_linked_in() }}{% endif %}" style="font-size: 15px">
+                        <label class="special_label {% if current_user.get_linked_in() != None %}blurred{% endif %}" for="linked_in_link"><i class="fab fa-linkedin-in"></i> | LinkedIn Profile *</label>
+                    </div>
+                    <label for="user_bio" style="color: #999999;">Mentor Bio</label>
+                    <textarea class="form-control special_text" id="mentor_bio" name="mentor_bio" placeholder="Add a personal bio that your mentees will see." required="" style="height:100px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px"></textarea>
+
+                    <label for="why" style="color: #999999;">Why?</label>
+                    <textarea class="form-control special_text" id="why" name="why" placeholder="Please briefly explain why you would like to be an ILMJTCV Mentor (only visible to ILMJTCV administrators)." required="" style="height:100px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px"></textarea>
+                    <div class="check_btn" id="confirm_mentor_application"><i class="fas fa-check"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

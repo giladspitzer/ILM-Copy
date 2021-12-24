@@ -1,0 +1,6 @@
+Dear {{ user.username }},
+Welcome to the ILMJTCV community! Thank you for signing up as a mentor. Please click below to finalize your registration as a verified mentor if you have not already done so. As soon as your request is approved, you can start booking time slots to provide mentorship session!
+Sincerely,
+The ILMJTCV Team
+
+{{ url_for('main.sessions_mentor', token=token, _external=True) }}

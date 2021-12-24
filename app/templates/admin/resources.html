@@ -1,0 +1,38 @@
+{% extends 'new_sidebar/new_base.html' %}
+
+{% block main_content %}
+<div id="goes_here" class="col-sm-12" style="min-height:85vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+    <div class="table-responsive" style="margin-top: 40px; overflow-y: auto; height: 60vh">
+      <table class="table" style="word-break: keep-all; overflow-y: auto; height: 50vh">
+          <thead>
+              <tr>
+                <th class="text-center normal-wb"></th>
+                <th class="text-center normal-wb">Title</th>
+                <th class="text-center normal-wb">Description</th>
+                <th class="text-center normal-wb">Added</th>
+                <th class="text-center normal-wb">Active</th>
+                <th class="text-center normal-wb">Link</th>
+                <th class="text-center normal-wb">Location</th>
+                <th class="text-center normal-wb">Edit</th>
+              </tr>
+          </thead>
+          <tbody>
+          {% for resource in resources %}
+                <tr>
+                    <td class="normal-wb"><img src="{{ resource.avatar() }}" class="img-rounded" style="width: 30px; height: 30px"></td>
+                    <td class="normal-wb">{{ resource.title }}</td>
+                    <td class="normal-wb">{{ resource.description }}</td>
+                    <td class="normal-wb">{{ moment(resource.added).format('LLL') }}</td>
+                    <td class="normal-wb">{{ resource.active }}</td>
+                    <td class="normal-wb"> {{ resource.link }}</td>
+                    <td class="normal-wb"> {{ resource.get_location() }}</td>
+                    <td class="normal-wb">{% for type in resource.types %}{{ type.title }}, {% endfor %}</td>
+                    <td class="normal-wb"><button class="btn btn-default resource-edit" resource-id="{{ resource.id }}">Edit</button></td>
+
+                </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+#map {
+    position: relative;
+    margin: 10px auto;
+    width: 100%;
+    height: 450px
+
+}
+
+@media(max-width: 768px){
+    #map{
+        position: inherit;
+        margin-bottom: 20px !important;
+    }
+}
+
+.map-content{
+    padding: 10px 25px;
+}

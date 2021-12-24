@@ -1,0 +1,45 @@
+<div class="post-option" data-dismiss="modal" style="display: inline-block; float: right; margin-right: 2%;">X</div>
+<div class="partner_header row" style="margin: 10px">
+  <div class="col-sm-3 col-xs-12 centered_small">
+    <img class="main_img" src="{{ partner.avatar() }}">
+  </div>
+  <div class="col-sm-9 col-xs-12 centered_small">
+    <h4 class="name">{{ partner.name }}</h4>
+    <p class="snippet">ILMJTCV members receive <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">10%</span> off resume and job placement services</p>
+    <div class="hidden-print hidden-lg hidden-md hidden-sm visit_btn" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+  </div>
+</div>
+<hr style="margin: 5px 0 0 0">
+<div class="main_partner">
+  <div class="partner_content col-sm-9 col-xs-12" style="height: 58vh">
+    <div class="about">
+      <h3>About</h3>
+      <p style="font-size: 15px">Rock My Resume provides job seekers with an opportunity to build the foundation for the job search that will help them land their dream job.</p>
+      <p style="font-size: 15px">Our team of consultant have the expertise needed to guide our customers in the right direction. </p>
+      <p style="font-size: 15px">We build resumes that will not only bypass ATS software’s, but will resonate with decision makers and substantially increase the chances of being calling in for an interview.</p>
+    </div>
+    <div class="promotions">
+      <h3>Specialty Fields</h3>
+      <ul class="wftj_fields">
+        <li>Apparel & Fashion</li>
+        <li>Broadcast Media</li>
+        <li>Executive Office</li>
+        <li>Health</li>
+        <li>Graphic Design</li>
+        <li>Human Resources</li>
+        <li>Real Estate</li>
+          <li>Finance & Sales</li>
+          <li>Retail</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-3 col-xs-12">
+    <div class="visit_btn hidden-xs" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+    <div class="partner_sidebar">
+      <h3>Meet The Founder</h3>
+      <img src="{{ url_for('static', filename='images/partners/adam_fineberg.jpeg') }}" class="img-rounded" style="width: 20%">
+      <p style="display: inline-block; font-size: 20px">Adam Fineberg</p>
+      <p style="padding: 5px 10px">Adam has global experience working in sales, recruiting, operations and business development. As a sales leader and entrepreneur, Adam has provided sales training and motivational speaking to more than 20,000 people around the world in countries such as US, Canada, Israel, Bulgaria, Hungary, Serbia, China, Philippines and more.</p>
+    </div>
+  </div>
+</div>

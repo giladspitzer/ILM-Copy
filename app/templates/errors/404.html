@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block full_content %}
+    <div class="row" style="margin: 15px 40px">
+        <h1>File Not Found</h1>
+        <p>The administrator has been notified. If you would like to leave more detailed feedback you may do so by clicking <a href="{{ url_for('main.contact') }}" style="color: #4D80E4">here</a>. Sorry for the inconvenience!</p>
+        <p><a href="{{ url_for('main.index') }}"><i class="glyphicon glyphicon-arrow-left"></i> Back</a></p>
+    </div>
+{% endblock %}

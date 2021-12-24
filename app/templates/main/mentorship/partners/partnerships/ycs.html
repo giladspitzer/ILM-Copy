@@ -1,0 +1,43 @@
+<div class="post-option" data-dismiss="modal" style="display: inline-block; float: right; margin-right: 2%;">X</div>
+<div class="partner_header row" style="margin: 10px">
+    <div class="col-sm-3 col-xs-12 centered_small">
+        <img class="main_img" src="{{ partner.avatar() }}">
+    </div>
+    <div class="col-sm-9 col-xs-12 centered_small">
+        <h4 class="name">{{ partner.name }}</h4>
+        <p class="snippet">ILMJTCV members receive a <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">FREE 30 min.</span> coaching discovery call session and <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">DISCOUNTED</span> workshops.</p>
+        <div class="hidden-print hidden-lg hidden-md hidden-sm visit_btn" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+    </div>
+</div>
+<hr style="margin: 5px 0 0 0">
+<div class="main_partner">
+    <div class="partner_content col-sm-9 col-xs-12" style="height: 58vh">
+        <div class="about">
+            <h3>About</h3>
+            <p style="font-size: 15px">The Career Strategy Series consists of 3 immersive 3-hour workshops spread over 3 weeks (October 10, 17, and 24) supplemented by pre-work and assignments between sessions designed to facilitate the process of self-actualization.</p>
+            <ul>
+                <li style="font-size: 15px">The 1st session will help you build confidence in what you have to offer employers by leveraging a strength-based approach rooted in positive psychology and personal narrative. Expect to share some of the greatest experiences of your life and have them well received by the smiling faces of your small group.</li>
+                <li style="font-size: 15px">The 2nd session will create the space for 360-degree feedback to validate your strengths while building lasting bonds with your community of peers. By the end of this session, you will have all the tools to reimagine a holistic vision for the next ten years of your life, and perhaps even further out.</li>
+                <li style="font-size: 15px">The 3rd session will teach you a practical way to make the jump from your self-assessment results to analyzing your job and career options for further research. By the end of the session, you will know how to develop a targeted (sniper) approach to your job search using a clearly focused and strategic Job Search Action Plan.</p></li>
+
+            </ul>
+            <p style="font-size: 15px">Between sessions, you will be holding yourself accountable to the weekly action plans and you will have the added support of your online community and your coaches via Slack to help you push towards achieving clarity for the next step of your career.</p>
+            <p style="font-size: 15px">October Pricing - 3-week workshop series = $97 flat fee. This reflects an inaugural cohort deep discount off the full cost of $897 which will begin in January 2021. Workshop & Coaching Bundle Offer = $694 (when purchased together in advance). This reflects the discount of $97 for the 3-workshop series + $597 for four 60-minute 1-1 coaching sessions, an inaugural cohort discount of $400 off the full coaching cost of $997 which will begin in January 2021.</p>
+            <p style="font-size: 15px">November Pricing: $197 (Saturdays, November 7, 14, 21)</p>
+            <p style="font-size: 15px">December Pricing: $297 (Saturdays, December 5, 12, 19) - Possibility for $100 holiday discount</p>
+        </div>
+    </div>
+    <div class="col-sm-3 col-xs-12">
+        <div class="visit_btn hidden-xs" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+        <div class="partner_sidebar">
+            <h3>Meet The Founder</h3>
+            <img src="{{ url_for('static', filename='images/partners/eli_tcs.jpeg') }}" class="img-rounded" style="width: 20%">
+            <p style="display: inline-block; font-size: 20px">Eli Bohemond</p>
+            <p style="padding: 5px 10px">After navigating 5 successful career transitions from management consulting, business development, start-ups, and higher education, Eli’s spent the last 6 years supporting 2K+ individuals across 90 countries with purposeful career and life transitions of their own. He’s built, inspired, and led teams of 100s of career coaches to support 1000s of career changers in landing meaningful jobs with a 93% placement rate at global companies like WeWork in NYC and SEVEN Career Coaching and Hult International Business School in London. He is a co-founder of Your Career Strategy and a top-ranked workshop facilitator, who looks forward to living up to the hype when he hopefully meets you at the first workshop of the series.</p>
+        </div>
+    </div>
+</div>
+
+{#<p class="snippet">{{ partner.description }}</p>#}
+{#<hr style="margin-bottom: 10px">#}
+{#<div class="learn_more" partner-id="{{ partner.id }}">Learn More</div>#}

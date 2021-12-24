@@ -1,0 +1,79 @@
+<div class="post-option" data-dismiss="modal" style="display: inline-block; float: right; margin-right: 2%;">X</div>
+<div class="event_header row" style="margin: 10px">
+    <div class="col-sm-3 col-xs-12 centered_small">
+        <img class="main_img img-rounded" src="{{ event.avatar() }}">
+    </div>
+    <div class="col-sm-9 col-xs-12 centered_small">
+        <h4 class="name">{{ event.title }}         {% if event.ongoing() %}<span style="font-size: 16px; color: #a94442; font-weight: 800; text-align: center">• Live Now</span> {% endif %}</h4>
+        <p class=""><i class="fas fa-user"></i> {% if event.speakers|length > 1 %}{% for i in event.speakers %}{{ i.name }}, {% endfor %}{% else %}{{ event.speakers[0].name }}{% endif %}</p>
+                <p class=""><i class="fas fa-calendar"></i> {{ moment(event.time_end).format("L") }}</p>
+                <p class=""><i class="fas fa-clock"></i> {{ moment(event.time_start).format("LT") }} - {{ moment(event.time_end).format("LT") }}</p>
+                {% if event.industries|length > 0 %}<p class=""><i class="fas fa-hammer"></i> Geared toward: {% for industry in event.industries %}{{ industry.title }}, {% endfor %}{% endif %}
+        {% if event.has_passed() and event.recorded %}
+            <div class="watch_btn hidden-print hidden-lg hidden-md hidden-sm visit_btn" event-id="{{ event.id }}">Watch <i class="fab fa-youtube"></i></div>
+        {% else %}
+                {% if event.ongoing() %}
+                    <div class="join_btn hidden-print hidden-lg hidden-md hidden-sm" onclick="document.location='/event_check_in/{{ event.id }}'">JOIN <i class="fas fa-external-link-alt"></i></div>
+                {% else %}
+                    <div class="rsvp_btn hidden-print hidden-lg hidden-md hidden-sm {% if event.responded(current_user) %}rsvped{% endif %}" event-id="{{ event.id }}">{% if event.responded(current_user) %}Attending <i class="fas fa-check-circle"></i>{% else %}RSVP{% endif %}</div>
+                {% endif %}
+        {% endif %}
+    </div>
+</div>
+<hr style="margin: 5px 0 0 0">
+<div class="main_partner">
+    <div class="partner_content col-sm-9 col-xs-12">
+        <div class="about">
+            <h3>Description</h3>
+            <p style="font-size: 15px">{{ event.description }}</p>
+            <h3>Meet The Speaker{% if event.speakers|length > 1 %}s{% endif %}</h3>
+            {% for speaker in event.speakers %}
+                <img src="{{ speaker.avatar() }}" class="img-rounded" style="width: 5vw; height: 5vw">
+                <p style="display: inline-block; font-size: 20px; margin-left: 5px">{{ speaker.name }}</p>
+                <p style="padding: 5px 10px">{{ speaker.bio }}</p>
+                <div class="filler"></div>
+                <div class="filler"></div>
+                <hr style="margin: 5px">
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-sm-3 col-xs-12">
+        {% if event.has_passed() and event.recorded %}
+            <div class="watch_btn hidden-xs" event-id="{{ event.id }}">Watch <i class="fab fa-youtube"></i></div>
+        {% else %}
+            {% if event.ongoing() %}
+                <div class="join_btn hidden-xs" onclick="document.location='/event_check_in/{{ event.id }}'">JOIN <i class="fas fa-external-link-alt"></i></div>
+            {% else %}
+                <div class="rsvp_btn hidden-xs {% if event.responded(current_user) %}rsvped{% endif %}" event-id="{{ event.id }}">{% if event.responded(current_user) %}Attending <i class="fas fa-check-circle"></i>{% else %}RSVP{% endif %}</div>
+            {% endif %}
+        {% endif %}
+        <div class="partner_sidebar">
+            {% set similar = event.get_similar() %}
+            {% if similar != None %}
+            <h4>Similar Event You May Like:</h4>
+            <div class="row event_preview" event-id="{{ similar.id }}">
+                    <div class="col-sm-12 col-xs-12 centered_small">
+                        <img class="event_img img-rounded" src="{{ similar.avatar() }}">
+                    </div>
+                    <div class="col-sm-12 col-xs-12 centered_small event_info">
+                        <h4 class="title">{{ similar.title }} <span style="font-size: 12px;">• Webinar</span></h4>
+                        <p class=""><i class="fas fa-user"></i> {% if similar.speakers|length > 1 %}{% for i in similar.speakers %}{{ i.name }}, {% endfor %}{% else %}{{ similar.speakers[0].name }}{% endif %}</p>
+                        {% if not similar.has_passed() %}
+                        <p class=""><i class="fas fa-calendar"></i> {{ moment(similar.time_end).format("L") }}</p>
+                        <p class=""><i class="fas fa-clock"></i> {{ moment(similar.time_start).format("LT") }} - {{ moment(similar.time_end).format("LT") }}</p>
+                        {% else %}
+                            {% if event.recorded %}
+                            <p class=""><i class="fab fa-youtube"></i> Event Recorded</p>
+                            {% else %}
+                            <p class="">Event Expired</p>
+                            {% endif %}
+                        {% endif %}
+                        {% if similar.industries|length > 0 %}<p class=""><i class="fas fa-hammer"></i> Geared toward: {% for industry in similar.industries %}{{ industry.title }}, {% endfor %}</p>{% endif %}
+                    </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="filler_special"></div>
+
+    </div>
+</div>

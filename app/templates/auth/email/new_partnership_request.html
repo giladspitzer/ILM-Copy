@@ -1,0 +1,15 @@
+<p>A new partnership has been requested by <b>{{ org.request_name }} ({{ org.request_email }})</b></p>
+<p>
+    The organization is called <b><a href="{{ org.website }}" target="_blank">{{ org.name }}</a></b>
+</p>
+<p>
+    Here is the additional info they provided:
+    {{ org.additional_info }}
+</p>
+
+<a href="{{ url_for('background.activate_org', id=org.id, _external=True) }}">Click here to approve them</a>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<a href="{{ url_for('background.reject_org', id=org.id, _external=True) }}">Reject them</a>

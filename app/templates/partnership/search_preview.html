@@ -1,0 +1,76 @@
+<div class="col-sm-11 ">
+    <h4 class="job_listing no-highlight">+ {{ search.title }}
+        {% if search.unseen_messages(current_user.id) %}<i class="fas fa-fire flame"></i>{% endif %}
+        {% if search.unseen_notes(current_user.recruiter.id) %}<i class="fas fa-clipboard"></i>{% endif %}
+    </h4>
+    <div class="job_info">
+        <ul>
+            {% if search.snippet|length > 0  %}
+            <li>
+                Description:
+                <ul>
+                    <li>
+                        {{ search.snippet }}
+                    </li>
+                </ul>
+            </li>
+            {% endif %}
+            <li>
+                Info:
+                <ul>
+                    <li>
+                        Started {{ moment(search.start).fromNow() }}
+                    </li>
+                    {% if search.status == 0 %}
+                    <li>
+                        Terminated {{ moment(search.ended).fromNow() }}
+                    </li>
+                    {% endif %}
+                    <li>
+                        {{ search.industry.title }}, {{ search.city.name }}
+                    </li>
+                    <li>
+                        Experience: {{ search.experience.title }}
+                    </li>
+                    <li>
+                        Visible: {{ search.public }}
+                    </li>
+                </ul>
+            </li>
+            {% if search.status == 1 %}
+            <li>
+                Status:
+                <ul>
+                    {% if search.candidates.count() > 0 %}
+                        <li>Total: {{ search.candidates.count() }}</li>
+                        <li>Considering: {{ search.candidates.filter_by(status=2).count() }}</li>
+                        <li>Strongly Considering: {{ search.candidates.filter_by(status=3).count() }}</li>
+                    {% else %}
+                    <li>We are working on finding applicants that fit your specified requirements. You will be notified when
+                    matches are found</li>
+                    {% endif %}
+                <li>Last Updated: {{ moment(search.last_updated).fromNow() }}</li>
+                </ul>
+            </li>
+            {% endif %}
+        </ul>
+        {% if search.status == 1 %}
+        <div class="row" style="text-align: center; margin-bottom: 10px">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6" style="text-align: center">
+                    <button class="register-submit" onclick="document.location ='{{ url_for('partnership.saved_search', id=search.id) }}'">View Search</button>
+                </div>
+                <div class="col-sm-3"></div>
+        </div>
+        {% else %}
+            <div class="row" style="text-align: center; margin-bottom: 10px">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6" style="text-align: center">
+                    <button class="register-submit" onclick="document.location ='{{ url_for('partnership.activate_search', id=search.id) }}'">Re-activate</button>
+                </div>
+                <div class="col-sm-3"></div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>

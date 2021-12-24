@@ -1,0 +1,6 @@
+Dear {{ user.name }},
+{{ event.title }} with {{ event.speakers[0].name }} will begin in 5 minutes! Please launch the webinar before then by clicking below. We hope you enjoy this event!
+Sincerely,
+The ILMJTCV team
+
+https://ilmjtcv.com/events?event={{ event.id }}

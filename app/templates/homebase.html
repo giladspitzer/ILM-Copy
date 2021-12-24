@@ -1,0 +1,265 @@
+{% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}
+    {% if title %}{{ title }} | I Lost My Job To Coronavirus{% else %}I Lost My Job To Coronavirus{% endif %}
+{% endblock %}
+
+<div id="head_content">
+{% block head %}
+        {{ super() }}
+        <meta name="description" content="Join the network of labor displaced by the coronavirus. Meet others like you. Chat. Support. Network. Build."/>
+        <meta property="og:image" content="{{ url_for('static', filename='images/meta-logo.png') }}"/>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock %}
+</div>
+
+{% block styles %}
+        {{ super() }}
+        <script src="https://kit.fontawesome.com/e710886973.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+         <script>
+            $(document).on('click', '#main_navbar_toggle', function () {
+                if ($(this).attr('aria-expanded').toString() === 'true'){
+                    $(this).attr('aria-expanded', false)
+                    $(this).addClass('collapsed')
+                    $('#bs-example-navbar-collapse-1').removeClass('in')
+                    $('#bs-example-navbar-collapse-1').css({'display':'none'})
+                    $('#bs-example-navbar-collapse-1').attr('aria-expanded', false)
+                }else{
+                   $(this).attr('aria-expanded', true)
+                    $(this).removeClass('collapsed')
+                    $('#bs-example-navbar-collapse-1').addClass('in')
+                    $('#bs-example-navbar-collapse-1').css({'display':'block'})
+                    $('#bs-example-navbar-collapse-1').attr('aria-expanded', true)
+                }
+            })
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        {{ moment.include_moment() }}
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162417531-1"></script>
+        <script>
+             window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-162417531-1');
+        </script>
+        <script data-ad-client="ca-pub-9609513818749001" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script src="{{ url_for('static', filename='js/general.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/test.js') }}"></script>
+
+        <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+        <script>
+        var acc = document.getElementsByClassName("accordion-reg");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+          acc[i].addEventListener("click", function() {
+            this.classList.toggle("active-reg");
+            if (this.innerText.includes('+')){
+                this.innerText = this.innerText.replace('+', '-')
+            }else if (this.innerText.includes('-')){
+                this.innerText = this.innerText.replace('-', '+')
+            }
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+              panel.style.display = "none";
+            } else {
+              panel.style.display = "block";
+            }
+          });
+        }
+</script>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/general.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/loading.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/external.css') }}">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=current_app.config.get('GOOGLE_API')"></script>
+        <script src="{{ url_for('static', filename='js/form_char_counter.js') }}"></script>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/corner-popup.css') }}">
+        <script src="{{ url_for('static', filename='js/corner-popup.js') }}"></script>
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init({
+              // Global settings:
+              disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
+              startEvent: 'DOMContentLoaded', // name of the event dispatched on the document, that AOS should initialize on
+              initClassName: 'aos-init', // class applied after initialization
+              animatedClassName: 'aos-animate', // class applied on animation
+              useClassNames: false, // if true, will add content of `data-aos` as classes on scroll
+              disableMutationObserver: false, // disables automatic mutations' detections (advanced)
+              debounceDelay: 50, // the delay on debounce used while resizing window (advanced)
+              throttleDelay: 99, // the delay on throttle used while scrolling the page (advanced)
+
+
+              // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+              offset: 120, // offset (in px) from the original trigger point
+              delay: 0, // values from 0 to 3000, with step 50ms
+              duration: 400, // values from 0 to 3000, with step 50ms
+              easing: 'ease', // default easing for AOS animations
+              once: false, // whether animation should happen only once - while scrolling down
+              mirror: false, // whether elements should animate out while scrolling past them
+              anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
+
+    });
+
+        </script>
+        {% if current_user.is_authenticated %}
+            {% if current_user.unsubscribed %}
+                <script>
+                $(document).ready(function () {
+                    $.fn.cornerpopup({
+                    variant: 9,
+                    closeBtn: 0,
+                    link1: "/auth/toggle_subscription",
+                    link2: "/auth/toggle_subscription",
+                    header: "Oh No!!!",
+                    text2: "You are currently unsubscribed from involuntary email communication. This may effect your user experience.",
+                    button3: "Re-Subscribe",
+                    colors: "#818181",
+                });
+                })
+                </script>
+            {% endif %}
+        {% endif %}
+    <script>
+     function idleLogout() {
+        var t;
+        $(document).on('load mousemove hover click scroll keypress mousedown', 'body', function () {
+            resetTimer()
+        })
+         function resetTimer() {
+            clearTimeout(t);
+            t = setTimeout(function () {
+                document.location.reload()
+            }, 600000);  // time is in milliseconds
+        }
+}
+idleLogout();
+</script>
+
+    {% block scripts %}{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div class="container_full">
+        {% if current_user.is_anonymous %}
+             <nav id="top_nav" class="navbar" style="color: black">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    {% if '/about' in request.path or '/contact' in request.path or '/news' in request.path or '/thx' in request.path or '/terms' in request.path or '/privacy' in request.path or '/community_guidelines' in request.path %}
+                    <a onclick="reload('{{ url_for('main.index_') }}')" class="special_link">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" style="width: 48px; height: 70px">
+                    </a>
+                    {% else %}
+                        <a onclick="reload('{{ url_for('main.index_') }}')" class="special_link">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" style="width: 69px; height: 100px">
+                    </a>
+                    {% endif %}
+                    <button id="main_navbar_toggle" type="button" class="navbar-toggle collapsed"  data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right top-nav {% if '/about' in request.path or '/contact' in request.path or '/news' in request.path or '/thx' in request.path or '/terms' in request.path or '/privacy' in request.path or '/community_guidelines' in request.path %} top-nav_authenticated{% endif %}">
+                        {% if '/partnerships' in request.path %}
+                            <li><a onclick="reload('{{ url_for('auth.partnership_inquiry_') }}')" class="menu-item special_link" style="padding: 15px; line-height: 20px"><span class="glyphicon glyphicon-user external-logo"></span> Register</a></li>
+                        {% else %}
+                        <li><a onclick="reload('{{ url_for('auth.register_') }}')" class="menu-item special_link" style="padding: 15px; line-height: 20px"><span class="glyphicon glyphicon-user external-logo"></span> Register</a></li>
+                        {% endif %}
+                            <li><a onclick="reload('{{ url_for('auth.login_') }}')" class="menu-item special_link" style="padding: 15px; line-height: 20px"><span class="glyphicon glyphicon-log-in external-logo"></span> Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% else %}
+        <nav id="top_nav" class="navbar" style="color: black">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="{{ url_for('main.user', username=current_user.username) }}">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" style="width: 48px; height: 70px">
+                        {% if current_user.is_recruiter %}<p class="menu-item" style="display: inline-block; font-size: 20px; line-height: 20px; margin: 0; padding: 10px 15px;">ILMJTCV for Recruiters</p>{% endif %}
+                    </a>
+                    <button id="main_navbar_toggle" type="button" class="navbar-toggle collapsed"  data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        {% if not current_user.is_recruiter %}
+                            <ul class="nav navbar-nav top-nav_authenticated">
+                                {% if '/unemployment_map' in request.path or '/chat' in request.path or '/post' in request.path or '/forum' in request.path or '/user' in request.path %}
+                                    <li><a href="{{ url_for('main.chat') }}" class="menu-item-active">Community</a></li>
+                                {% else %}
+                                    <li><a href="{{ url_for('main.chat') }}" class="menu-item">Community</a></li>
+                                {% endif %}
+                                {% if '/job_search' in request.path or '/recruiting' in request.path or '/professional_profile' in request.path %}
+                                     <li><a href="{{ url_for('main.professional_profile') }}" class="menu-item-active">Jobs</a></li>
+                                {% else %}
+                                    <li><a href="{{ url_for('main.professional_profile') }}" class="menu-item">Jobs</a></li>
+                                {% endif %}
+                                {% if '/about' in request.path or '/terms' in request.path or '/privacy' in request.path or '/contact' in request.path or '/news' in request.path or '/thx' in request.path or '/community_guidelines' in request.path %}
+                                     <li><a href="{{ url_for('main.about') }}" class="menu-item-active">About</a></li>
+                                {% else %}
+                                    <li><a href="{{ url_for('main.about') }}" class="menu-item">About</a></li>
+                                {% endif %}
+                            </ul>
+                        {% else %}
+                            <ul class="nav navbar-nav top-nav_authenticated" style="padding-top: 7px !important;">
+                                {% if '/about' in request.path or '/terms' in request.path or '/privacy' in request.path or '/contact' in request.path or '/news' in request.path or '/thx' in request.path or '/community_guidelines' in request.path %}
+                                     <li><a href="{{ url_for('main.about') }}" class="menu-item-active">About</a></li>
+                                {% else %}
+                                    <li><a href="{{ url_for('main.about') }}" class="menu-item">About</a></li>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                    <ul class="nav navbar-nav navbar-right top-nav_authenticated">
+                        <li class="notifications hidden-xs">
+                            <div class="icon_wrap">
+                                <i class="fas fa-bell menu-item">
+                                    {% set notifications = current_user.new_notifications() %}
+                                {% if notifications > 0 %}
+                                    <span class="badge" id="notification_count" style="{% if notifications > 0 %} visibility: visible; {% else %} visibility: hidden; {% endif %} margin-bottom: 3vh">{{ notifications }}</span>
+                                {% endif %}
+                                </i>
+                            </div>
+                                <div class="notification_dd">
+                                <ul class="notification_ul">
+                                    {% if current_user.unread_notifications() %}<p class="mark_read" id="all_notifications_read">Mark all as read</p>{% endif %}
+                                    {% if current_user.notifications.count() > 0%}
+                                        {% for notification in current_user.notifications %}
+                                            {% include '_notification.html' %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="no_notifications">
+                                            <p>No notifications to show</p>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            </li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+        {% endif %}
+        {% block base_content %}{% endblock %}
+    </div>
+{% endblock %}

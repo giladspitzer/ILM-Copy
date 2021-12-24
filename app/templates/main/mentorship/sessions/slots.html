@@ -1,0 +1,5 @@
+<ul class="available_slots">
+    {% for slot in slots %}
+        <li data-start-time="{{ slot.start_time }}">{{ moment(slot.start_time).format('LT') }} -- {{ moment(slot.end_time).format('LT') }}</li>
+    {% endfor %}
+</ul>

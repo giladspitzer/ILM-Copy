@@ -1,0 +1,121 @@
+{% set board = candidate.message_board.first() %}
+{% if board != None %}
+    {% set count = board.messages.count() %}
+    {% if board.unread_messages(current_user) %}
+        {% set new_messages = True %}
+    {% else %}
+        {% set new_messages = False %}
+    {% endif %}
+{% else %}
+     {% set count = 0 %}
+{% endif %}
+
+<p class="ranking_indicator" candidate-id="{{ candidate.id }}"># {{ candidate.order }}</p>
+        <div class="candidate_bages" style="width: 80%; display: inline-block; text-align: center">{% if new_messages %}<i class="fab fa-facebook-messenger {{ candidate.id }}_fire_special" style="text-align: center; color: rgba(228,77,77,.5); margin-right: 5px; display: inline-block; font-size: 25px; position:relative;" data-toggle="popover" data-placement="bottom" data-content="Unread Messages"></i>{% endif %}</div>
+<div class="post-option" data-dismiss="modal" style="float: right">X</div>
+<div class="row" style=" margin-left: 15px; margin-right: 15px">
+    <div class="col-sm-12">
+    {% set user = candidate.user %}
+        <div class="row" style="margin-top: 15px">
+            <div class="col-xs-5" style="padding-left: 0; text-align: center">Found: {{ moment(candidate.added).fromNow()}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                 <div class="row" style="margin-top: 5px">
+                <div class="col-sm-2">
+                    <img src="{{ user.avatar(80) }}" class="img-rounded faded" id="user_img" style="margin: auto; display: block; text-align: center; margin-top: 15px">
+                </div>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {% if user.recruiter_visibility == 3 %}
+                                <h3>{{ user.name }}<span style="font-size: 14px; font-weight: normal; margin-left: 15px"><a href="{{ url_for('partnership.view_resume', uid=candidate.id, option=0) }}" target="_blank" class="menu-item">Resume <i class="fas fa-external-link-alt"></i></a></span> </h3>
+                            {% else %}
+                                <h3>{{ user.name }}</h3>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% if user.recruiter_visibility == 3 %}
+                    <div class="row">
+                        {% if user.recruiting_profile.additional_bio != None and user.recruiting_profile.additional_bio|length > 0  %}
+                            <div class="col-sm-12">
+                                    <p>{{ user.recruiting_profile.additional_bio }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p><span style="font-weight: bold; text-decoration: underline">Work Experience:</span> {{ user.recruiting_profile.experience.title }}</p>
+                        </div>
+                        <div class="col-sm-12">
+                            {% if user.recruiting_profile.employers.count() > 0%}
+                            <p><span style="font-weight: bold; text-decoration: underline">Previous Employers:</span> {% for employer in user.recruiting_profile.employers %}{{ employer.employer.name }}, {% endfor %}</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-12">
+                            {% if user.recruiting_profile.institutions|length > 0%}
+                                <p><span style="font-weight: bold; text-decoration: underline">Institutions:</span> {% for i in user.recruiting_profile.institutions %}{{ i.name }}, {% endfor %}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+            </div>
+        </div>
+        <div class="row" style="margin-right: 15px; {% if user.recruiter_visibility > 3 %} display: none{% endif %}">
+            <h4 class="hidden_elements"><span class="inner_text menu-item no-highlight">+ Recruiter Notes </span> (<span id="notes_counter_{{ candidate.id }}">{{ candidate.notes.count() }}</span>)<span class="opener" style="display: none"><p class="add_note no-highlight" onclick="drop({{ candidate.id }}, 'note')"><i class="sign-indicator glyphicon glyphicon-chevron-down" id="note_indicator_{{ candidate.id }}"></i>Add new note</p></span> </h4>
+            <div class="next_panel" style="display: none">
+                <div id="note-post_{{ candidate.id }}" class="note-post" style="margin-bottom: 60px; display: none">
+                    <label style="display: none" for="notes_{{ candidate.id }}"></label>
+                    <textarea id="notes_{{ candidate.id }}" style="height: 54px; margin-bottom: 10px; margin-left: 25px; width: -webkit-fill-available; background-color: #eee; resize: none" class="form-control post-body-form" placeholder="Say something about this candidate..."></textarea>
+                    <button id="note_submit_{{ candidate.id }}" candidate-id="{{ candidate.id }}" class="btn btn-default note-submit note-submit-candidate" style="float: right; background-color: #eee">Add Note</button>
+                </div>
+                <div class="notes_container_{{ candidate.id }}" style="height: 200px; overflow-y: auto; overflow-x: hidden; border-bottom: 3px solid white; border-top: 2px solid white;">
+                    {% if candidate.notes.count() > 0 %}
+                        {% for note in candidate.notes.all()|reverse %}
+                            {% include 'partnership/_candidate_note.html' %}
+                        {% endfor %}
+                    {% else %}
+                        <h5 class="no-posts" style="margin-top: 45px">Recruiter notes will appear here</h5>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-right: 15px; {% if user.recruiter_visibility > 3 %} display: none{% endif %}" id="messages_whole_{{ candidate.id }}" >
+            <h4 style="font-size: 18px;" class="hidden_elements"><span class="inner_text menu-item no-highlight" extra-id="{{ candidate.id }}"> + Messages </span>(<span id="messages_counter_{{ candidate.id }}">{{ count }}</span>) <span class="opener" style="display: none"><p class="add_note no-highlight" onclick="drop({{ candidate.id }}, 'message')"><i class="sign-indicator glyphicon glyphicon-chevron-down" id="message_indicator_{{ candidate.id }}"></i>Compose Message</p>{% if new_messages %}<a class="btn btn-default mark-read" style="float: right; padding-top: 3px; margin-left: 5px" candidate-id="{{ candidate.id }}" onclick="mark_read($(this), {{ candidate.id }}, {{ load_time }})">mark all as read</a>{% endif %}</span> </h4>
+            <div class="next_panel" style="display: none;">
+                <div class="message-post" style="margin-bottom: 25px; display: none" id="message-post_{{ candidate.id }}">
+                    <label style="display: none" for="message_{{ candidate.id }}"></label>
+                    <textarea id="message_{{ candidate.id }}" style="height: 54px; margin-bottom: 10px; margin-left: 25px; width: -webkit-fill-available; background-color: #eee; resize: none" class="form-control post-body-form" placeholder="Compose a message to this candidate (and the other recruiters on this search)..."></textarea>
+                    {% if candidate.message_board.count() > 0 %}<a href="{{ url_for('main.message', id=board.id) }}" class="menu-item" target="_blank"><i class="fas fa-external-link-alt"></i> Open messages in new tab</a>{% endif %}
+                    <button candidate-id="{{ candidate.id }}" class="btn btn-default note-submit" style="float: right; background-color: #eee" onclick="send_candidate_message_new($(this), {{ load_time }})">Send</button>
+                </div>
+                {% if candidate.message_board.count() > 0 %}
+                <div id="message_container_{{ candidate.id }}" class="messages" style="height: 200px; overflow-y: auto; overflow-x: hidden; border-bottom: 3px solid white; border-top: 2px solid white;" data-set="1" board-id="{{ board.id }}" onscroll="load_more_messages(this)">
+                    {% for message in board.get_messages(0, 0)[::-1] %}
+                        {% include 'main/messages/_message.html' %}
+                    {% endfor %}
+                </div>
+                {% else %}
+                    <div id="message_container_{{ candidate.id }}" class="messages" style="height: 200px; overflow-y: auto; overflow-x: hidden; border-bottom: 3px solid white; border-top: 2px solid white;">
+                        <h5 class="no-posts" style="margin-top: 45px">Messages between this candidate and the recruiters on this search will appear here.
+                        <span style="margin-top: 20px">{% if candidate.search.public %}<br>** This search is set to public, so the candidate <span style="font-weight: bold">can</span> initiate a conversation.{% else %}<br>** This search is set to private, so the candidate <span style="font-weight: bold">can not</span> initiate a conversation{% endif %}</span>
+                        </h5>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <span class="remove_item" candidate-id="{{candidate.id}}" id="remove_candidate" style="max-width: 150px; float: right">Remove Candidate</span>
+        </div>
+        {% if user.recruiter_visibility > 3 %}
+            <div class="row" style="margin-right: 15px; margin-top: 40px">
+                <p>This user has revoked recruiter sharing capabilities.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+

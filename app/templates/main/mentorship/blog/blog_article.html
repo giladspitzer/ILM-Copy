@@ -1,0 +1,50 @@
+{% if current_user.is_authenticated %}
+    {% if current_user.is_recruiter %}
+        {% extends "recruiter_base.html" %}
+    {% else %}
+        {% extends "new_sidebar/new_base.html" %}
+    {% endif %}
+{% else %}
+    {% extends "new_sidebar/new_base.html" %}
+{% endif %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block main_content %}
+    <style>
+    body{
+        overflow-y: hidden;
+    }
+    </style>
+    <div id="goes_here" class="col-sm-12" style="height:100vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff; overflow-y: hidden !important; padding-top: 10px">
+        <div class="row">
+            <div class="col-sm-12" style="padding: 10px 15px">
+                <p style="font-weight: bold; display: inline; color: #30415d" id="article_title" class="regular_article"><a href="{{ url_for('main.blogs') }}" class="menu-item"><i class="fas fa-blog"></i></a> {{ blog.title }}</p>
+                <div class="share_btn"><i class="fas fa-share-alt"></i></div>
+                <div id="progress"></div>
+            </div>
+                <div class="blog_post" onscroll="blog_progress(this)">
+                    <div class="back_btn" id="back_to_blogs" onclick="document.location='{{ url_for('main.blogs') }}'"><i class="fas fa-reply"></i></div>
+                    <p class="posted">{{ moment(blog.posted).format('LL') }}</p>
+                    <img src="{{ blog.avatar() }}" class="main_img">
+                    {% include blog.html_path %}
+                    <hr style="margin-bottom: 5px">
+                    <p class="meet_authors">Meet the {% if blog.authors|length > 1 %}authors{% else %}author{% endif %}:</p>
+                    {% for author in blog.authors %}
+                         <div class="author_info row">
+                            <div class="col-sm-2 col-xs-12 centered_small">
+                                <img src="{{ author.avatar(80) }}" class="img-rounded">
+                            </div>
+                            <div class="col-sm-10 col-xs-12 centered_small">
+                                <a class="author" href="{{ url_for('main.user', username=author.username) }}">{{ author.name }}</a>
+                                <div class="bio">{{ author.blog_about }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="filler"></div>
+                    <div class="mobile_filler"></div>
+                    <div class="mobile_filler"></div>
+                </div>
+
+            </div>
+    </div>
+{% endblock %}

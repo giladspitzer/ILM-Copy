@@ -1,0 +1,526 @@
+{% extends 'homebase.html' %}
+{% block base_content %}
+    <div class="main_body" id="main_body">
+        <div class="modal fade" id="loading_modal" tabindex="-1" role="dialog" aria-labelledby="loading_modal" aria-hidden="true" style="z-index: 3000">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content loading-modal" style="background-color: transparent">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="loadingio-spinner-spinner-ok7idc80he9"><div class="ldio-u1oevpwp8f">
+                                                <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                                </div></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-sm-12" style="text-align: center; font-weight: 700; font-size: 20px; line-height: 32px; color: white" id="loading_text">
+
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info" role="alert">{{ message }}<span class="alert-close" onclick="this.parentElement.remove()">&times</span></div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% if g.more_info_registration %}
+            <div class="modal fade" id="more_info_modal" tabindex="-1" role="dialog" aria-labelledby="more_info_modal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            We need some more information before you continue
+                        </div>
+                        <form action="/auth/submit_more_info" method="post" novalidate id="form_more">
+                            <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-xs-1"></div>
+                                        <div class="col-xs-9">
+                                            {{ g.more_info_registration.csrf_token }}
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label for="country" class="control-label">Country*</label>
+                                                    <select class="form-control selectpicker register-country" id="country" data-live-search="true" name="country" required>
+                                                        <option value="235" data-tokens="United States">United States (US) </option>
+                                                        <option value="1" data-tokens="Aruba">Aruba (AW) </option>
+                                                        <option value="2" data-tokens="Afghanistan">Afghanistan (AF) </option>
+                                                        <option value="3" data-tokens="Angola">Angola (AO) </option>
+                                                        <option value="4" data-tokens="Anguilla">Anguilla (AI) </option>
+                                                        <option value="5" data-tokens="Åland Islands">Åland Islands (AX) </option>
+                                                        <option value="6" data-tokens="Albania">Albania (AL) </option>
+                                                        <option value="7" data-tokens="Andorra">Andorra (AD) </option>
+                                                        <option value="8" data-tokens="United Arab Emirates">United Arab Emirates (AE) </option>
+                                                        <option value="9" data-tokens="Argentina">Argentina (AR) </option>
+                                                        <option value="10" data-tokens="Armenia">Armenia (AM) </option>
+                                                        <option value="11" data-tokens="American Samoa">American Samoa (AS) </option>
+                                                        <option value="12" data-tokens="Antarctica">Antarctica (AQ) </option>
+                                                        <option value="13" data-tokens="French Southern Territories">French Southern Territories (TF) </option>
+                                                        <option value="14" data-tokens="Antigua and Barbuda">Antigua and Barbuda (AG) </option>
+                                                        <option value="15" data-tokens="Australia">Australia (AU) </option>
+                                                        <option value="16" data-tokens="Austria">Austria (AT) </option>
+                                                        <option value="17" data-tokens="Azerbaijan">Azerbaijan (AZ) </option>
+                                                        <option value="18" data-tokens="Burundi">Burundi (BI) </option>
+                                                        <option value="19" data-tokens="Belgium">Belgium (BE) </option>
+                                                        <option value="20" data-tokens="Benin">Benin (BJ) </option>
+                                                        <option value="21" data-tokens="Bonaire, Sint Eustatius and Saba">Bonaire, Sint Eustatius and Saba (BQ) </option>
+                                                        <option value="22" data-tokens="Burkina Faso">Burkina Faso (BF) </option>
+                                                        <option value="23" data-tokens="Bangladesh">Bangladesh (BD) </option>
+                                                        <option value="24" data-tokens="Bulgaria">Bulgaria (BG) </option>
+                                                        <option value="25" data-tokens="Bahrain">Bahrain (BH) </option>
+                                                        <option value="26" data-tokens="Bahamas">Bahamas (BS) </option>
+                                                        <option value="27" data-tokens="Bosnia and Herzegovina">Bosnia and Herzegovina (BA) </option>
+                                                        <option value="28" data-tokens="Saint Barthélemy">Saint Barthélemy (BL) </option>
+                                                        <option value="29" data-tokens="Belarus">Belarus (BY) </option>
+                                                        <option value="30" data-tokens="Belize">Belize (BZ) </option>
+                                                        <option value="31" data-tokens="Bermuda">Bermuda (BM) </option>
+                                                        <option value="32" data-tokens="Bolivia, Plurinational State of">Bolivia, Plurinational State of (BO) </option>
+                                                        <option value="33" data-tokens="Brazil">Brazil (BR) </option>
+                                                        <option value="34" data-tokens="Barbados">Barbados (BB) </option>
+                                                        <option value="35" data-tokens="Brunei Darussalam">Brunei Darussalam (BN) </option>
+                                                        <option value="36" data-tokens="Bhutan">Bhutan (BT) </option>
+                                                        <option value="37" data-tokens="Bouvet Island">Bouvet Island (BV) </option>
+                                                        <option value="38" data-tokens="Botswana">Botswana (BW) </option>
+                                                        <option value="39" data-tokens="Central African Republic">Central African Republic (CF) </option>
+                                                        <option value="40" data-tokens="Canada">Canada (CA) </option>
+                                                        <option value="41" data-tokens="Cocos (Keeling) Islands">Cocos (Keeling) Islands (CC) </option>
+                                                        <option value="42" data-tokens="Switzerland">Switzerland (CH) </option>
+                                                        <option value="43" data-tokens="Chile">Chile (CL) </option>
+                                                        <option value="44" data-tokens="China">China (CN) </option>
+                                                        <option value="45" data-tokens="Côte d'Ivoire">Côte d'Ivoire (CI) </option>
+                                                        <option value="46" data-tokens="Cameroon">Cameroon (CM) </option>
+                                                        <option value="47" data-tokens="Congo, The Democratic Republic of the">Congo, The Democratic Republic of the (CD) </option>
+                                                        <option value="48" data-tokens="Congo">Congo (CG) </option>
+                                                        <option value="49" data-tokens="Cook Islands">Cook Islands (CK) </option>
+                                                        <option value="50" data-tokens="Colombia">Colombia (CO) </option>
+                                                        <option value="51" data-tokens="Comoros">Comoros (KM) </option>
+                                                        <option value="52" data-tokens="Cabo Verde">Cabo Verde (CV) </option>
+                                                        <option value="53" data-tokens="Costa Rica">Costa Rica (CR) </option>
+                                                        <option value="54" data-tokens="Cuba">Cuba (CU) </option>
+                                                        <option value="55" data-tokens="Curaçao">Curaçao (CW) </option>
+                                                        <option value="56" data-tokens="Christmas Island">Christmas Island (CX) </option>
+                                                        <option value="57" data-tokens="Cayman Islands">Cayman Islands (KY) </option>
+                                                        <option value="58" data-tokens="Cyprus">Cyprus (CY) </option>
+                                                        <option value="59" data-tokens="Czechia">Czechia (CZ) </option>
+                                                        <option value="60" data-tokens="Germany">Germany (DE) </option>
+                                                        <option value="61" data-tokens="Djibouti">Djibouti (DJ) </option>
+                                                        <option value="62" data-tokens="Dominica">Dominica (DM) </option>
+                                                        <option value="63" data-tokens="Denmark">Denmark (DK) </option>
+                                                        <option value="64" data-tokens="Dominican Republic">Dominican Republic (DO) </option>
+                                                        <option value="65" data-tokens="Algeria">Algeria (DZ) </option>
+                                                        <option value="66" data-tokens="Ecuador">Ecuador (EC) </option>
+                                                        <option value="67" data-tokens="Egypt">Egypt (EG) </option>
+                                                        <option value="68" data-tokens="Eritrea">Eritrea (ER) </option>
+                                                        <option value="69" data-tokens="Western Sahara">Western Sahara (EH) </option>
+                                                        <option value="70" data-tokens="Spain">Spain (ES) </option>
+                                                        <option value="71" data-tokens="Estonia">Estonia (EE) </option>
+                                                        <option value="72" data-tokens="Ethiopia">Ethiopia (ET) </option>
+                                                        <option value="73" data-tokens="Finland">Finland (FI) </option>
+                                                        <option value="74" data-tokens="Fiji">Fiji (FJ) </option>
+                                                        <option value="75" data-tokens="Falkland Islands (Malvinas)">Falkland Islands (Malvinas) (FK) </option>
+                                                        <option value="76" data-tokens="France">France (FR) </option>
+                                                        <option value="77" data-tokens="Faroe Islands">Faroe Islands (FO) </option>
+                                                        <option value="78" data-tokens="Micronesia, Federated States of">Micronesia, Federated States of (FM) </option>
+                                                        <option value="79" data-tokens="Gabon">Gabon (GA) </option>
+                                                        <option value="80" data-tokens="United Kingdom">United Kingdom (GB) </option>
+                                                        <option value="81" data-tokens="Georgia">Georgia (GE) </option>
+                                                        <option value="82" data-tokens="Guernsey">Guernsey (GG) </option>
+                                                        <option value="83" data-tokens="Ghana">Ghana (GH) </option>
+                                                        <option value="84" data-tokens="Gibraltar">Gibraltar (GI) </option>
+                                                        <option value="85" data-tokens="Guinea">Guinea (GN) </option>
+                                                        <option value="86" data-tokens="Guadeloupe">Guadeloupe (GP) </option>
+                                                        <option value="87" data-tokens="Gambia">Gambia (GM) </option>
+                                                        <option value="88" data-tokens="Guinea-Bissau">Guinea-Bissau (GW) </option>
+                                                        <option value="89" data-tokens="Equatorial Guinea">Equatorial Guinea (GQ) </option>
+                                                        <option value="90" data-tokens="Greece">Greece (GR) </option>
+                                                        <option value="91" data-tokens="Grenada">Grenada (GD) </option>
+                                                        <option value="92" data-tokens="Greenland">Greenland (GL) </option>
+                                                        <option value="93" data-tokens="Guatemala">Guatemala (GT) </option>
+                                                        <option value="94" data-tokens="French Guiana">French Guiana (GF) </option>
+                                                        <option value="95" data-tokens="Guam">Guam (GU) </option>
+                                                        <option value="96" data-tokens="Guyana">Guyana (GY) </option>
+                                                        <option value="97" data-tokens="Hong Kong">Hong Kong (HK) </option>
+                                                        <option value="98" data-tokens="Heard Island and McDonald Islands">Heard Island and McDonald Islands (HM) </option>
+                                                        <option value="99" data-tokens="Honduras">Honduras (HN) </option>
+                                                        <option value="100" data-tokens="Croatia">Croatia (HR) </option>
+                                                        <option value="101" data-tokens="Haiti">Haiti (HT) </option>
+                                                        <option value="102" data-tokens="Hungary">Hungary (HU) </option>
+                                                        <option value="103" data-tokens="Indonesia">Indonesia (ID) </option>
+                                                        <option value="104" data-tokens="Isle of Man">Isle of Man (IM) </option>
+                                                        <option value="105" data-tokens="India">India (IN) </option>
+                                                        <option value="106" data-tokens="British Indian Ocean Territory">British Indian Ocean Territory (IO) </option>
+                                                        <option value="107" data-tokens="Ireland">Ireland (IE) </option>
+                                                        <option value="108" data-tokens="Iran, Islamic Republic of">Iran, Islamic Republic of (IR) </option>
+                                                        <option value="109" data-tokens="Iraq">Iraq (IQ) </option>
+                                                        <option value="110" data-tokens="Iceland">Iceland (IS) </option>
+                                                        <option value="111" data-tokens="Israel">Israel (IL) </option>
+                                                        <option value="112" data-tokens="Italy">Italy (IT) </option>
+                                                        <option value="113" data-tokens="Jamaica">Jamaica (JM) </option>
+                                                        <option value="114" data-tokens="Jersey">Jersey (JE) </option>
+                                                        <option value="115" data-tokens="Jordan">Jordan (JO) </option>
+                                                        <option value="116" data-tokens="Japan">Japan (JP) </option>
+                                                        <option value="117" data-tokens="Kazakhstan">Kazakhstan (KZ) </option>
+                                                        <option value="118" data-tokens="Kenya">Kenya (KE) </option>
+                                                        <option value="119" data-tokens="Kyrgyzstan">Kyrgyzstan (KG) </option>
+                                                        <option value="120" data-tokens="Cambodia">Cambodia (KH) </option>
+                                                        <option value="121" data-tokens="Kiribati">Kiribati (KI) </option>
+                                                        <option value="122" data-tokens="Saint Kitts and Nevis">Saint Kitts and Nevis (KN) </option>
+                                                        <option value="123" data-tokens="Korea, Republic of">Korea, Republic of (KR) </option>
+                                                        <option value="124" data-tokens="Kuwait">Kuwait (KW) </option>
+                                                        <option value="125" data-tokens="Lao People's Democratic Republic">Lao People's Democratic Republic (LA) </option>
+                                                        <option value="126" data-tokens="Lebanon">Lebanon (LB) </option>
+                                                        <option value="127" data-tokens="Liberia">Liberia (LR) </option>
+                                                        <option value="128" data-tokens="Libya">Libya (LY) </option>
+                                                        <option value="129" data-tokens="Saint Lucia">Saint Lucia (LC) </option>
+                                                        <option value="130" data-tokens="Liechtenstein">Liechtenstein (LI) </option>
+                                                        <option value="131" data-tokens="Sri Lanka">Sri Lanka (LK) </option>
+                                                        <option value="132" data-tokens="Lesotho">Lesotho (LS) </option>
+                                                        <option value="133" data-tokens="Lithuania">Lithuania (LT) </option>
+                                                        <option value="134" data-tokens="Luxembourg">Luxembourg (LU) </option>
+                                                        <option value="135" data-tokens="Latvia">Latvia (LV) </option>
+                                                        <option value="136" data-tokens="Macao">Macao (MO) </option>
+                                                        <option value="137" data-tokens="Saint Martin (French part)">Saint Martin (French part) (MF) </option>
+                                                        <option value="138" data-tokens="Morocco">Morocco (MA) </option>
+                                                        <option value="139" data-tokens="Monaco">Monaco (MC) </option>
+                                                        <option value="140" data-tokens="Moldova, Republic of">Moldova, Republic of (MD) </option>
+                                                        <option value="141" data-tokens="Madagascar">Madagascar (MG) </option>
+                                                        <option value="142" data-tokens="Maldives">Maldives (MV) </option>
+                                                        <option value="143" data-tokens="Mexico">Mexico (MX) </option>
+                                                        <option value="144" data-tokens="Marshall Islands">Marshall Islands (MH) </option>
+                                                        <option value="145" data-tokens="North Macedonia">North Macedonia (MK) </option>
+                                                        <option value="146" data-tokens="Mali">Mali (ML) </option>
+                                                        <option value="147" data-tokens="Malta">Malta (MT) </option>
+                                                        <option value="148" data-tokens="Myanmar">Myanmar (MM) </option>
+                                                        <option value="149" data-tokens="Montenegro">Montenegro (ME) </option>
+                                                        <option value="150" data-tokens="Mongolia">Mongolia (MN) </option>
+                                                        <option value="151" data-tokens="Northern Mariana Islands">Northern Mariana Islands (MP) </option>
+                                                        <option value="152" data-tokens="Mozambique">Mozambique (MZ) </option>
+                                                        <option value="153" data-tokens="Mauritania">Mauritania (MR) </option>
+                                                        <option value="154" data-tokens="Montserrat">Montserrat (MS) </option>
+                                                        <option value="155" data-tokens="Martinique">Martinique (MQ) </option>
+                                                        <option value="156" data-tokens="Mauritius">Mauritius (MU) </option>
+                                                        <option value="157" data-tokens="Malawi">Malawi (MW) </option>
+                                                        <option value="158" data-tokens="Malaysia">Malaysia (MY) </option>
+                                                        <option value="159" data-tokens="Mayotte">Mayotte (YT) </option>
+                                                        <option value="160" data-tokens="Namibia">Namibia (NA) </option>
+                                                        <option value="161" data-tokens="New Caledonia">New Caledonia (NC) </option>
+                                                        <option value="162" data-tokens="Niger">Niger (NE) </option>
+                                                        <option value="163" data-tokens="Norfolk Island">Norfolk Island (NF) </option>
+                                                        <option value="164" data-tokens="Nigeria">Nigeria (NG) </option>
+                                                        <option value="165" data-tokens="Nicaragua">Nicaragua (NI) </option>
+                                                        <option value="166" data-tokens="Niue">Niue (NU) </option>
+                                                        <option value="167" data-tokens="Netherlands">Netherlands (NL) </option>
+                                                        <option value="168" data-tokens="Norway">Norway (NO) </option>
+                                                        <option value="169" data-tokens="Nepal">Nepal (NP) </option>
+                                                        <option value="170" data-tokens="Nauru">Nauru (NR) </option>
+                                                        <option value="171" data-tokens="New Zealand">New Zealand (NZ) </option>
+                                                        <option value="172" data-tokens="Oman">Oman (OM) </option>
+                                                        <option value="173" data-tokens="Pakistan">Pakistan (PK) </option>
+                                                        <option value="174" data-tokens="Panama">Panama (PA) </option>
+                                                        <option value="175" data-tokens="Pitcairn">Pitcairn (PN) </option>
+                                                        <option value="176" data-tokens="Peru">Peru (PE) </option>
+                                                        <option value="177" data-tokens="Philippines">Philippines (PH) </option>
+                                                        <option value="178" data-tokens="Palau">Palau (PW) </option>
+                                                        <option value="179" data-tokens="Papua New Guinea">Papua New Guinea (PG) </option>
+                                                        <option value="180" data-tokens="Poland">Poland (PL) </option>
+                                                        <option value="181" data-tokens="Puerto Rico">Puerto Rico (PR) </option>
+                                                        <option value="182" data-tokens="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of (KP) </option>
+                                                        <option value="183" data-tokens="Portugal">Portugal (PT) </option>
+                                                        <option value="184" data-tokens="Paraguay">Paraguay (PY) </option>
+                                                        <option value="185" data-tokens="Palestine, State of">Palestine, State of (PS) </option>
+                                                        <option value="186" data-tokens="French Polynesia">French Polynesia (PF) </option>
+                                                        <option value="187" data-tokens="Qatar">Qatar (QA) </option>
+                                                        <option value="188" data-tokens="Réunion">Réunion (RE) </option>
+                                                        <option value="189" data-tokens="Romania">Romania (RO) </option>
+                                                        <option value="190" data-tokens="Russian Federation">Russian Federation (RU) </option>
+                                                        <option value="191" data-tokens="Rwanda">Rwanda (RW) </option>
+                                                        <option value="192" data-tokens="Saudi Arabia">Saudi Arabia (SA) </option>
+                                                        <option value="193" data-tokens="Sudan">Sudan (SD) </option>
+                                                        <option value="194" data-tokens="Senegal">Senegal (SN) </option>
+                                                        <option value="195" data-tokens="Singapore">Singapore (SG) </option>
+                                                        <option value="196" data-tokens="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands (GS) </option>
+                                                        <option value="197" data-tokens="Saint Helena, Ascension and Tristan da Cunha">Saint Helena, Ascension and Tristan da Cunha (SH) </option>
+                                                        <option value="198" data-tokens="Svalbard and Jan Mayen">Svalbard and Jan Mayen (SJ) </option>
+                                                        <option value="199" data-tokens="Solomon Islands">Solomon Islands (SB) </option>
+                                                        <option value="200" data-tokens="Sierra Leone">Sierra Leone (SL) </option>
+                                                        <option value="201" data-tokens="El Salvador">El Salvador (SV) </option>
+                                                        <option value="202" data-tokens="San Marino">San Marino (SM) </option>
+                                                        <option value="203" data-tokens="Somalia">Somalia (SO) </option>
+                                                        <option value="204" data-tokens="Saint Pierre and Miquelon">Saint Pierre and Miquelon (PM) </option>
+                                                        <option value="205" data-tokens="Serbia">Serbia (RS) </option>
+                                                        <option value="206" data-tokens="South Sudan">South Sudan (SS) </option>
+                                                        <option value="207" data-tokens="Sao Tome and Principe">Sao Tome and Principe (ST) </option>
+                                                        <option value="208" data-tokens="Suriname">Suriname (SR) </option>
+                                                        <option value="209" data-tokens="Slovakia">Slovakia (SK) </option>
+                                                        <option value="210" data-tokens="Slovenia">Slovenia (SI) </option>
+                                                        <option value="211" data-tokens="Sweden">Sweden (SE) </option>
+                                                        <option value="212" data-tokens="Eswatini">Eswatini (SZ) </option>
+                                                        <option value="213" data-tokens="Sint Maarten (Dutch part)">Sint Maarten (Dutch part) (SX) </option>
+                                                        <option value="214" data-tokens="Seychelles">Seychelles (SC) </option>
+                                                        <option value="215" data-tokens="Syrian Arab Republic">Syrian Arab Republic (SY) </option>
+                                                        <option value="216" data-tokens="Turks and Caicos Islands">Turks and Caicos Islands (TC) </option>
+                                                        <option value="217" data-tokens="Chad">Chad (TD) </option>
+                                                        <option value="218" data-tokens="Togo">Togo (TG) </option>
+                                                        <option value="219" data-tokens="Thailand">Thailand (TH) </option>
+                                                        <option value="220" data-tokens="Tajikistan">Tajikistan (TJ) </option>
+                                                        <option value="221" data-tokens="Tokelau">Tokelau (TK) </option>
+                                                        <option value="222" data-tokens="Turkmenistan">Turkmenistan (TM) </option>
+                                                        <option value="223" data-tokens="Timor-Leste">Timor-Leste (TL) </option>
+                                                        <option value="224" data-tokens="Tonga">Tonga (TO) </option>
+                                                        <option value="225" data-tokens="Trinidad and Tobago">Trinidad and Tobago (TT) </option>
+                                                        <option value="226" data-tokens="Tunisia">Tunisia (TN) </option>
+                                                        <option value="227" data-tokens="Turkey">Turkey (TR) </option>
+                                                        <option value="228" data-tokens="Tuvalu">Tuvalu (TV) </option>
+                                                        <option value="229" data-tokens="Taiwan, Province of China">Taiwan, Province of China (TW) </option>
+                                                        <option value="230" data-tokens="Tanzania, United Republic of">Tanzania, United Republic of (TZ) </option>
+                                                        <option value="231" data-tokens="Uganda">Uganda (UG) </option>
+                                                        <option value="232" data-tokens="Ukraine">Ukraine (UA) </option>
+                                                        <option value="233" data-tokens="United States Minor Outlying Islands">United States Minor Outlying Islands (UM) </option>
+                                                        <option value="234" data-tokens="Uruguay">Uruguay (UY) </option>
+                                                        <option value="236" data-tokens="Uzbekistan">Uzbekistan (UZ) </option>
+                                                        <option value="237" data-tokens="Holy See (Vatican City State)">Holy See (Vatican City State) (VA) </option>
+                                                        <option value="238" data-tokens="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines (VC) </option>
+                                                        <option value="239" data-tokens="Venezuela, Bolivarian Republic of">Venezuela, Bolivarian Republic of (VE) </option>
+                                                        <option value="240" data-tokens="Virgin Islands, British">Virgin Islands, British (VG) </option>
+                                                        <option value="241" data-tokens="Virgin Islands, U.S.">Virgin Islands, U.S. (VI) </option>
+                                                        <option value="242" data-tokens="Viet Nam">Viet Nam (VN) </option>
+                                                        <option value="243" data-tokens="Vanuatu">Vanuatu (VU) </option>
+                                                        <option value="244" data-tokens="Wallis and Futuna">Wallis and Futuna (WF) </option>
+                                                        <option value="245" data-tokens="Samoa">Samoa (WS) </option>
+                                                        <option value="246" data-tokens="Yemen">Yemen (YE) </option>
+                                                        <option value="247" data-tokens="South Africa">South Africa (ZA) </option>
+                                                        <option value="248" data-tokens="Zambia">Zambia (ZM) </option>
+                                                        <option value="249" data-tokens="Zimbabwe">Zimbabwe (ZW) </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <span style="display: none" id="city_div">
+                                                        <div class="form-group "><label class="control-label" for="city">City *</label>
+                                                              <input class="form-control register-city" id="city" name="city" placeholder="London" type="text" value="">
+                                                      </div>
+                                                    </span>
+                                                     <span id="zip_div">
+                                                         <div class="form-group "><label class="control-label" for="zip">Zip Code *</label>
+                                                             <input class="form-control register-zip" id="zip" name="zip" placeholder="90034" type="text" value="" maxlength="5" onkeypress="$(this).val($(this).val().replace(/[^\d]+/g,''));">
+                                                         </div>
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label for="Indusry" class="control-label">Primary Industry*</label>
+                                                    <select class="form-control selectpicker register-industry" id="industry" data-live-search="true" name="industry" required>
+                                                        <option value="0">Please select an industry</option>
+                                                        <option value="4" data-tokens="Education">Education</option>
+                                                        <option value="11" data-tokens="Janitorial Services">Janitorial Services</option>
+                                                        <option value="14" data-tokens="Transportation">Transportation</option>
+                                                        <option value="17" data-tokens="Accounting">Accounting</option>
+                                                        <option value="19" data-tokens="Airlines/Aviation">Airlines/Aviation</option>
+                                                        <option value="21" data-tokens="Alternative Dispute Resolution">Alternative Dispute Resolution</option>
+                                                        <option value="23" data-tokens="Alternative Medicine">Alternative Medicine</option>
+                                                        <option value="25" data-tokens="Animation">Animation</option>
+                                                        <option value="27" data-tokens="Apparel & Fashion">Apparel & Fashion</option>
+                                                        <option value="29" data-tokens="Architecture & Planning">Architecture & Planning</option>
+                                                        <option value="31" data-tokens="Arts & Crafts">Arts & Crafts</option>
+                                                        <option value="33" data-tokens="Automotive">Automotive</option>
+                                                        <option value="35" data-tokens="Aviation & Aerospace">Aviation & Aerospace</option>
+                                                        <option value="37" data-tokens="Banking">Banking</option>
+                                                        <option value="39" data-tokens="Biotechnology">Biotechnology</option>
+                                                        <option value="41" data-tokens="Broadcast Media">Broadcast Media</option>
+                                                        <option value="43" data-tokens="Building Materials">Building Materials</option>
+                                                        <option value="45" data-tokens="Business Supplies & Equipment">Business Supplies & Equipment</option>
+                                                        <option value="47" data-tokens="Capital Markets">Capital Markets</option>
+                                                        <option value="49" data-tokens="Chemicals">Chemicals</option>
+                                                        <option value="51" data-tokens="Civic & Social Organization">Civic & Social Organization</option>
+                                                        <option value="53" data-tokens="Civil Engineering">Civil Engineering</option>
+                                                        <option value="55" data-tokens="Commercial Real Estate">Commercial Real Estate</option>
+                                                        <option value="57" data-tokens="Computer & Network Security">Computer & Network Security</option>
+                                                        <option value="59" data-tokens="Computer Games">Computer Games</option>
+                                                        <option value="61" data-tokens="Computer Hardware">Computer Hardware</option>
+                                                        <option value="63" data-tokens="Computer Networking">Computer Networking</option>
+                                                        <option value="65" data-tokens="Computer Software">Computer Software</option>
+                                                        <option value="67" data-tokens="Construction">Construction</option>
+                                                        <option value="69" data-tokens="Consumer Electronics">Consumer Electronics</option>
+                                                        <option value="71" data-tokens="Consumer Goods">Consumer Goods</option>
+                                                        <option value="73" data-tokens="Consumer Services">Consumer Services</option>
+                                                        <option value="75" data-tokens="Cosmetics">Cosmetics</option>
+                                                        <option value="77" data-tokens="Dairy">Dairy</option>
+                                                        <option value="79" data-tokens="Defense & Space">Defense & Space</option>
+                                                        <option value="81" data-tokens="Design">Design</option>
+                                                        <option value="83" data-tokens="E-learning">E-learning</option>
+                                                        <option value="85" data-tokens="Education Management">Education Management</option>
+                                                        <option value="87" data-tokens="Electrical & Electronic Manufacturing">Electrical & Electronic Manufacturing</option>
+                                                        <option value="89" data-tokens="Entertainment">Entertainment</option>
+                                                        <option value="91" data-tokens="Environmental Services">Environmental Services</option>
+                                                        <option value="93" data-tokens="Events Services">Events Services</option>
+                                                        <option value="95" data-tokens="Executive Office">Executive Office</option>
+                                                        <option value="97" data-tokens="Facilities Services">Facilities Services</option>
+                                                        <option value="99" data-tokens="Farming">Farming</option>
+                                                        <option value="101" data-tokens="Financial Services">Financial Services</option>
+                                                        <option value="103" data-tokens="Fine Art">Fine Art</option>
+                                                        <option value="105" data-tokens="Fishery">Fishery</option>
+                                                        <option value="107" data-tokens="Food & Beverages">Food & Beverages</option>
+                                                        <option value="109" data-tokens="Food Production">Food Production</option>
+                                                        <option value="111" data-tokens="Fundraising">Fundraising</option>
+                                                        <option value="113" data-tokens="Furniture">Furniture</option>
+                                                        <option value="115" data-tokens="Gambling & Casinos">Gambling & Casinos</option>
+                                                        <option value="117" data-tokens="Glass">Glass</option>
+                                                        <option value="119" data-tokens="Ceramics & Concrete">Ceramics & Concrete</option>
+                                                        <option value="121" data-tokens="Government Administration">Government Administration</option>
+                                                        <option value="123" data-tokens="Government Relations">Government Relations</option>
+                                                        <option value="125" data-tokens="Graphic Design">Graphic Design</option>
+                                                        <option value="127" data-tokens="Health">Health</option>
+                                                        <option value="129" data-tokens="Wellness & Fitness">Wellness & Fitness</option>
+                                                        <option value="131" data-tokens="Higher Education">Higher Education</option>
+                                                        <option value="133" data-tokens="Hospital & Health Care">Hospital & Health Care</option>
+                                                        <option value="135" data-tokens="Hospitality">Hospitality</option>
+                                                        <option value="137" data-tokens="Human Resources">Human Resources</option>
+                                                        <option value="139" data-tokens="Import & Export">Import & Export</option>
+                                                        <option value="141" data-tokens="Individual & Family Services">Individual & Family Services</option>
+                                                        <option value="143" data-tokens="Industrial Automation">Industrial Automation</option>
+                                                        <option value="145" data-tokens="Information Services">Information Services</option>
+                                                        <option value="147" data-tokens="Information Technology & Services">Information Technology & Services</option>
+                                                        <option value="149" data-tokens="Insurance">Insurance</option>
+                                                        <option value="151" data-tokens="International Affairs">International Affairs</option>
+                                                        <option value="153" data-tokens="International Trade & Development">International Trade & Development</option>
+                                                        <option value="155" data-tokens="Internet">Internet</option>
+                                                        <option value="157" data-tokens="Investment Banking">Investment Banking</option>
+                                                        <option value="159" data-tokens="Investment Management">Investment Management</option>
+                                                        <option value="161" data-tokens="Judiciary">Judiciary</option>
+                                                        <option value="163" data-tokens="Law Enforcement">Law Enforcement</option>
+                                                        <option value="165" data-tokens="Law Practice">Law Practice</option>
+                                                        <option value="167" data-tokens="Legal Services">Legal Services</option>
+                                                        <option value="169" data-tokens="Legislative Office">Legislative Office</option>
+                                                        <option value="171" data-tokens="Leisure">Leisure</option>
+                                                        <option value="173" data-tokens="Travel & Tourism">Travel & Tourism</option>
+                                                        <option value="175" data-tokens="Libraries">Libraries</option>
+                                                        <option value="177" data-tokens="Logistics & Supply Chain">Logistics & Supply Chain</option>
+                                                        <option value="179" data-tokens="Luxury Goods & Jewelry">Luxury Goods & Jewelry</option>
+                                                        <option value="181" data-tokens="Machinery">Machinery</option>
+                                                        <option value="183" data-tokens="Management Consulting">Management Consulting</option>
+                                                        <option value="185" data-tokens="Maritime">Maritime</option>
+                                                        <option value="187" data-tokens="Market Research">Market Research</option>
+                                                        <option value="189" data-tokens="Marketing & Advertising">Marketing & Advertising</option>
+                                                        <option value="191" data-tokens="Mechanical Or Industrial Engineering">Mechanical Or Industrial Engineering</option>
+                                                        <option value="193" data-tokens="Media Production">Media Production</option>
+                                                        <option value="195" data-tokens="Medical Device">Medical Device</option>
+                                                        <option value="197" data-tokens="Medical Practice">Medical Practice</option>
+                                                        <option value="199" data-tokens="Mental Health Care">Mental Health Care</option>
+                                                        <option value="201" data-tokens="Military">Military</option>
+                                                        <option value="203" data-tokens="Mining & Metals">Mining & Metals</option>
+                                                        <option value="205" data-tokens="Motion Pictures & Film">Motion Pictures & Film</option>
+                                                        <option value="207" data-tokens="Museums & Institutions">Museums & Institutions</option>
+                                                        <option value="209" data-tokens="Music">Music</option>
+                                                        <option value="211" data-tokens="Nanotechnology">Nanotechnology</option>
+                                                        <option value="213" data-tokens="Newspapers">Newspapers</option>
+                                                        <option value="215" data-tokens="Non-profit Organization Management">Non-profit Organization Management</option>
+                                                        <option value="217" data-tokens="Oil & Energy">Oil & Energy</option>
+                                                        <option value="219" data-tokens="Online Media">Online Media</option>
+                                                        <option value="221" data-tokens="Outsourcing/Offshoring">Outsourcing/Offshoring</option>
+                                                        <option value="223" data-tokens="Package/Freight Delivery">Package/Freight Delivery</option>
+                                                        <option value="225" data-tokens="Packaging & Containers">Packaging & Containers</option>
+                                                        <option value="227" data-tokens="Paper & Forest Products">Paper & Forest Products</option>
+                                                        <option value="229" data-tokens="Performing Arts">Performing Arts</option>
+                                                        <option value="231" data-tokens="Pharmaceuticals">Pharmaceuticals</option>
+                                                        <option value="233" data-tokens="Philanthropy">Philanthropy</option>
+                                                        <option value="235" data-tokens="Photography">Photography</option>
+                                                        <option value="237" data-tokens="Plastics">Plastics</option>
+                                                        <option value="239" data-tokens="Political Organization">Political Organization</option>
+                                                        <option value="241" data-tokens="Primary/Secondary Education">Primary/Secondary Education</option>
+                                                        <option value="244" data-tokens="Printing">Printing</option>
+                                                        <option value="246" data-tokens="Professional Training & Coaching">Professional Training & Coaching</option>
+                                                        <option value="248" data-tokens="Program Development">Program Development</option>
+                                                        <option value="250" data-tokens="Public Policy">Public Policy</option>
+                                                        <option value="252" data-tokens="Public Relations & Communications">Public Relations & Communications</option>
+                                                        <option value="254" data-tokens="Public Safety">Public Safety</option>
+                                                        <option value="256" data-tokens="Publishing">Publishing</option>
+                                                        <option value="258" data-tokens="Railroad Manufacture">Railroad Manufacture</option>
+                                                        <option value="260" data-tokens="Ranching">Ranching</option>
+                                                        <option value="262" data-tokens="Real Estate">Real Estate</option>
+                                                        <option value="264" data-tokens="Recreational Facilities & Services">Recreational Facilities & Services</option>
+                                                        <option value="266" data-tokens="Religious Institutions">Religious Institutions</option>
+                                                        <option value="268" data-tokens="Renewables & Environment">Renewables & Environment</option>
+                                                        <option value="270" data-tokens="Research">Research</option>
+                                                        <option value="272" data-tokens="Restaurants">Restaurants</option>
+                                                        <option value="274" data-tokens="Retail">Retail</option>
+                                                        <option value="276" data-tokens="Security & Investigations">Security & Investigations</option>
+                                                        <option value="278" data-tokens="Semiconductors">Semiconductors</option>
+                                                        <option value="280" data-tokens="Shipbuilding">Shipbuilding</option>
+                                                        <option value="282" data-tokens="Sporting Goods">Sporting Goods</option>
+                                                        <option value="284" data-tokens="Sports">Sports</option>
+                                                        <option value="286" data-tokens="Staffing & Recruiting">Staffing & Recruiting</option>
+                                                        <option value="288" data-tokens="Supermarkets">Supermarkets</option>
+                                                        <option value="290" data-tokens="Telecommunications">Telecommunications</option>
+                                                        <option value="292" data-tokens="Textiles">Textiles</option>
+                                                        <option value="294" data-tokens="Think Tanks">Think Tanks</option>
+                                                        <option value="296" data-tokens="Tobacco">Tobacco</option>
+                                                        <option value="298" data-tokens="Translation & Localization">Translation & Localization</option>
+                                                        <option value="300" data-tokens="Trucking/Railroad">Trucking/Railroad</option>
+                                                        <option value="302" data-tokens="Utilities">Utilities</option>
+                                                        <option value="304" data-tokens="Venture Capital & Private Equity">Venture Capital & Private Equity</option>
+                                                        <option value="306" data-tokens="Veterinary">Veterinary</option>
+                                                        <option value="308" data-tokens="Warehousing">Warehousing</option>
+                                                        <option value="310" data-tokens="Wholesale">Wholesale</option>
+                                                        <option value="312" data-tokens="Wine & Spirits">Wine & Spirits</option>
+                                                        <option value="314" data-tokens="Wireless">Wireless</option>
+                                                        <option value="315" data-tokens="Writing & Editing">Writing & Editing</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2"></div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="g_submit_more" type="button" class="btn btn-default register-submit" onclick="submit_form_more()" disabled>Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% block full_content %}{% endblock %}
+
+    </div>
+    <nav id="bottom_nav" class="navbar" style="background-color: #f3f3f3 !important;background-image: none; margin-bottom: 0px">
+    <div class="container-fluid">
+        <div class="navbar-collapse" id="bs-example-navbar-collapse-12">
+            <ul class="nav navbar-nav">
+                {% if '/about' in request.path %}
+                    <li class=""><a onclick="reload('{{ url_for('main.about_') }}')" class="menu-item-active">About ILMJTCV</a></li>
+                {% else %}
+                    <li class=""><a onclick="reload('{{ url_for('main.about_') }}')" class="menu-item">About ILMJTCV</a></li>
+                {% endif %}
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="https://twitter.com/ILMJTCV" class="social menu-item" target="_blank">
+                            <i class="fa fa-twitter fa-lg"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/ilostmyjobtocoronavirus/" class="social menu-item" target="_blank">
+                            <i class="fa fa-instagram fa-lg "></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/organization-guest/company/ilmjtcv?challengeId=AQGkO_N7j8t-aQAAAXMrA_HccTqb2MaygwIjyVyL5R48nB7-b90e3a_hv7vFgZbnxvPEoqH8hxv8xsbQnMioKJEaOpl-CgeU7Q&submissionId=4ff3bde4-1c93-1f16-28d9-baccf270776d" class="social menu-item" target="_blank">
+                               <i class="fab fa-linkedin-in fa-lg"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:support@ilmjtcv.com" class="social menu-item" target="_blank">
+                            <i class="fa fa-envelope fa-lg"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+    </nav>
+{% endblock %}
+
+

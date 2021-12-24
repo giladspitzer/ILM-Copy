@@ -1,0 +1,7 @@
+Dear Recruiters,
+New candidates have been matched with your search {{ search.title }}. Head to the search page to review them:
+
+{{ url_for('partnership.saved_search', id=search.id, _external=True) }}
+
+Sincerely,
+The ILMJTCV Team

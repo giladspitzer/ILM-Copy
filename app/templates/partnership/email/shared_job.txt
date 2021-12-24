@@ -1,0 +1,7 @@
+Dear {{ recipient.name }},
+{{ sender.name }} has shared you on their Job Posting ({{ job.job_title }} @ {{ job.company }}). Click below to begin interacting with {{ sender.name }} on this posting.
+Sincerely,
+The ILMJTCV Team
+
+
+{{ url_for('partnership.job_posting', id=job.id, _external=True) }}

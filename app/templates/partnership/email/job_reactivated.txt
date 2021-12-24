@@ -1,0 +1,6 @@
+Dear {{ recruiter.user.name }},
+Your job posting for {{ job.job_title }} at {{ job.company }} has been REactivated. All applicants have been notified that this job posting is available again.
+Sincerely,
+The ILMJTCV Team
+
+{{ url_for('partnership.job_posting', id=job.id, _external=True) }}

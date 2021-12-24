@@ -1,0 +1,10 @@
+Dear {{ user.username }},
+
+We're so sorry to see you go. Confirm your request to delete your ILMJTCV account by clicking below. Please note that any and all data (i.e. posts, comments, job notes, etc.) will be permanently deleted.
+
+If you did not request an account deletion, someone may have accessed your account. Please head to your profile and request a password reset.
+
+Sincerely,
+The ILMJTCV Team
+
+{{ url_for('auth.confirm_account_deletion', token=token, _external=True) }}

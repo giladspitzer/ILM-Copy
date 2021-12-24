@@ -1,0 +1,1 @@
+The map has been officially updated! There are now {{ users }} users.

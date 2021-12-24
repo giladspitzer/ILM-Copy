@@ -1,0 +1,199 @@
+.examples{
+    background-color: #30415d;
+    min-height: 900px;
+}
+
+.sign_up{
+    background-color: #f3f3f3;
+    min-height: 500px;
+}
+
+.container{
+    min-height: 0;
+}
+
+.content_container{
+    overflow-x: hidden;
+}
+
+.institution_attended{
+    background-color: #eee;
+    border-radius: 10px;
+    padding: 1px 7px 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-image: initial;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    letter-spacing: normal;
+    word-spacing: normal;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    margin-top: 10px;
+}
+
+.institution_attended:hover{
+    color: #4D80E4;
+    cursor: pointer;
+}
+
+.employer_attended{
+    background-color: #eee;
+    border-radius: 10px;
+    padding: 1px 7px 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-image: initial;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    letter-spacing: normal;
+    word-spacing: normal;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    margin-top: 10px;
+}
+
+.employer_attended:hover{
+    color: #4D80E4;
+    cursor: pointer;
+}
+
+.pac-container {
+    z-index: 1051 !important;
+}
+
+.resume_parsed{
+    color: red;
+    float: left;
+    text-align: start;
+    max-width: 70%;
+}
+
+.city_for_recruiting{
+        background-color: #eee;
+    border-radius: 10px;
+    padding: 1px 7px 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-image: initial;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    letter-spacing: normal;
+    word-spacing: normal;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    margin-top: 10px;
+}
+
+.step-list {
+    list-style: none;
+    color: #30415d;
+}
+
+.steps h2 {
+    font-size: 32px;
+    text-align: left;
+    color: #cf6766;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.steps h1 {
+    font-size: 52px;
+    text-align: left;
+    color: #cf6766;
+    font-weight: 700;
+    margin-bottom: 35px;
+}
+
+.step span {
+    display: block;
+    font-size: 22px;
+    line-height: 26px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.step {
+    margin-bottom: 40px;
+    margin-left: 10px;
+    position: relative;
+    font-size: 16px;
+    line-height: 22px;
+    transition: color 400ms;
+}
+
+.step-list .active {
+    color: #4d80e4;
+    transition: color 400ms;
+}
+
+.step::before {
+    background-color: #cf6766;
+    border-radius: 50px;
+    position: absolute;
+    margin-left: -45px;
+    left: 0;
+    width: 6px;
+    opacity: 0;
+    content: " ";
+    height: 0;
+    transition: all 400ms;
+    animation: slideInUp 400ms;
+}
+
+.step.active::before {
+    opacity: 1;
+    height: 100%;
+}
+
+.step:hover {
+    color: #4d80e4;
+    cursor: pointer;
+    transition: color 400ms;
+}
+
+.carousel-fade .carousel-inner .item {
+    transition: opacity 1s ease-in-out;
+}
+
+.enroll-btn{
+    width: 85%;
+    font-size: 28px;
+    border: 2px solid #4D80E4;
+    border-radius: 24px;
+    color: #4D80E4;
+    outline: none;
+    margin: auto;
+    display: block;
+    margin-bottom: 15px;
+    min-width: 330px;
+}
+
+.enroll-btn:hover{
+    color: white;
+    background-color: #4D80E4;
+    border-color: #a94442;
+}
+

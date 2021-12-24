@@ -1,0 +1,53 @@
+<td class="col-xs-2" style="padding-right: 0px">
+    <img src="{{ candidate.search.agency.avatar(50) }}" class="candidacy-img img-rounded">
+</td>
+<td class="col-xs-3">
+    <p class="candidacy-text"><a href="{{ candidate.search.agency.website }}" target="_blank">{{ candidate.search.agency.name }}</a></p>
+</td>
+<td class="col-xs-3">
+    <p class="candidacy-text">{{ candidate.search.title }}</p>
+</td>
+<td class="col-xs-2" style="text-align: center; vertical-align: middle">
+    {{ candidate.search.candidates.count() - 1}}
+</td>
+<td class="col-xs-2" style="padding-left: 0; text-align: center">
+    {% if candidate.message_board.count() > 0 %}
+        <a href="{{ url_for('main.message', id=candidate.message_board.first().id) }}">
+            <i class="far fa-comment fa-2x menu-item" style="margin-top: 18px"></i>
+            {% if candidate.message_board.first().last_active > candidate.message_board.first().activity.filter_by(user_id=current_user.id).first().last_seen %}
+                <span class="badge" id="message_count">!!!</span>
+            {% endif %}
+        </a>
+    {% else %}
+        {% if candidate.search.public == True %}
+            <p class="menu-item" style="margin-top: 18px" data-toggle="modal" data-target="#modal_{{ candidate.id }}">Reach out!</p>
+        {% else %}
+            <p style="margin-top: 18px; font-size: 10px">This search is private</p>
+        {% endif %}
+    {% endif %}
+</td>
+
+{% if candidate.search.public == True %}
+<td class="modal fade" id="modal_{{ candidate.id }}" tabindex="-1" role="dialog" aria-labelledby="modal_{{ candidate.id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="display: contents">Message to recruiters of '{{ candidate.search.title }}' job search</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: red">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <label for="subject">Subject</label>
+            <input onkeyup="check_form_length({{ candidate.id }})" class="form-control" id="subject_{{ candidate.id }}" maxlength="140" name="subject" placeholder="What is this message about" required="" type="text" value="'{{ candidate.search.title }}' ~~ {{ candidate.user.name }}" disabled="">
+            <label for="message" style="margin-top: 10px">Message</label>
+            <textarea onkeyup="check_form_length({{ candidate.id }})" class="form-control" id="message_{{ candidate.id }}" maxlength="140" name="message" placeholder="Your message...." required="" style="height:65px; overflow:auto; resize:none"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button id="close_{{ candidate.id }}" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="submit_{{ candidate.id }}" type="button" class="btn btn-default register-submit" onclick="send_recruiter_msg({{ candidate.id }})" disabled="">Send Message</button>
+      </div>
+    </div>
+  </div>
+</td>
+{% endif %}

@@ -1,0 +1,10 @@
+Congratulations {{ recruiter.user.name }}!
+
+Your request for {{ recruiter.agency.name }} to partner with ILMJTCV has been approved. In order to proceed, you must complete your individual account setup by clicking the link below:
+
+{{ url_for('auth.confirm_recruiter', token=token, _external=True) }}
+
+Let us know if you have any questions, comments or concerns!
+
+Sincerely,
+The ILMJTCV Team

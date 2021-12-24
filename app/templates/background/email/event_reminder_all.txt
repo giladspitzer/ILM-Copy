@@ -1,0 +1,11 @@
+Hi {{ user.name }},
+{{ event.title }} with {{ event.speakers[0].name }} will begin in 5 minutes! Click below to join us for our 4-week mentorship sprint. We look forward to seeing you there!
+Sincerely,
+The ILMJTCV team
+
+https://ilmjtcv.com/events?event={{ event.id }}
+
+
+
+
+

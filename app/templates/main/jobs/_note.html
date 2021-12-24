@@ -1,0 +1,5 @@
+<div class="row note" note-id="{{ note.id }}">
+    <p style="margin-bottom: 5px; color: #818181; font-size: 12px; line-height: 16px; padding-left: 5px;"><a class="note_name" style="color: black; text-decoration: none" href="{{ url_for('main.user', username=note.search.user.username) }}" >{{ note.search.user.name }}</a><span style="color: black"> •</span> {{ moment(note.timestamp).fromNow() }}</p>
+    <div style="margin-top: 1px; width: 90%; margin-right: 15px; margin-left: 5px"><span style="color: #30415d; font-size: 18px" class="no-highlight"> ↳ </span><span class="note_text" note-id="{{ note.id }}">{{ note.body }}</span></div>
+</div>
+

@@ -1,0 +1,46 @@
+{% extends "info.html" %}
+
+{% block info_content %}
+    <style>
+    .main_info_row{
+        overflow-y: hidden !important;
+    }
+    </style>
+    <div class="row" style="margin: 2vh 5vw 15vh 4vw; overflow-y: auto; overflow-x: hidden; height: 86vh" id="news_content" onscroll="load_more_news_articles(this)" data-set="0">
+        <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="loadingio-spinner-spinner-ok7idc80he9" style="display: block; margin: auto; text-align: center"><div class="ldio-u1oevpwp8f">
+                                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                    </div></div>
+                                </div>
+                            </div>
+        <div class="clearfix visible-md visible-lg visible-sm"></div>
+    </div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/get_news_articles',
+            data: {'set': 0},
+            success: function (response) {
+                if(response['status'] === 'success'){
+                    $('#news_content').html(response['html'])
+                    $('#news_content').attr('data-set', parseInt($('#news_content').attr('data-set')) + 1)
+                    make_moments()
+                }else{
+                    custom_error_popup(response['message'])
+                }
+            },
+            error: function () {
+                error_popup()
+            }
+        })
+    })
+</script>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/external.css') }}">
+{% endblock %}
+{% block info_title %}
+    ILMJTCV in the News
+{% endblock %}
+

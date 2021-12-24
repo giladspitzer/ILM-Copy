@@ -1,0 +1,6 @@
+Dear {{ name }},
+
+We're so sorry to see you go. Your account has officially been deleted along with all of your data. We at ILMJTCV wish you luck in all of your future endeavours!
+
+Sincerely,
+The ILMJTCV Team

@@ -1,0 +1,249 @@
+.dash-content{
+    box-sizing: border-box;
+}
+
+.top {
+    display: table;
+    margin: 0 auto;
+}
+
+.top h1 {
+    margin: 40px auto 40px auto;
+    font-size: 30px;
+    text-align: center;
+}
+
+.section_bar {
+    background-color: #4d80e4;
+    color: #f3f3f3;
+    width: 80%;
+    margin: 0 auto;
+    font-size: 20px;
+    padding: 10px 0 10px 20px;
+    border-radius: 5px;
+}
+
+.notification_section {
+    width: 80%;
+    max-height: 100px;
+    margin: 0 auto 20px auto;
+    overflow-y:  hidden;
+}
+
+.section_items {
+    width: 100%;
+}
+
+.notification_section:hover {
+    overflow-y:  auto;
+}
+
+.notification_section::-webkit-scrollbar {
+    width: 5px;
+}
+
+.notification_section::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    opacity: 50%;
+    border-radius: 5px;
+}
+
+.no_new {
+    text-align: center;
+    margin-top: 10px;
+    color: #8d8b8b;
+}
+
+.activity_link:hover {
+    text-decoration: none;
+}
+
+.activity {
+    padding: 7px 10px 5px 10px;
+    margin: 0 10px;
+    position: relative;
+}
+
+.activity:hover {
+    color: #8d8b8b;
+}
+
+.activity_title {
+    font-align: left;
+    font-size: 16px;
+}
+
+.activity_time {
+    position: absolute;
+    right: 10px;
+    font-align: right;
+    font-size: 16px;
+}
+
+.activity:after {
+    content: "";
+    background-color: #8d8b8b;
+    height: 1px;
+    width: 100%;
+    position:absolute;
+    bottom: -3px;
+    left: 0;
+}
+
+.form {
+    display:table-cell;
+    horiz-align: center;
+}
+
+.form-input {
+    float: left;
+}
+
+.input-box {
+    width: 300px;
+    margin-right: 15px;
+    float: left;
+}
+
+#button-form {
+    background-color: #4d80e4;
+    color: #f3f3f3;
+    border: none;
+    border-radius: 5px;
+    padding: 6px;
+    margin-bottom: 10px;
+    width: 150px;
+    height: 34px;
+    border: 2px solid #4d80e4;
+    line-height: 19px;
+}
+
+.widget-box {
+    background-color: #f3f3f3;
+    min-height: 250px;
+    width: 300px;
+    border-radius: 40px;
+    position: relative;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.25);
+}
+
+.widget-box h3 {
+    text-align: center;
+    font-size: 20px;
+    padding: 15px 0 20px 0;
+    font-weight: bold;
+}
+
+.widget-content {
+    padding-left: 25px;
+}
+
+.widget-content h4 {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.button {
+    background-color: #4d80e4;
+    height: 34px;
+    border: 2px solid #4d80e4;
+    line-height: 19px;
+    color: #f3f3f3;
+    border-radius: 5px;
+    padding: 6px;
+    margin-bottom: 10px;
+    width: 150px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    bottom: -10px;
+}
+
+.button:hover, .button:focus, #button-form:hover, #button-form:focus {
+    border: 2px solid #4d80e4;
+    background-color: #f3f3f3;
+    color: #4d80e4;
+}
+
+.divider {
+    padding: 0;
+    margin: 0;
+    border: solid 1px #8d8b8b;
+    opacity: 30%;
+    width: 90%
+}
+
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .form {
+        display: table;
+        margin: 0 auto;
+    }
+
+    .widget-box {
+        margin-bottom: 20px;
+    }
+
+    #resource-widget-box {
+        margin: 0 auto 50px auto;
+        display: block;
+    }
+
+    .top {
+        margin-bottom: 30px;
+    }
+
+    .form-input {
+        align: center;
+        margin-bottom: 20px;
+    }
+
+    #location-input {
+        float: none;
+    }
+
+    #button-form {
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+        float: none;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 767px) {
+    #resource-widget-box, #inbox-widget-box {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .widget-box {
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+        width: 300px;
+        margin-bottom: 50px;
+    }
+
+    .input-box {
+        float: none;
+        margin-bottom: 10px;
+    }
+
+    form-input {
+        align: center;
+    }
+
+    #button-form {
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+        float: none;
+    }
+
+    .top {
+        margin-bottom: 20px;
+    }
+
+
+}

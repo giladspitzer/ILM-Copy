@@ -1,0 +1,110 @@
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.8s;
+    border-radius: 10px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  /*background-color: #ccc;*/
+}
+
+.active-mobile, .accordion:hover {
+  background-color: #ddd;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 10px 12px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+
+.accordion-reg {
+  color: #30415d;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: 0.4s;
+}
+
+.accordion-reg:hover {
+  color: #4D80E4;
+}
+
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 90%;
+  padding-bottom: 10px;
+  cursor:pointer;
+  border-radius: 5px;
+  min-height: 400px;
+  margin: 15px auto;
+  display: block;
+}
+
+.card_thx{
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 95%;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  min-height: 100px;
+  margin: 15px auto;
+  display: block;
+}
+
+.card img{
+  border-bottom: 1px solid #eee;
+}
+
+.card_thx:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2) !important;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+  /*padding: 2px 16px;*/
+  word-break: keep-all;
+  padding: 2px 16px;
+  width:100%;
+}
+
+.icon_no_click {
+  color: #30415d;
+  margin-top: 20px;
+  display: block;
+  margin: auto;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.icon_click {
+  color: #30415d;
+  margin-top: 20px;
+  display: block;
+  margin: auto;
+  text-align: center;
+  cursor: pointer;
+  padding-top: 5px;
+}
+
+.icon_click:hover{
+   color: #4D80E4;
+}

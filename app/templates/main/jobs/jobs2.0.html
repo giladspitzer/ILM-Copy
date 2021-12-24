@@ -1,0 +1,173 @@
+{% extends "jobs_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block main_content %}
+    <div id="goes_here" class="col-sm-12" style="min-height:85vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+        <div class="row job-content">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-6 searches-table hidden-sm hidden-md hidden-lg hidden-print">
+                <h3>My searches</h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        {% if type == 1 %}
+                            <li class="job_listings active_tab active"><a href="#">Active</a></li>
+                            <li><a href="{{ url_for('main.jobs', style=0) }}">Terminated</a></li>
+                        {% elif type == 0 %}
+                            <li><a href="{{ url_for('main.jobs', style=1) }}">Active</a></li>
+                            <li class="job_listings active_tab active"><a href="#">Terminated</a></li>
+                        {% endif %}
+                    </ul>
+                        <div id="job_content" style="min-height: 300px">
+                        {% if searches|length > 0 %}
+                            {% for search in searches %}
+                                <div class="row">
+                                    {% include 'main/jobs/search_preview.html' %}
+                                    <div class="col-sm-1"></div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {% if type == 1 %}
+                                <p style="margin: auto; margin-top: 30px !important; max-width: 70%; text-align: center">Job searches that are on-going will appear here.</p>
+                            {% elif type == 0 %}
+                                <p style="margin: auto; margin-top: 30px !important; max-width: 70%; text-align: center">Job searches that you terminate will appear here.</p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                </div>
+                <hr>
+        </div>
+            <div class="col-sm-3" style="margin-bottom: 20px">
+                   <h3>Add a new job search <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="bottom" data-content="You may add a search to your profile with specifications about the job you are looking for and we'll update you when we find matches!" style="cursor: pointer"></i></h3>
+                     {% if current_user.job_searches.count() < 3 %}
+                        {% include 'main/jobs/job_ss_form.html' %}
+                    {% else %}
+                         <h4 class="no-posts" style="margin-top: 40px; margin-bottom: 0">You are only allowed three searches!</h4>
+                         {% include 'main/jobs/job_ss_form_disabled.html' %}
+                    {% endif %}
+            </div>
+            <div class="col-sm-6 searches-table hidden-xs">
+                <h3>My searches</h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        {% if type == 1 %}
+                            <li class="job_listings active_tab active"><a href="#">Active</a></li>
+                            <li><a href="{{ url_for('main.jobs', style=0) }}">Terminated</a></li>
+                        {% elif type == 0 %}
+                            <li><a href="{{ url_for('main.jobs', style=1) }}">Active</a></li>
+                            <li class="job_listings active_tab active"><a href="#">Terminated</a></li>
+                        {% endif %}
+                    </ul>
+                        <div id="job_content" style="min-height: 300px">
+                        {% if searches|length > 0 %}
+                            {% for search in searches %}
+                                <div class="row">
+                                    {% include 'main/jobs/search_preview.html' %}
+                                    <div class="col-sm-1"></div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {% if type == 1 %}
+                                <p style="margin: auto; margin-top: 30px !important; max-width: 70%; text-align: center">Job searches that are on-going will appear here.</p>
+                            {% elif type == 0 %}
+                                <p style="margin: auto; margin-top: 30px !important; max-width: 70%; text-align: center">Job searches that you terminate will appear here.</p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="modal fade" id="loading_modal" tabindex="-1" role="dialog" aria-labelledby="loading_modal" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content loading-modal" style="background-color: transparent">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="loadingio-spinner-spinner-ok7idc80he9"><div class="ldio-u1oevpwp8f">
+                                                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                                    </div></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12" style="text-align: center; font-weight: 700; font-size: 20px; line-height: 32px; color: white" id="loading_text">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                </div>
+         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=current_app.config.get('GOOGLE_API')"></script>
+        <script src="{{ url_for('static', filename='js/jobs.js') }}"></script>
+        <link href="{{ url_for('static', filename='css/jobs.css') }}" rel="stylesheet" />
+        <script>
+        function add_listeners() {
+            var acc = document.getElementsByClassName("job_listing");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+              acc[i].addEventListener("click", function() {
+                this.classList.toggle("active_job");
+                if (this.innerHTML.includes('+')){
+                    this.innerHTML = this.innerHTML.replace('+', '-')
+                }else if (this.innerText.includes('-')){
+                    this.innerHTML = this.innerHTML.replace('-', '+')
+                }
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                  panel.style.display = "none";
+                } else {
+                  panel.style.display = "block";
+                }
+              });
+            }
+        }
+        $(document).ready(function () {
+            add_listeners()
+        })
+
+        </script>
+            <script>
+        function updater() {
+            var continue_btn = document.getElementById('submit');
+            var industry = document.getElementById('industry');
+            var title = document.getElementById('title');
+            var city = document.getElementById('city');
+            if (industry.value != '0' && title.value.length > 0 && city.value.length > 0){
+                continue_btn.removeAttribute('disabled');
+
+            }else{
+                continue_btn.setAttribute('disabled','')
+            }
+        };
+        $('#form').on('blur keyup change click', function(){
+            updater()
+        });
+        </script>
+            <script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover({
+                    placement : 'top',
+                    trigger : 'hover'
+                });
+            });
+    </script>
+        <script>
+            window.addEventListener('beforeunload', (event) => {
+                var c = document.getElementById('loading_modal');
+                  if (c.style.display == 'block') {
+                    event.returnValue = 'You have unfinished changes!';
+                  }
+        });
+        </script>
+        {% if current_user.completed < 2 %}
+            <script src="{{ url_for('static', filename='js/more_info.js') }}"></script>
+        {% else %}
+            {% if not current_user.email_verified %}
+                <script src="{{ url_for('static', filename='js/email_required.js') }}"></script>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

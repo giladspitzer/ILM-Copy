@@ -1,0 +1,5 @@
+Dear {{ user.name }},
+Somebody has signed up for your mentorship appointment!
+Click on the calendar attachment at the bottom of this email to save this event to your calendar and click the button below to begin reviewing their resume.
+Sincerely,
+The ILMJTCV team

@@ -1,0 +1,5 @@
+Dear {{ recruiter.user.name }},
+Your Talent Search for {{ search.title }} has officially been deleted.
+Sincerely,
+The ILMJTCV Team
+

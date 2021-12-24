@@ -1,0 +1,10 @@
+Hi {{name}},
+
+My name is Sigal Spitzer and I am one of the co-founders of ILostMyJobToCoronavirus. Nice to e-meet you!
+
+Thank you for applying to be a recruiter on the website. I want to welcome you to our community and let you know that I am here to answer any questions you may have about conducting job searches, posting jobs, interacting with candidates, etc. I look forward to working together to fill your open job positions with our diverse talent base in the near future.
+
+All the best,
+Sigal
+
+

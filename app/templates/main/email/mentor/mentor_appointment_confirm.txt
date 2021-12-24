@@ -1,0 +1,6 @@
+Dear {{ user.name }},
+You have successfully registered for an ILMJTCV Mentorship appointment!
+Please click on the calendar attachment at the bottom of this email to save this event to your calendar.
+Congrats on taking this step closer to employment!
+Sincerely,
+The ILMJTCV team

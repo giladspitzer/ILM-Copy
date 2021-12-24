@@ -1,0 +1,45 @@
+<div class="post-option" data-dismiss="modal" style="display: inline-block; float: right; margin-right: 2%;">X</div>
+<div class="partner_header row" style="margin: 10px">
+  <div class="col-sm-3 col-xs-12 centered_small">
+    <img class="main_img" src="{{ partner.avatar() }}">
+  </div>
+  <div class="col-sm-9 col-xs-12 centered_small">
+    <h4 class="name">{{ partner.name }}</h4>
+      <p class="snippet">ILMJTCV members receive <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">a FREE</span> 30-minute Clarity Call to discuss your goals, <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">early bird pricing</span> and a <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">special discount</span> on 3 private 30-minute coaching sessions with Lenore.</p>
+    <div class="hidden-print hidden-lg hidden-md hidden-sm visit_btn" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+  </div>
+</div>
+<hr style="margin: 5px 0 0 0">
+<div class="main_partner">
+  <div class="partner_content col-sm-9 col-xs-12" style="height: 58vh">
+    <div class="about">
+      <h3>About</h3>
+      <p style="font-size: 15px">Growth Warrior provides leadership empowerment and business growth strategies for leaders and organizations navigating change.  Through private and group coaching, workshops, training and strategy facilitation, we align the internal, external and interpersonal growth elements that make SHIFT happen.</p>
+      <p style="font-size: 15px">Join Growth Warrior Lab, a 3-month program starting October 1,2020 that includes small curated Growth Mastermind peer groups (limited to 6-10 people), larger group training sessions, access to a self-guided Growth Vision online course and a broader community network for those who are looking to reinvent or reposition themselves now.  ILMJTCV members will get access to the special early bird pricing rate (which is only available from September 7-9) and a special bonus of 3 private 30-minute coaching sessions with Lenore (a $525 value) for $850 (pay in full) or 3 payments of $300.  It's also possible to join the Growth Mastermind only for $600 or access the Growth Vision course and community calls for $300.  Contact Lenore directly at <a href="mailto:lenore@growthwarrior.co" target="_blank">lenore@growthwarrior.co</a>  to schedule your complimentary 30-minute Clarity Call to discuss your goals and learn more about this program.</p>
+    </div>
+    <img src="{{ url_for('static', filename='images/partners/gw_special.png') }}" style="width: 100%; max-width: 600px; display: block; margin: 10px auto; text-align: center">
+    <div class="promotions">
+      <h3>Specialty Fields</h3>
+      <ul class="wftj_fields">
+        <li>Leadership Development</li>
+        <li>Career Coaching</li>
+        <li>Technology</li>
+        <li>FinTech</li>
+        <li>Marketing</li>
+        <li>Corporate Communications</li>
+        <li>Finance & Sales</li>
+      </ul>
+    </div>
+      <div class="filler_special"></div>
+      <div class="filler_special"></div>
+  </div>
+  <div class="col-sm-3 col-xs-12">
+    <div class="visit_btn hidden-xs" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+    <div class="partner_sidebar">
+      <h3>Meet The Founder</h3>
+      <img src="{{ url_for('static', filename='images/partners/lenore_kantor.png') }}" class="img-rounded" style="width: 20%">
+      <p style="display: inline-block; font-size: 20px">Lenore Kantor</p>
+      <p style="padding: 5px 10px">Lenore Kantor is a Change Clarity Coach for high achievers craving more fulfillment from their life and work. As a leadership empowerment and business growth expert, she helps clients connect with their vision to create the change they desire – in themselves, others and the world.  Lenore will guide you to pivot, reposition or reinvent yourself, achieve big goals or break free of the corporate grind before it slowly kills your soul.   With fierce compassion, decades of executive experience, marketing and launch expertise and profound inner work modalities, Lenore guides clients to develop the clarity, skills, mindset and courage to create life and work on their own terms. She helps you step into your purpose and authentic leadership with confidence and ease to make SHIFT happen.</p>
+    </div>
+  </div>
+</div>

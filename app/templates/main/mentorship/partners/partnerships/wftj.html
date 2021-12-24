@@ -1,0 +1,57 @@
+<div class="post-option" data-dismiss="modal" style="display: inline-block; float: right; margin-right: 2%;">X</div>
+<div class="partner_header row" style="margin: 10px">
+    <div class="col-sm-3 col-xs-12 centered_small">
+        <img class="main_img" src="{{ partner.avatar() }}">
+    </div>
+    <div class="col-sm-9 col-xs-12 centered_small">
+        <h4 class="name">{{ partner.name }}</h4>
+        <p class="snippet">ILMJTCV members receive a <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">free 15 min.</span> career coaching session and <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">15% off</span> all orders.</p>
+        <div class="hidden-print hidden-lg hidden-md hidden-sm visit_btn" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+    </div>
+</div>
+<hr style="margin: 5px 0 0 0">
+<div class="main_partner">
+    <div class="partner_content col-sm-9 col-xs-12" style="height: 58vh">
+        <div class="about">
+            <h3>About</h3>
+            <p style="font-size: 15px">In a time when unemployment is high and millions of people are tackling the job search due to COVID-19, it's essential that you are strategic and thoughtful about the way you position yourself in the job hunt.</p>
+            <p style="font-size: 15px">So ask yourself: is your resume captivating and memorable in a sea of job applications? Are you recognizing the need to pivot industries but have no clue how to pitch yourself effectively in your cover letter? Have you optimized Linkedin so HR professionals recruit you as new talent for their company?</p>
+            <p style="font-size: 15px">Write For The Job helps you land a job that makes you happy by crafting your professional materials to tell your story. No matter your industry, together we prepare your professional materials — resume, cover letter, and Linkedin profile — to prove your value add and why you’re right for the job.</p>
+        </div>
+        <div class="promotions">
+            <h3>What we'll do in 15 min.</h3>
+            <img src="{{ url_for('static', filename='images/partners/wftj15_min.png') }}" style="width: 100%; margin: 5px auto; display: block; max-height: 200px">
+            <h3>Specialty Fields</h3>
+            <ul class="wftj_fields">
+                <li>Advertising</li>
+                <li>Creative Freelancing</li>
+                <li>Digital Marketing</li>
+                <li>Engineering</li>
+                <li>Finance</li>
+                <li>Fundraising</li>
+                <li>Journalism</li>
+                <li>Law</li>
+                <li>Non-Profit Work</li>
+                <li>Nursing</li>
+                <li>Nutrition</li>
+                <li>Politics</li>
+                <li>Public Relations</li>
+                <li>Real Estate</li>
+                <li>Wellness</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-3 col-xs-12">
+        <div class="visit_btn hidden-xs" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+        <div class="partner_sidebar">
+            <h3>Meet The Founder</h3>
+            <img src="{{ url_for('static', filename='images/partners/wftj_sarah.png') }}" class="img-rounded" style="width: 20%">
+            <p style="display: inline-block; font-size: 20px">Sarah Sax</p>
+            <p style="padding: 5px 10px">For more than a decade, Sarah has used the power of words to articulately communicate stories in journalism and fundraising. She transfers her storytelling and writing talent to revamp professional materials for her clients to prove why they are right for the job. Sarah writes résumés, cover letters, and LinkedIn profiles to reflect each client's authenticity, drive, and skills. She is energized and dedicated to guiding clients in effectively presenting themselves for a job that will catapult their dreams into fulfilling careers.</p>
+        </div>
+    </div>
+</div>
+
+{#<p class="snippet">{{ partner.description }}</p>#}
+{#<hr style="margin-bottom: 10px">#}
+{#<div class="learn_more" partner-id="{{ partner.id }}">Learn More</div>#}

@@ -1,0 +1,5 @@
+Dear {{ user.username }},
+A job that you applied to ({{ job.job_title }} @ {{ company }}) is no longer seeking applicants.
+Head to your jobs portal to browse some of the other millions of jobs in our database. Happy job hunting!
+Sincerely,
+The ILMJTCV team

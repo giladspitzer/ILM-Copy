@@ -1,0 +1,52 @@
+<div class="post-option" data-dismiss="modal" style="display: inline-block; float: right; margin-right: 2%;">X</div>
+<div class="partner_header row" style="margin: 10px">
+  <div class="col-sm-3 col-xs-12 centered_small">
+    <img class="main_img" src="{{ partner.avatar() }}">
+  </div>
+  <div class="col-sm-9 col-xs-12 centered_small">
+    <h4 class="name">{{ partner.name }}</h4>
+      <p class="snippet">ILMJTCV members receive one <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">FREE</span> hour of coaching & <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase"> discounted</span> workshops, leadership coaching and more! </p>
+    <div class="hidden-print hidden-lg hidden-md hidden-sm visit_btn" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+  </div>
+</div>
+<hr style="margin: 5px 0 0 0">
+<div class="main_partner">
+  <div class="partner_content col-sm-9 col-xs-12" style="height: 58vh">
+    <div class="about">
+      <h3>About</h3>
+      <p style="font-size: 15px">I cultivate a safe space so that people have the courage to find and live their truth, no matter their fears. I believe that living your truth begins on the path from purpose, and is honored by embracing your most authentic self-expression.</p>
+      <p style="font-size: 15px">I do this work because I love it, and it supports my mission to build a more meaningful, emotionally connected world where people love what they do and love how they feel.</p>
+      <p style="font-size: 15px">I bring my whole heart to what I do because it serves my purpose, which is inspired by the deepest pain, fear and ultimate joy I experienced coming out and embracing my own truth.</p>
+    </div>
+    <div class="promotions">
+      <h3>Specialty Fields</h3>
+      <ul class="wftj_fields">
+        <li>Education</li>
+        <li>Broadcast Media</li>
+        <li>Civic & Social Organization</li>
+          <li>Consumer Services</li>
+          <li>E-learning</li>
+        <li>Health</li>
+        <li>Graphic Design</li>
+        <li>Human Resources</li>
+        <li>Real Estate</li>
+          <li>Marketing & Advertising</li>
+          <li>Market Research</li>
+          <li>Travel & Tourism</li>
+          <li>Wellness & Fitness</li>
+          <li>Finance & Sales</li>
+          <li>Individual & Family Services</li>
+      </ul>
+        <div class="filler"></div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-xs-12">
+    <div class="visit_btn hidden-xs" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+    <div class="partner_sidebar">
+      <h3>Meet The Founder</h3>
+      <img src="{{ url_for('static', filename='images/partners/chris_rollins.png') }}" class="img-rounded" style="width: 20%">
+      <p style="display: inline-block; font-size: 20px">Chris Rollins</p>
+      <p style="padding: 5px 10px">Chris is a purpose driven leadership and executive coach on a mission to build a more meaningful, emotionally connected world where people love what they do and love how they feel. He specializes in helping unfulfilled high achievers experience the life-changing joy of living more fully into their truth. He believes that living your truth begins on the path from purpose, and is honored by embracing your most authentic self-expression. He brings his whole heart to his work because it serves his purpose, which is inspired by the pain, fear and ultimate joy he experienced coming out and embracing his own authenticity -- as a gay man and a leader.</p>
+    </div>
+  </div>
+</div>

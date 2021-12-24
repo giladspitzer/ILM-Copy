@@ -1,0 +1,25 @@
+<div class="upcoming">
+    <div class="info">
+        <img class="img-rounded" src="{{ appointment.mentor.user.avatar(30) }}" style="display: inline">
+        <p style="display:inline;">{{ appointment.mentor.user.name }}</p>
+    </div>
+    <p class="time">{{ moment(appointment.start_time).format('LL') }}: {{ moment(appointment.start_time).format('LT') }} -- {{ moment(appointment.end_time).format('LT') }}</p>
+</div>
+
+<p>Please rate this session on how helpful your mentor was in achieving the goals that you hoped to accomplish.</p>
+
+<div class="stars no-highlight">
+    <i class="fas fa-star star" placement="1"></i>
+    <i class="fas fa-star star" placement="2"></i>
+    <i class="fas fa-star star" placement="3"></i>
+    <i class="fas fa-star star" placement="4"></i>
+    <i class="fas fa-star star" placement="5"></i>
+</div>
+
+<div class="rating">
+    <span id="number_rating">5</span>/5
+</div>
+
+<div class="sidenav_btn" style="margin: 20px auto; width: 50%" id="save_rating" app-id="{{ appointment.id }}">
+    SAVE RATING
+</div>

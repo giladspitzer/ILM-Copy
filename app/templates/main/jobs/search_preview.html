@@ -1,0 +1,71 @@
+<div class="col-sm-11 ">
+    {% if search.last_checked < search.last_updated %}
+    <h4 class="job_listing no-highlight">+ {{ search.title }} <i class="fas fa-fire flame"></i></h4>
+    {% else %}
+        <h4 class="job_listing no-highlight">+ {{ search.title }}</h4>
+    {% endif %}
+    <div class="job_info">
+        <ul>
+            {% if search.snippet|length > 0  %}
+                <li>
+                Description:
+                <ul>
+                    <li>
+                        {{ search.snippet }}
+                    </li>
+                </ul>
+            </li>
+            {% endif %}
+                <li>
+                Info:
+                <ul>
+                    <li>
+                        Started {{ moment(search.start).fromNow() }}
+                    </li>
+                    {% if search.status == 0 %}
+                    <li>
+                        Terminated {{ moment(search.ended).fromNow() }}
+                    </li>
+                    {% endif %}
+                    <li>
+                        {% for industry in search.industries %}
+                            {{ industry.title }},
+                        {% endfor %}
+                    </li>
+                    {% if search.l_specific %}
+                        <li>
+                            {{ search.city.name }} (within {{ search.proximity.title }})
+                        </li>
+                    {% endif %}
+                    <li>Last Updated: {{ moment(search.last_updated).fromNow() }}</li>
+                </ul>
+            </li>
+                <li>
+                {% if search.last_checked < search.last_updated %}
+                    <i class="fas fa-fire flame"></i> <i class="fas fa-fire flame"></i> <i class="fas fa-fire flame"></i>
+                {% endif %}
+                    Jobs: {{ search.jobs|length }}{% if search.last_checked < search.last_updated %} <b>(new listings you haven't seen)</b>{% endif %}
+
+
+            </li>
+        </ul>
+        {% if search.status == 1 %}
+        <div class="row" style="text-align: center; margin-bottom: 10px">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6" style="text-align: center">
+                    <button class="register-submit" onclick="document.location ='{{ url_for('main.job_search', id=search.id) }}'">View Search</button>
+                </div>
+                <div class="col-sm-3"></div>
+        </div>
+        {% else %}
+            <div class="row" style="text-align: center; margin-bottom: 10px">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6" style="text-align: center">
+                    <button class="register-submit" onclick="document.location ='{{ url_for('main.activate_job_search', id=search.id) }}'">Re-activate</button>
+                </div>
+                <div class="col-sm-3"></div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>

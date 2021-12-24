@@ -1,0 +1,7 @@
+Dear {{ user.username }},
+Your mentorship appointment with {{ appointment.mentor.user.name }} will begin in 5 minutes. Please be ready to join the Zoom meeting by clicking below.
+Sincerely,
+The ILMJTCV team
+
+
+https://ilmjtcv.com/sessions?join_appointment={{ appointment.id }}

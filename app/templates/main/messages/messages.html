@@ -1,0 +1,13 @@
+{% extends "new_sidebar/messages_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block board_content %}
+    <div class="row">
+        <div class="col-sm-12" style="height: {% if current_user.is_recruiter %}85vh{% else %}100vh{% endif %}">
+            <div class="no-posts" style="margin: 50% 30px; font-size: 24px; line-height: 32px; font-weight: 700">
+                Select a message thread from the sidebar to view its contents
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

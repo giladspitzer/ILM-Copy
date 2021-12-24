@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block full_content %}
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/homepage.css') }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{ url_for('static', filename='js/homepage_forms.js') }}"></script>
+    <script>
+    $(function () {
+        var available_industries = ['Education', 'Janitorial Services', 'Transportation', 'Accounting', 'Airlines/Aviation', 'Alternative Dispute Resolution', 'Alternative Medicine', 'Animation', 'Apparel & Fashion', 'Architecture & Planning', 'Arts & Crafts', 'Automotive', 'Aviation & Aerospace', 'Banking', 'Biotechnology', 'Broadcast Media', 'Building Materials', 'Business Supplies & Equipment', 'Capital Markets', 'Chemicals', 'Civic & Social Organization', 'Civil Engineering', 'Commercial Real Estate', 'Computer & Network Security', 'Computer Games', 'Computer Hardware', 'Computer Networking', 'Computer Software', 'Construction', 'Consumer Electronics', 'Consumer Goods', 'Consumer Services', 'Cosmetics', 'Dairy', 'Defense & Space', 'Design', 'E-learning', 'Education Management', 'Electrical & Electronic Manufacturing', 'Entertainment', 'Environmental Services', 'Events Services', 'Executive Office', 'Facilities Services', 'Farming', 'Financial Services', 'Fine Art', 'Fishery', 'Food & Beverages', 'Food Production', 'Fundraising', 'Furniture', 'Gambling & Casinos', 'Glass', 'Ceramics & Concrete', 'Government Administration', 'Government Relations', 'Graphic Design', 'Health', 'Wellness & Fitness', 'Higher Education', 'Hospital & Health Care', 'Hospitality', 'Human Resources', 'Import & Export', 'Individual & Family Services', 'Industrial Automation', 'Information Services', 'Information Technology & Services', 'Insurance', 'International Affairs', 'International Trade & Development', 'Internet', 'Investment Banking', 'Investment Management', 'Judiciary', 'Law Enforcement', 'Law Practice', 'Legal Services', 'Legislative Office', 'Leisure', 'Travel & Tourism', 'Libraries', 'Logistics & Supply Chain', 'Luxury Goods & Jewelry', 'Machinery', 'Management Consulting', 'Maritime', 'Market Research', 'Marketing & Advertising', 'Mechanical Or Industrial Engineering', 'Media Production', 'Medical Device', 'Medical Practice', 'Mental Health Care', 'Military', 'Mining & Metals', 'Motion Pictures & Film', 'Museums & Institutions', 'Music', 'Nanotechnology', 'Newspapers', 'Non-profit Organization Management', 'Oil & Energy', 'Online Media', 'Outsourcing/Offshoring', 'Package/Freight Delivery', 'Packaging & Containers', 'Paper & Forest Products', 'Performing Arts', 'Pharmaceuticals', 'Philanthropy', 'Photography', 'Plastics', 'Political Organization', 'Primary/Secondary Education', 'Printing', 'Professional Training & Coaching', 'Program Development', 'Public Policy', 'Public Relations & Communications', 'Public Safety', 'Publishing', 'Railroad Manufacture', 'Ranching', 'Real Estate', 'Recreational Facilities & Services', 'Religious Institutions', 'Renewables & Environment', 'Research', 'Restaurants', 'Retail', 'Security & Investigations', 'Semiconductors', 'Shipbuilding', 'Sporting Goods', 'Sports', 'Staffing & Recruiting', 'Supermarkets', 'Telecommunications', 'Textiles', 'Think Tanks', 'Tobacco', 'Translation & Localization', 'Trucking/Railroad', 'Utilities', 'Venture Capital & Private Equity', 'Veterinary', 'Warehousing', 'Wholesale', 'Wine & Spirits', 'Wireless', 'Writing & Editing'];
+        $( "#industry_test" ).autocomplete({
+            source: available_industries
+        });
+    })
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+          // Global settings:
+          disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
+          startEvent: 'DOMContentLoaded', // name of the event dispatched on the document, that AOS should initialize on
+          initClassName: 'aos-init', // class applied after initialization
+          animatedClassName: 'aos-animate', // class applied on animation
+          useClassNames: false, // if true, will add content of `data-aos` as classes on scroll
+          disableMutationObserver: false, // disables automatic mutations' detections (advanced)
+          debounceDelay: 50, // the delay on debounce used while resizing window (advanced)
+          throttleDelay: 99, // the delay on throttle used while scrolling the page (advanced)
+
+
+          // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+          offset: 120, // offset (in px) from the original trigger point
+          delay: 0, // values from 0 to 3000, with step 50ms
+          duration: 400, // values from 0 to 3000, with step 50ms
+          easing: 'ease', // default easing for AOS animations
+          once: false, // whether animation should happen only once - while scrolling down
+          mirror: false, // whether elements should animate out while scrolling past them
+          anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
+
+});
+    </script>
+
+    <script>
+    $(document).on('click', '.step', function(){
+        $(this).addClass('active').siblings().removeClass('active')
+    })
+    </script>
+    <style>
+    .active{
+        background-color: transparent !important;
+    }
+    </style>
+    <div class="row">
+        <div class="col-sm-12 no-padding">
+            <div class="welcome content_container" id=“welcome”>
+                <div class="row"></div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p style="float: right; margin-right: 30px">Are you a job seeker?<a class="menu-item" onclick="reload('{{ url_for('main.index_') }}')"> Click here.</a></p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 40px">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h1 id="title" style="color: #30415d">Welcome to ILMJTCV <span style="font-weight: normal; font-size: 20px">(for recruiters)</span> </h1>
+                                <h3 id="description" style=" color: #30415d; font-weight: lighter">We are a free platform to connect recruiters with those who are unemployed due to coronavirus.</h3>
+                            </div>
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-4">
+                                    <button class="btn btn-default register-submit" style="margin-top: 15px; font-size: 25px; text-align: center; display: block; margin-right: auto; margin-left: auto; vertical-align: middle" id="recruiter_search_test">Get Started</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+            </div>
+            <div style="background-color: #30415d">
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-10">
+                        <div class="video">
+                            <h2 class="section_title">What is ILMJTCV?</h2>
+                            <video autoplay muted loop id="explainer" preload="auto" autobuffer="true" playsinline="playsinline" controls="true" style="border-radius: 25px; outline: none" class="video" onvolumechange="set_muted(this)">
+                                <source type="video/mp4" src="{{ url_for('static', filename='images/example.mp4') }}">
+                            </video>
+                            <div id="overlay"><i class="fas fa-volume-mute"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+            </div>
+            <div class="how_it_works content_container" style="background-color: #f3f3f3;">
+                <div class="row" style="margin-top: 50px">
+                    <div class="col-sm-1"></div>
+                    <div class="carousel slide carousel-fade" id="carousel-hiw">
+                        <div class="col-sm-5">
+                            <div class="carousel-inner" role="listbox">
+                                    <div class="item active">
+                                        <div class="hiw-slide">
+                                            <img src="{{ url_for('static', filename='images/talent0.jpeg') }}" alt="logo1"  data-aos="fade-right" data-aos-duration="2000" style="display: block; width: 75%; height: auto; margin-left: auto; margin-right: auto" class="img_alternator">
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="hiw-slide">
+                                            <img src="{{ url_for('static', filename='images/talent1.jpeg') }}" alt="logo1" style="display: block; width: 75%; height: auto; margin-left: auto; margin-right: auto" class="img_alternator">
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="hiw-slide">
+                                            <img src="{{ url_for('static', filename='images/talent2.jpeg') }}" alt="logo1" style="display: block; width: 75%; height: auto; margin-left: auto; margin-right: auto" class="img_alternator">
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="col-sm-5 steps">
+                            <h2 class="section_title">How It Works</h2>
+                            <ol class="step-list">
+                                <li class="step active" data-target="#carousel-hiw" data-slide-to="0">
+                                    <span>Step 1: Create a Talent Search</span>
+                                    Specify industry, location, education, experience and key words relevant to your specific role
+
+                                </li>
+                                <li class="step" data-target="#carousel-hiw" data-slide-to="1">
+                                    <span>Step 2: Engage Top Candidates</span>
+                                    Manage and message talent you're considering through the all-in-one personalized dashboard
+
+                                </li>
+                                <li class="step" data-target="#carousel-hiw" data-slide-to="2">
+                                    <span>Step 3: Hire New Employees</span>
+                                    Invite candidates to apply and complete the seamless employee hiring process
+
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+            </div>
+            <div class="value_add content_container" style="background-color: #30415d">
+                <div class="row"></div>
+                <div class="row" style=" margin-top: 30px">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-8">
+                                <h1 class="section_title" style="color: #f3f3f3; text-align: center">We created an employment
+                                    ecosystem guided by values we pride ourselves on.</h1>
+                            </div>
+                            <div class="col-sm-2"></div>
+                        </div>
+                        <div class="row" id="bubbles" style="margin-top: 15px">
+                            <div class="bubble-container col-md-3 col-sm-6">
+                                <div class="bubble" data-aos="flip-right" data-aos-duration="4000">
+                                    <h1 class="bubble-titles" style="color: #24527C; line-height: 5px">Transparency</h1>
+                                    <h3 style="color: #eee; font-size: 20px">Find employees.</h3>
+                                    <p style="font-weight: lighter; font-size:17px">Monitor job searches & actively engage with candidates. </p>
+                                </div>
+                            </div>
+                            <div class="bubble-container col-md-3 col-sm-6">
+                                <div class="bubble" data-aos="flip-right" data-aos-duration="4000">
+                                    <h1 class="bubble-titles"  style="color: #24527C; line-height: 5px">Discovery</h1>
+                                    <h3 style="color: #eee; font-size: 20px">Qualified individuals.</h3>
+                                    <p style="font-weight: lighter; font-size:17px">Prioritize high quality talent & access new candidates daily. </p>
+                                </div>
+                            </div>
+                            <div class="bubble-container col-md-3 col-sm-6">
+                                <div class="bubble" data-aos="flip-right" data-aos-duration="4000">
+                                    <h1 class="bubble-titles" style="color: #24527C; line-height: 5px">Visibility</h1>
+                                    <h3 style="color: #eee; font-size: 20px">Build community.</h3>
+                                    <p style="font-weight: lighter; font-size:17px">Build a recruiting team & work together to find your next hire. </p>
+                                </div>
+                            </div>
+                            <div class="bubble-container col-md-3 col-sm-6">
+                                <div class="bubble" data-aos="flip-right" data-aos-duration="4000">
+                                    <h1 style="color: #24527C; line-height: 5px">Integrity</h1>
+                                    <h3 style="color: #eee; font-size: 20px">Pay nothing.</h3>
+                                    <p style="font-weight: lighter; font-size:17px">Our service is free & provides stability during these times. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+            </div>
+            <div class="testimonials content_container" style="background-color: #f3f3f3">
+                <div class="row" style="margin-top: 80px">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8 center-block">
+                        <div class="carousel slide" id="carousel-testimonials" data-ride="carousel">
+                            {#<ol class="carousel-indicators">
+                                <li class="carousel-indicator-custom active" data-target="#carousel-testimonials" data-slide-to="0"></li>
+                                <li class="carousel-indicator-custom" data-target="#carousel-testimonials" data-slide-to="1"></li>
+                                <li class="carousel-indicator-custom" data-target="#carousel-testimonials" data-slide-to="2"></li>
+                            </ol>#}
+                            <div class="carousel-inner" role="listbox">
+                                <div class="item active">
+                                    <div class="testimonial-slide">
+                                        <img src="{{ url_for('static', filename='images/jay.JPG') }}" alt="logo1" class="testimonial-logo">
+                                        <p class="testimonial-text">"The reason I decided to become a coach is because I want to help and add value to people's live. ILMJC does the same, a few people trying to make a difference. And this is why I'm happy to partner up with them to help people in need"</p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="testimonial-slide">
+                                        <img src="{{ url_for('static', filename='images/jay.JPG') }}" alt="logo1" class="testimonial-logo">
+                                        <p class="testimonial-text">"The reason I decided to become a coach is because I want to help and add value to people's live. ILMJC does the same, a few people trying to make a difference. And this is why I'm happy to partner up with them to help people in need"</p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="testimonial-slide">
+                                        <img src="{{ url_for('static', filename='images/jay.JPG') }}" alt="logo1" class="testimonial-logo">
+                                        <p class="testimonial-text">"The reason I decided to become a coach is because I want to help and add value to people's live. ILMJC does the same, a few people trying to make a difference. And this is why I'm happy to partner up with them to help people in need"</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-testimonials" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-testimonials" data-slide-to="1"></li>
+                                <li data-target="#carousel-testimonials" data-slide-to="2"></li>
+                                <a class="right carousel-control" href="#carousel-testimonials" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                                <a class="left carousel-control" href="#carousel-testimonials" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+            </div>
+            <div class="founders content_container" style="background-color: #30415d">
+                <div class="row">
+                    <div class="col-sm-7 hidden-xs hidden-sm" style="margin-top: 50px">
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-1">
+                                <div class="counter_number">
+                                    <h1 style="font-weight: lighter; font-size: 50px">4</h1>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="counter_number">
+                                    <h1 style="font-weight: lighter; font-size: 50px">7</h1>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="counter_number">
+                                    <h1 style="font-weight: lighter; font-size: 50px">,</h1>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="counter_number">
+                                    <h1 style="font-weight: lighter; font-size: 50px">3</h1>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="counter_number">
+                                    <h1 style="font-weight: lighter; font-size: 50px">0</h1>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="counter_number">
+                                    <h1 style="font-weight: lighter; font-size: 50px">0</h1>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="counter_number">
+                                    <h1 style="font-weight: lighter; font-size: 50px">,</h1>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="counter_number">
+                                    <h1 style="font-weight: lighter; font-size: 50px">0</h1>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="counter_number">
+                                    <h1 style="font-weight: lighter; font-size: 50px">0</h1>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="counter_number">
+                                    <h1 style="font-weight: lighter; font-size: 50px">0</h1>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7 hidden-md hidden-lg hidden-print" style="margin-top: 50px">
+                        <div id="small_counter" class="counter_number" style="width:100%; max-width: 440px; text-align: center">
+                            <h1 style="font-weight: lighter; font-size: 50px; text-align: center">47,300,000</h1>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="margin-top: 50px">
+                        <h2 id="jobless-claim" style="color: #f3f3f3; text-align: left; font-weight: lighter; padding-top: 10px; padding-bottom: 10px;">Jobless Claims as of 6/25/20</h2>
+                        <h1 class="section_subtitle" style="color: #f3f3f3; text-align: left; margin-top: -15px">Diverse talent awaits.</h1>
+                    </div>
+                    <div clss="col-sm-1"></div>
+                </div>
+                <div class="row" style="margin-top: 30px"></div>
+                <div class="row" style="margin-top: 50px">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="founders_message" style="padding: 15px; margin-bottom: 30px; background-color: #f3f3f3">
+                            <h6 style="color: #30415d; text-align: center; font-size: 20px;">A Message From Our Founders</h6>
+                            <h3 class="section_subtitle" style="color: #30415d; text-align: center; font-style: italic; font-weight: lighter; padding: 0 20px 0 20px">"The biggest battle after our
+                                health is our future. We are here for you."</h3>
+
+                            <button class="btn btn-default register-submit" id="message" data-aos="zoom-in" onclick="document.location='{{ url_for('main.about') }}'">Read More</button>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2"></div>
+
+                </div>
+            </div>
+            <div class="opt_in_register content_container">
+                <div class="row"></div>
+                <div class="row" style="margin-top: 60px"></div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-10">
+                        <h1 class="section_subtitle" style="color: #30415d; text-align: center">Ready to take the first step to find your next hire?</h1>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <div class="row" style="margin-top: 20px"></div>
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4">
+                        <input class="form-control homepage-input transparent" style="margin-top: 10px" id="email_short" name="email_short" placeholder="johnsmith@gmail.com" type="text" value="">
+                        <button class="btn btn-default register-submit transparent" style="text-align: center; display: block; margin: auto; width: 75%;
+                            margin-top: 10px" id="submit_short_recruiter" data-aos="fade-up">Get started for free!</button>
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

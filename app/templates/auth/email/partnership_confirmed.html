@@ -1,0 +1,15 @@
+
+
+{% extends 'email_base.html' %}
+{% block title %}
+    <p>Partnership Request Received</p>
+{% endblock %}
+{% block email_content %}
+    <p>Dear {{ user }},</p>
+    <p>Thank you for your interest in partnering with ILMJTCV. We will be in touch with you as we review your application. You will be unable to create an account with this email moving forward.</p>
+    <p>If you have not inquired about a partnership with ILMJTCV then simply ignore this message.</p>
+    <p>Sincerely,</p>
+    <p>The ILMJTCV Team</p>
+{% endblock %}
+
+

@@ -1,0 +1,7 @@
+Dear {{ user.username }},
+A job that you applied to ({{ job.job_title }} @ {{ company }}) and was deactivated is now seeking applicants again.
+Head to your jobs portal to check it out. Happy job hunting!
+Sincerely,
+The ILMJTCV team
+
+{{ url_for('main.jobs', _external=True) }}

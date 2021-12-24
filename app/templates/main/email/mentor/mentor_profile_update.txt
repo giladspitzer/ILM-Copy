@@ -1,0 +1,5 @@
+Dear {{ user.name }},
+There have been changes made to your Mentor Profile. Please ensure that the information is accurate by visiting {{ url_for('main.sessions', _external=True) }}.
+
+Sincerely,
+The ILMJTCV team

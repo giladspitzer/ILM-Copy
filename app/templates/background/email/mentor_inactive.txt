@@ -1,0 +1,15 @@
+Hi {{user.name}},
+
+Thank you for registering as a mentor at ILostMyJobToCoronavirus. Our users are eagerly awaiting your professional expertise and are excited to sign up for mentorship sessions with you.
+
+Once you log in, navigate to “1 on 1 sessions” under the mentorship tab to add your availability and manage your individual mentor portal. Time slots can be added to your calendar up to two weeks in advance.
+
+Thank you for your continued support of our initiative to help those in need during the ongoing pandemic. Please don’t hesitate to reach out if we can be of assistance.
+
+Happy mentoring!
+
+Sincerely,
+The ILMJTCV Team
+
+
+https://ilmjtcv.com/sessions_mentor

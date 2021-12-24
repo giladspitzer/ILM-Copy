@@ -1,0 +1,4 @@
+Dear {{ recruiter.user.name }},
+{{ user }} has withdrawn their application to {{ job.job_title }}.
+Sincerely,
+The ILMJTCV Team

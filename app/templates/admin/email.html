@@ -1,0 +1,142 @@
+{% extends "new_sidebar/new_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block main_content %}
+    <div id="goes_here" class="col-sm-12" style="height:100vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+        <div class="row" style="overflow-y: auto; height: 100vh">
+            <div class="col-sm-12" style="padding: 10px 15px">
+                <h4>Send Emails</h4>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <button class="sidenav_btn" id="add_email">Send New Email</button>
+                    </div>
+                </div>
+                <hr style="margin-top: 10px; margin-bottom: 0">
+                    <div class="table-responsive" style="max-height: 700px; overflow-y: auto">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <th class="speaker_col">Send</th>
+                            <th class="speaker_col">Preview</th>
+                            <th class="speaker_col">Audience</th>
+                            <th class="speaker_col">Subject</th>
+                            <th class="speaker_col">Header</th>
+                            <th class="speaker_col">Message</th>
+                            <th class="speaker_col">Button Text</th>
+                            <th class="speaker_col">Button Link</th>
+                            <th class="speaker_col">Timestamp</th>
+                            <th class="speaker_col">Author</th>
+                            </thead>
+                            <tbody>
+                            {% for email in emails %}
+                                <tr>
+                                    <td class="speaker_col">{% if email.status == 0 %}<button class="btn btn-primary" onclick="document.location='/admin/send_email/{{ email.id }}'">Send</button><br><br><button class="btn btn-warning edit_email" email-id="{{ email.id }}">Edit</button><br><br><button class="btn btn-danger delete_email" email-id="{{ email.id }}">Delete</button>{% elif email.status == 1 %}Pending Approval<br><br><button class="btn btn-danger delete_email" email-id="{{ email.id }}">Delete</button>{% else %}Sent{% endif %}</td>
+                                    <td class="speaker_col"><button class="btn btn-default" onclick="window.open('/admin/preview_email/{{ email.id }}', '_blank')">Preview</button></td>
+                                    <td class="speaker_col">{% if email.audience == 0 %}Recruiters{% else %}Users{% endif %}</td>
+                                    <td class="speaker_col">{{ email.subject }}</td>
+                                    <td class="speaker_col">{{ email.header_text }}</td>
+                                    <td class="speaker_col">{{ email.message[:200] }}</td>
+                                    <td class="speaker_col">{{ email.button_text }}</td>
+                                    <td class="speaker_col"><a href="{{ email.button_link }}">{{ email.button_link }}</a> </td>
+                                    <td class="speaker_col">{{ moment(email.timestamp).format('LLL') }}</td>
+                                    <td class="speaker_col">{{ email.user.name }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="add_email_modal" tabindex="-1" role="dialog" aria-labelledby="add_email_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="margin: auto 5vw">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; min-height: 70vh; width: 80vw; overflow: auto; min-width: 300px; max-height: 95vh">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 style="display: inline-block">Add Email</h3>
+                                <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input_form_test">
+                                            <input class="special_input transparent" id="email_subject" name="email_subject" required="" type="text" value="">
+                                            <label class="special_label" for="email_subject">Subject *</label>
+                                        </div>
+                                        <div class="input_form_test">
+                                            <input class="special_input transparent" id="email_header" name="email_header" required="" type="text" value="">
+                                            <label class="special_label" for="email_header">Email Header *</label>
+                                        </div>
+                                        <div class="input_form_test">
+                                            <input class="special_input transparent" id="button_text" name="button_text" required="" type="text" value="">
+                                            <label class="special_label" for="button_text">Button Text *</label>
+                                        </div>
+                                        <div class="input_form_test">
+                                            <input class="special_input transparent" id="button_link" name="button_link" required="" type="text" value="">
+                                            <label class="special_label" for="button_link">Button Link *</label>
+                                        </div>
+                                        <div class="input_form_test">
+                                            <input class="special_input transparent" id="email_prefix" name="email_prefix" required="" type="text" value="">
+                                            <label class="special_label" for="email_prefix">Email Prefix (i.e- Hi or Dear) *</label>
+                                        </div>
+                                        <label for="event_description" style="color: #999999;">Message </label>
+                                        <textarea class="form-control special_text" id="email_message" name="email_message" placeholder="Message" required="" style="height:180px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px"></textarea>
+                                        <label for="audience" class="control-label industry-label" style="color: #999999">Audience</label>
+                                        <select class="form-control selectpicker register-industry" style="margin-bottom: 5px" id="audience" data-live-search="true" name="audience" required>
+                                            <option value="0" data-tokens="All Recruiters">All Recruiters</option>
+                                            <option value="1" data-tokens="All Users">All Users</option>
+                                            <option value="2" data-tokens="All Admin">All Admin</option>
+                                            <option value="3" data-tokens="All Mentors">All Verified Mentors</option>
+                                        </select>
+                                        <br>
+                                        <div class="register-submit btn" id="submit_email" style="margin: 30px auto; display: block">Submit Email</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="modal fade" id="edit_email_modal" tabindex="-1" role="dialog" aria-labelledby="edit_email_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="margin: auto 5vw">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; min-height: 70vh; width: 80vw; overflow: auto; min-width: 300px; max-height:95vh ">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 style="display: inline-block">Edit Email</h3>
+                                <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10">
+                                <div class="row">
+                                    <div class="col-xs-12" id="edit_email_form">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <script src="https://cdn.tiny.cloud/1/nzuuw6tqp5uyfgre9dfyfjw8xt5y6ovgfc7aowy8e0s5s58g/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+    tinymce.init({
+        selector: 'textarea#email_message',
+        plugins: 'lists',
+         toolbar: 'bold italic underline | numblist bullist|fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat',
+         toolbar_sticky: true,
+        menubar: '',
+    })
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "special_base.html" %}
+{% block left_content %}
+        <script src="{{ url_for('static', filename='js/recruiters.js') }}"></script>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/homepage.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/test.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/recruiters.css') }}">
+        {% if '/user/' + current_user.username in request.path %}
+            <a href="{{ url_for('main.user', username=current_user.username) }}" class="current"><i class="far fa-id-card"></i> <span id="name_side">{{current_user.name}}</span> <span id="img_side" style="display: none"><img src="{{ current_user.avatar(50) }}" class="img-rounded" style="margin-top: 0px; text-align: center"></span><span id="username_side" style="display: none">{{current_user.username}}</span></a>
+        {% else %}
+             <a href="{{ url_for('main.user', username=current_user.username) }}"><i class="far fa-id-card"></i> <span id="name_side">{{current_user.name}}</span><span id="username_side" style="display: none">{{current_user.username}}</span><span id="img_side" style="display: none"><img src="{{ current_user.avatar(50) }}" class="img-rounded" style="margin-top: 0px; text-align: center"></span></a>
+        {% endif %}
+        <br>
+        {% if '/partner' in request.path %}
+            <a href="{{ url_for('partnership.partner', id=current_user.recruiter.agency_id) }}" class="current"><i class="fas fa-sitemap"></i> {{current_user.recruiter.agency.name}}</a>
+        {% else %}
+             <a href="{{ url_for('partnership.partner', id=current_user.recruiter.agency_id) }}"><i class="fas fa-sitemap"></i> {{current_user.recruiter.agency.name}}</a>
+        {% endif %}
+        <br>
+
+        <p id="searches">Talent Searches</p>
+        {% for search in current_user.recruiter.get_searches(1) %}
+            {% if '/saved_search/' + search.id|string in request.path %}
+                <a href="{{ url_for('partnership.saved_search', id=search.id) }}" class="current" id="search_selector_{{ search.id }}"># {{search.title}} <i class="{{ search.get_icons() }}"></i> </a>
+            {% else %}
+                <a href="{{ url_for('partnership.saved_search', id=search.id) }}" id="search_selector_{{ search.id }}"># {{search.title}} <i class="{{ search.get_icons() }}"></i></a>
+            {% endif %}
+        {% endfor %}
+        <div class="sidenav_btn no-highlight" id="add_search">+ Add a Talent Search</div>
+        <br>
+        <p>Job Postings</p>
+        {% if current_user.recruiter.get_job_postings(1)|length > 0 %}
+            {% for job in current_user.recruiter.get_job_postings(1) %}
+                {% if '/job_posting/' + job.id|string in request.path %}
+                    <a href="{{ url_for('partnership.job_posting', id=job.id) }}" class="current" id="job_selector_{{ job.id }}">{% if job.quick_apply == None %}#{% else %}<i class="fas fa-bolt"></i>{% endif %} {{job.job_title}} {% for i in job.get_icons() %}<i class="{{ i }}"></i>{% endfor %}</a>
+                {% else %}
+                    <a href="{{ url_for('partnership.job_posting', id=job.id) }}" id="job_selector_{{ job.id }}">{% if job.quick_apply == None %}#{% else %}<i class="fas fa-bolt"></i>{% endif %} {{job.job_title}} {% for i in job.get_icons() %}<i class="{{ i }}"></i>{% endfor %}</a>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <div class='row' id='no-more-comments'><div class='col-sm-12 no-more-indicator' style="cursor: default; margin: 5px 0">No Job Postings Yet</div></div>
+        {% endif %}
+        <div class="sidenav_btn no-highlight" id="add_job">+ Add a Job Posting</div>
+        <br>
+        <p>Direct Messages</p>
+        {% if '/message' in request.path %}
+            <a href="{{ url_for('main.messages') }}" class="current"><i class="fab fa-facebook-messenger"></i> Conversations</a>
+        {% else %}
+             <a href="{{ url_for('main.messages') }}"><i class="fab fa-facebook-messenger"></i> Conversations</a>
+        {% endif %}
+{% endblock %}
+
+
+{% block main_content %}{% endblock %}
+
+
+

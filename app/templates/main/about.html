@@ -1,0 +1,227 @@
+{% extends "info.html" %}
+
+{% block info_title %}About Us{% endblock %}
+
+{% block info_content %}
+    <script>
+    var acc = document.getElementsByClassName("accordion-reg");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active-reg");
+        if (this.innerText.includes('+')){
+            this.innerText = this.innerText.replace('+', '-')
+        }else if (this.innerText.includes('-')){
+            this.innerText = this.innerText.replace('-', '+')
+        }
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+    </script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/external.css') }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/homepage.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+          // Global settings:
+          disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
+          startEvent: 'DOMContentLoaded', // name of the event dispatched on the document, that AOS should initialize on
+          initClassName: 'aos-init', // class applied after initialization
+          animatedClassName: 'aos-animate', // class applied on animation
+          useClassNames: false, // if true, will add content of `data-aos` as classes on scroll
+          disableMutationObserver: false, // disables automatic mutations' detections (advanced)
+          debounceDelay: 50, // the delay on debounce used while resizing window (advanced)
+          throttleDelay: 99, // the delay on throttle used while scrolling the page (advanced)
+
+
+          // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+          offset: 120, // offset (in px) from the original trigger point
+          delay: 0, // values from 0 to 3000, with step 50ms
+          duration: 400, // values from 0 to 3000, with step 50ms
+          easing: 'ease', // default easing for AOS animations
+          once: false, // whether animation should happen only once - while scrolling down
+          mirror: false, // whether elements should animate out while scrolling past them
+          anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
+
+});
+
+    </script>
+    <div class="message content_container">
+                <div class="row"></div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                     <div class="col-sm-10">
+                         <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+                                <div class="row message-paragraph">
+                                     <div class="col-md-2 hidden-md hidden-lg hidden-print">
+                                         <i class="fas fa-virus fa-9x" style="color: #30415d; margin-top: 15px !important; display: block; margin: auto; text-align: center"></i>
+                                        </div>
+                                    <div class="col-md-10 paragraph-text">
+                                        <span class="extreme">COVID-19’s</span> largest impact is felt in hospital systems, among healthcare workers and within affected families, but the next biggest battle is the unemployed workforce. As health care workers, scientists, politicians, and governments fight on the front lines, there is a second war in this battle and its impact on the world will be even more drastic.
+                                    </div>
+                                    <div class="col-md-2 hidden-xs hidden-sm">
+                                        <i class="fas fa-virus fa-9x" style="color: #30415d; margin-top: 15px"></i>
+                                    </div>
+                                </div>
+                                 <div class="row message-paragraph">
+                                      <div class="col-md-2 hidden-md hidden-lg hidden-print">
+                                         <i class="fas fa-users fa-9x" style="color: #30415d; margin-top: 15px; display: block; margin: auto; text-align: center"></i>
+                                    </div>
+                                     <div class="col-md-2 hidden-xs hidden-sm">
+                                         <i class="fas fa-users fa-9x" style="color: #30415d; margin-top: 15px"></i>
+                                     </div>
+                                    <div class="col-md-10 paragraph-text paragraph-text-l">
+                                        <span class="extreme">Millions</span> across the globe have lost jobs. Industries are collapsing. Companies are closing. The world economy is facing a crisis unlike any experienced in modern history. The Coronavirus pandemic has changed the life of every human being on this planet. Since March 2020 when the global virus hit the Earth, official registered unemployment numbers continue to rise and those in need of work continues to exponentially grow.
+                                    </div>
+                                </div>
+                                 <div class="row message-paragraph">
+                                      <div class="col-md-2 hidden-md hidden-lg hidden-print">
+                                         <i class="fas fa-lightbulb fa-9x" style="color: #30415d; margin-top: 15px; display: block; margin: auto; text-align: center"></i>
+                                    </div>
+                                    <div class="col-md-10 paragraph-text">
+                                        <span class="extreme">Brighter</span> days ahead will be ensured by revitalizing the economy, allowing all people impacted by the unemployment crisis to return to work, to discover professional aspirations and to overcome hardships posed by the Coronavirus. As the world finds a balance between maintaining safety and returning to normalcy, new industries will emerge that require creativity and innovation.
+                                    </div>
+                                     <div class="col-md-2 hidden-xs hidden-sm">
+                                         <i class="fas fa-lightbulb fa-9x" style="color: #30415d; margin-top: 15px"></i>
+                                     </div>
+                                </div>
+                                 <div class="row message-paragraph">
+                                     <div class="col-md-2 hidden-md hidden-lg hidden-print">
+                                         <i class="fas fa-handshake fa-9x" style="color: #30415d; margin-top: 15px; display: block; margin: auto; text-align: center; text-align: center"></i>
+                                     </div>
+                                     <div class="col-md-2 hidden-xs hidden-sm">
+                                         <i class="fas fa-handshake fa-9x" style="color: #30415d; margin-top: 15px"></i>
+                                     </div>
+                                    <div class="col-md-10 paragraph-text paragraph-text-l">
+                                        <span class="extreme">Community</span> joined by shared experience, mutual challenges, even common tragedy is what we yearn for today. Knowing that we do not face the world alone provides immense comfort in unprecedented times and ultimately provides the the necessary strength to persevere.
+                                    </div>
+                                </div>
+                                 <div class="row message-paragraph">
+                                    <div class="col-sm-12 paragraph-text">
+                                        <span class="extreme">Meet others like you. Chat. Support. Network. Build.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                     </div>
+                     <div class="col-sm-1"></div>
+                </div>
+            </div>
+    <div class="founders-container content_container">
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <h1 style="text-align: center; color: #f3f3f3">Meet the ILMJTCV team.</h1>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+                <div class="row" style="padding-top: 30px">
+                    <div class="col-sm-4">
+                        <img src="{{ url_for('static', filename='images/gilad.jpg') }}" class="img-rounded" style="height: 200px; width: 200px; margin: auto; display: block" />
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+                                <br>
+                                <div class="reach_out" style="display: block; margin: auto; text-align: center">
+                                     <a style="margin: 0 10px; text-align: center; display: inline-block; font-size: 18px; line-height: 20px; color: #f3f3f3" href="https://www.linkedin.com/in/gilad-s-8090b6160/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                  <a style="margin: 0 10px; text-align: center; display: inline-block; font-size: 18px; line-height: 20px; color: #f3f3f3" href="mailto:gilad@ilmjtcv.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                                 </div>
+                                <h5 style="text-align: center; color: #f3f3f3; font-size: 18px; font-weight: lighter">
+                                    <b>Gilad Spitzer</b> is a recent graduate of Shalhevet High School in California. He will be studying computer science and business next year at the University of Michigan. Though only 18 years old, he constantly ponders, “How can I use my computer science skills to help others?”
+                                </h5>
+                                <h5 style="text-align: center; color: #f3f3f3; font-size: 18px; font-weight: lighter">
+                                    When his second-semester senior year was disrupted by Coronavirus, he redirected his focus to the many others around the globe affected in more serious ways. While he is not busy coding or serving his high school student body, you can find Gilad cooking gourmet meals or on a run on the sunny pacific coast.
+                                </h5>
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="{{ url_for('static', filename='images/sigal.jpg') }}" class="img-rounded left_img" style="height: 200px; width: 200px; margin: auto; display: block" />
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                             <div class="col-sm-10">
+                                <br>
+                                 <div class="reach_out" style="display: block; margin: auto; text-align: center">
+                                     <a style="margin: 0 10px; text-align: center; display: inline-block; font-size: 18px; line-height: 20px; color: #f3f3f3" href="https://www.linkedin.com/in/sigal-spitzer-87497512a/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                  <a style="margin: 0 10px; text-align: center; display: inline-block; font-size: 18px; line-height: 20px; color: #f3f3f3" href="mailto:sigal@ilmjtcv.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                                 </div>
+
+                                <h5 style="text-align: center; color: #f3f3f3; font-size: 18px; font-weight: lighter">
+                                    <b>Sigal Spitzer</b> is an incoming associate at The Boston Consulting Group in New York. She recently graduated from The University of Pennsylvania and earned a masters degree in behavioral science. Sigal asks herself, “How can I use my skills and expertise to make an impact?”
+                                </h5>
+                                <h5 style="text-align: center; color: #f3f3f3; font-size: 18px; font-weight: lighter">
+                                    When her start-date for her new job was postponed due to Coronavirus, she thought about millions of others encountering even more harsh unemployment setbacks and was determined to take action. When she is not running half marathons or acing a tennis serve, Sigal can be found baking delicious chocolate or fruity sweets.
+                                </h5>
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="{{ url_for('static', filename='images/zach.jpg') }}" class="img-rounded left_img" style="height: 200px; width: 200px; margin: auto; display: block" />
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+                                <br>
+                                <div class="reach_out" style="display: block; margin: auto; text-align: center">
+                                     <a style="margin: 0 10px; text-align: center; display: inline-block; font-size: 18px; line-height: 20px; color: #f3f3f3" href="https://www.linkedin.com/in/zachary-flamholz-7703a0147/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                  <a style="margin: 0 10px; text-align: center; display: inline-block; font-size: 18px; line-height: 20px; color: #f3f3f3" href="mailto:zach@ilmjtcv.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                                 </div>
+                                <h5 style="text-align: center; color: #f3f3f3; font-size: 18px; font-weight: lighter">
+                                    <b>Zachary Flamholz</b> is an MdPhD student at Einstein Medical College in New York. After graduating from Princeton University, he worked at The University of Pennsylvania conducting medical research for a year. He often finds himself asking, “How can I help those around me to make the world a better place?”
+                                </h5>
+                                <h5 style="text-align: center; color: #f3f3f3; font-size: 18px; font-weight: lighter">
+                                    As Coronavirus moved his courses online, Zachary fervently followed the ever changing news stories and became passionate about helping the unemployed by providing resources to find local employment opportunities. When he is not conducting quantitative medical research or studying for his exams, you can find Zachary putting on the golf course or watching The Office.
+                                </h5>
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </div>
+    <div class="feedback content_container">
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10">
+                <div class="row" style="padding-top: 40px">
+                    <div class="col-sm-12">
+                        <h2 style="text-align: center">Questions? Comments? Suggestions?</h2>
+                        <h2 style="text-align: center">We value your feedback and do our best to improve everyday.</h2>
+                        <br>
+                        <button class="btn btn-default register-submit transparent-btn" style="text-align: center; display: block; margin: auto; width: unset;
+                             font-size: 25px; height: 50px; position: relative; min-width: 250px" id="contact_test" onclick="document.location='{{ url_for('main.contact')}}'">Contact us</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+

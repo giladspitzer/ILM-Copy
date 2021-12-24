@@ -1,0 +1,76 @@
+<div class="row" style=" margin-left: 15px; margin-right: 15px">
+    <div class="col-sm-12">
+{#        <p class="ranking_indicator" id="job_order">#</p>#}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <img src="{{ url_for('static', filename='images/ilm-exclusive.png') }}" data-toggle="popover" data-placement="right" data-content="ILMJTCV Exclusive Job" style="display:inline-block; height: 30px; width: 30px; display: none" id="ilm-exclusive-main">
+                    </div>
+                </div>
+                 <div class="row" style="margin-top: 5px">
+                     <div class="col-xs-1"></div>
+                     <div class="col-sm-10">
+                            <div class="row">
+                                <div class="col-sm-12" style="font-size: 24px; line-height: 30px">
+                                    <h4><span id="job_title"></span> ~~ <span id="job_company"></span></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <ul class="job_data_modal">
+                                        <li id="job_found"></li>
+                                        <li id="job_location"></li>
+                                        <li id="job_description"></li>
+                                        <span id="job_info_quick" style="display: none">
+                                            <hr>
+                                            <li id="job_employment"></li>
+                                            <li id="job_compensation"></li>
+                                            <li id="job_pitch"></li>
+                                            <hr>
+                                        </span>
+                                        <li id="job_badges_container_main">
+                                            <ul class="job_badges" style="text-align: left; display: inline-block">
+                                                <li id="job_viewed_main" style="display:none;">
+                                                    <i class="fas fa-binoculars" data-toggle="popover" data-placement="bottom" data-content="You have viewed this job application" style="color: #efe84db5; " aria-hidden="true" data-original-title="" title=""></i>
+                                                </li>
+                                                <li id="job_applied_main" style="display: none">
+                                                    <i class="fas fa-check-circle" data-toggle="popover" data-placement="bottom" data-content="You have applied to this job" style="color: #53c7558c; " aria-hidden="true"></i>
+                                                </li>
+                                                <li class="quick_apply_bolt" id="job_quick_apply_main" style="display: none">
+                                                    <i class="fas fa-bolt" data-toggle="popover" data-placement="bottom" data-content="ILMJTCV Quick Apply" style="color: #000" aria-hidden="true" data-original-title="" title=""></i>
+                                                </li>
+                                            </ul>
+                                            <div id="job_badges_window" class="post-option" style="float:right; margin-bottom: 15px; width: 125px; font-size: 12px; line-height: 16px; display: inline-block"></div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                     </div>
+                     <div class="col-xs-1"></div>
+                 </div>
+                <div class="sidenav_btn no-highlight withrdraw-btn" job-id="0" id="remove_quick_apply_btn" style="font-size: 16px; line-height: 22px; display: none">Withdraw Application :(</div>
+                <div class="sidenav_btn no-highlight quick_apply_btn_bg" job-id="0" id="quick_apply_btn" style="font-size: 16px; line-height: 22px; display: none">Quick Apply! <i class="fas fa-bolt"></i></div>
+                <div class="sidenav_btn no-highlight" job-id="0" id="job_apply_btn" style="font-size: 16px; line-height: 22px">Apply! <i class="fas fa-external-link-alt"></i></div>
+            </div>
+        </div>
+        <div class="note_loading" id="note_loading">
+            <div class="row" id="loading_spinner_more"><div class="col-sm-12" style="margin: auto; text-align: center; display: block"><div class="loadingio-spinner-spinner-lmswu5gqlpl"><div class="ldio-ysqxvp0pznb">
+                <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div></div></div> </div>
+        </div>
+        <div class="row" style="margin-right: 15px; margin-top: 3vh; display: none" id="job_listing_note_row">
+            <h4>Notes (<span id="job_notes_counter"></span>)<p class="add_note no-highlight" onclick="drop_note(this)"><i class="sign-indicator glyphicon glyphicon-chevron-down"></i>Add new note</p></h4>
+            <div class="note-post" style="margin-bottom: 60px; display: none">
+                    <label style="display: none" for="job_notes_pad"></label>
+                    <textarea id="job_notes_pad" style="height: 54px; margin-bottom: 10px; margin-left: 25px; width: -webkit-fill-available; background-color: #eee; resize: none" class="form-control post-body-form"  placeholder="Say something about this job..." ></textarea>
+                    <button id="submit_job_note" job-id="0" class="btn btn-default note-submit" style="float: right; background-color: #eee">Add Note</button>
+            </div>
+            <div id="job_notes_container" style="height: 200px; overflow-y: auto; overflow-x: hidden; border-bottom: 3px solid white; border-top: 2px solid white;">
+            </div>
+        </div>
+    </div>
+
+</div>
+

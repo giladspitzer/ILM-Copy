@@ -1,0 +1,250 @@
+.content_container{
+    min-height: 400px;
+    padding-bottom: 30px;
+    overflow-y: hidden;
+}
+
+
+
+.background-masker {
+    background: #fff;
+    position: absolute;
+}
+
+/* Every thing below this is just positioning */
+
+.background-masker.header-top,
+.background-masker.header-bottom,
+.background-masker.subheader-bottom {
+    top: 0;
+    left: 40px;
+    right: 0;
+    height: 10px;
+}
+
+.background-masker.header-left,
+.background-masker.subheader-left,
+.background-masker.header-right,
+.background-masker.subheader-right {
+    top: 10px;
+    left: 40px;
+    height: 8px;
+    width: 10px;
+}
+
+.background-masker.header-bottom {
+    top: 18px;
+    height: 6px;
+}
+
+.background-masker.subheader-left,
+.background-masker.subheader-right {
+    top: 24px;
+    height: 6px;
+}
+
+
+.background-masker.header-right,
+.background-masker.subheader-right {
+    width: auto;
+    left: 300px;
+    right: 0;
+}
+
+.background-masker.subheader-right {
+    left: 230px;
+}
+
+.background-masker.subheader-bottom {
+    top: 30px;
+    height: 10px;
+}
+
+.background-masker.content-top,
+.background-masker.content-second-line,
+.background-masker.content-third-line,
+.background-masker.content-second-end,
+.background-masker.content-third-end,
+.background-masker.content-first-end {
+    top: 40px;
+    left: 0;
+    right: 0;
+    height: 6px;
+}
+
+.background-masker.content-top {
+    height:20px;
+}
+
+.background-masker.content-first-end,
+.background-masker.content-second-end,
+.background-masker.content-third-end{
+    width: auto;
+    left: 380px;
+    right: 0;
+    top: 60px;
+    height: 8px;
+}
+
+.background-masker.content-second-line  {
+    top: 68px;
+}
+
+.background-masker.content-second-end {
+    left: 420px;
+    top: 74px;
+}
+
+.background-masker.content-third-line {
+    top: 82px;
+}
+
+.background-masker.content-third-end {
+    left: 300px;
+    top: 88px;
+}
+
+
+.timeline-item {
+    background: #fff;
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    border-radius: 3px;
+    padding: 12px;
+
+    margin: 0 auto;
+    max-width: 472px;
+    min-height: 200px;
+}
+
+@keyframes placeHolderShimmer{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+}
+
+.animated-background {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 800px 104px;
+    height: 96px;
+    position: relative;
+}
+
+@media(min-width: 992px) {
+    .contact-col{
+        margin-top: 12vh;
+    }
+}
+
+  #overlay {
+  position: absolute;
+  top: 100px;
+  color: #FFF;
+  text-align: center;
+  font-size: 20px;
+  background-color: rgba(255, 114, 111, 0.55);
+  padding: 10px 0;
+  z-index: 2147483647;
+  height: 50px;
+  width: 50px;
+      margin-left: 15%;
+      border-radius: 50%;
+      cursor: pointer;
+}
+
+#overlay:hover{
+    color: rgba(255, 114, 111, 0.8);
+}
+
+#explainer{
+    z-index: 1;
+}
+
+.post-filter-main{
+    float: left !important;
+    margin: 15px 0;
+}
+
+.post-filter-main:active:focus, .post-filter-main:focus {
+    outline: none !important;
+}
+
+.post-filter-btn{
+    border: none;
+}
+
+#post_filtering_options{
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08) !important;
+    padding: 0;
+}
+
+#post_filtering_options>li>a:hover{
+    background-color: #f8f8ff !important;
+}
+
+#post_filtering_options>.active>a{
+    background-color:  rgba(77,128,228,.1) !important;
+    color: #818181;
+}
+
+#job_filtering{
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08) !important;
+    padding: 0;
+}
+
+#job_filtering>li>a:hover{
+    background-color: #f8f8ff !important;
+}
+
+#job_filtering>.active>a{
+    background-color:  rgba(77,128,228,.1) !important;
+    color: #818181;
+}
+
+#candidate_filtering{
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08) !important;
+    padding: 0;
+}
+
+#candidate_filtering>li>a:hover{
+    background-color: #f8f8ff !important;
+}
+
+#candidate_filtering>.active>a{
+    background-color:  rgba(77,128,228,.1) !important;
+    color: #818181;
+}
+
+#applicant_filtering{
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08) !important;
+    padding: 0;
+}
+
+#applicant_filtering>li>a:hover{
+    background-color: #f8f8ff !important;
+}
+
+#applicant_filtering>.active>a{
+    background-color:  rgba(77,128,228,.1) !important;
+    color: #818181;
+}
+
+@media(max-width: 768px) {
+    .border-top-xs{
+        margin: 15px;
+        border-top: 1px solid #818181;
+    }
+}

@@ -1,0 +1,25 @@
+<li class="col-6-4 col-sm-6">
+    <div class="candidate-card" candidate-id="{{ candidate.id }}">
+        <p class="ranking_indicator_special" candidate-id="{{ candidate.id }}">#{{ candidate.order }}</p>
+        <div class="candidate_badges_{{ candidate.id }}" style="float: right; max-width: 25px">
+            {% if candidate.has_messages() %}<i class="fab fa-facebook-messenger {{ candidate.id }}_fire" style="width: 25px; float:right;text-align: right; {% if candidate.new_messages(current_user) %}color: rgba(228,77,77,.5); {% else %}color: rgba(129, 129, 129, 0.4);{% endif %} margin-right: 5px; display: block; font-size: 25px; position:relative;" data-toggle="popover" data-placement="left" data-content="{% if candidate.new_messages(current_user) %}Unread Messages{% else %}Messaged{% endif %}"></i>{% endif %}
+            {% if candidate.has_notes() %}<i class="far fa-sticky-note {{ candidate.id }}_fire" style="width: 25px; float:right; text-align: right;color: rgba(129, 129, 129, 0.4); margin-right: 5px; display: block; font-size: 25px; position:relative; margin-top: 2px" data-toggle="popover" data-placement="left" data-content="Notes"></i>{% endif %}
+        </div>
+        <img src="{{ candidate.user.avatar(80) }}" class="img-rounded img-responsive" style="margin: auto; margin-top: 5px !important;">
+        <div class="container">
+            <p style="font-weight: bold; text-align: center;">{{ candidate.user.name }}</p>
+        {% if candidate.user.recruiter_visibility > 3 %}
+            <div class="row" style="margin-right: 15px; margin-top: 40px">
+                <p style="font-weight: lighter; font-size: 12px; line-height: 16px; text-align: center">This user has revoked recruiter sharing capabilities.<br><span class="remove_item" candidate-id="{{ candidate.id }}" id="remove_candidate" style="width: 80%;">Remove Candidate</span></p>
+            </div>
+        {% else %}
+            {% if candidate.user.recruiting_profile.additional_bio != None and candidate.user.recruiting_profile.additional_bio|length > 0 %}
+                <p style="font-weight: lighter; font-size: 12px; line-height: 16px">{{ candidate.user.recruiting_profile.additional_bio[:150] }}...</p>
+            {% else %}
+                <p style="font-weight: lighter; font-size: 12px; line-height: 16px; text-align: center">No additional bio provided</p>
+            {% endif %}
+        {% endif %}
+
+        </div>
+    </div>
+</li>

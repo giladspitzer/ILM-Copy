@@ -1,0 +1,7 @@
+Dear {{ user.username }},
+
+Welcome to the ILMJTCV community! Please visit {{ url_for('auth.confirm_email', token=token, _external=True) }} to complete your account registration.
+
+Sincerely,
+The ILMJTCV Team
+

@@ -1,0 +1,30 @@
+{% extends 'email_base.html' %}
+{% block title %}
+    <p>Account Deletion</p>
+{% endblock %}
+{% block email_content %}
+    <p>Dear {{ user.username }},</p>
+    <p>
+       We're so sorry to see you go. Confirm your request to delete your ILMJTCV account by clicking below. Please note that any and all data (i.e. posts, comments, job notes, etc.) will be permanently deleted.
+    </p>
+    <p>If you did not request an account deletion, someone may have accessed your account. Please head to your profile and request a password reset.</p>
+    <p>Sincerely,</p>
+    <p>The ILMJTCV Team</p>
+{% endblock %}
+
+{% block button %}
+    <a href="{{ url_for('auth.confirm_account_deletion', token=token, _external=True) }}" target="_blank" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #4d80e4; border-radius: 60px; -webkit-border-radius: 60px; -moz-border-radius: 60px; width: auto; width: auto; border-top: 1px solid #4d80e4; border-right: 1px solid #4d80e4; border-bottom: 1px solid #4d80e4; border-left: 1px solid #4d80e4; padding-top: 15px; padding-bottom: 15px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;">
+        <span style="padding-left:30px;padding-right:30px;font-size:16px;display:inline-block;">
+            <span style="font-size: 16px; margin: 0; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><strong>Delete My Account</strong>
+            </span>
+        </span>
+    </a>
+
+{% endblock %}
+
+
+
+
+
+
+

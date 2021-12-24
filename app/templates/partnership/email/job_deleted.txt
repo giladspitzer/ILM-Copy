@@ -1,0 +1,5 @@
+Dear {{ recruiter.user.name }},
+Your job posting for {{ job.job_title }} at {{ job.company }} has officially been deleted.
+Sincerely,
+The ILMJTCV Team
+

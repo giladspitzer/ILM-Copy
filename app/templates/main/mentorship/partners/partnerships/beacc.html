@@ -1,0 +1,54 @@
+<div class="post-option" data-dismiss="modal" style="display: inline-block; float: right; margin-right: 2%;">X</div>
+<div class="partner_header row" style="margin: 10px">
+  <div class="col-sm-3 col-xs-12 centered_small">
+    <img class="main_img" src="{{ partner.avatar() }}">
+  </div>
+  <div class="col-sm-9 col-xs-12 centered_small">
+    <h4 class="name">{{ partner.name }}</h4>
+    <p class="snippet">ILMJTCV members receive <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">50% off</span> 50% off all exclusive online courses.</p>
+    <div class="hidden-print hidden-lg hidden-md hidden-sm visit_btn" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+  </div>
+</div>
+<hr style="margin: 5px 0 0 0">
+<div class="main_partner">
+  <div class="partner_content col-sm-9 col-xs-12" style="height: 58vh">
+    <div class="about">
+      <h3>About</h3>
+      <p style="font-size: 15px">Our mission is to create a network of accountability partners who provide support, encouragement and motivation for goal oriented, like minded individuals within a safe, open and supportive environment. With this level of engagement, we deliver proven results through coaching, training and career development programs that allows everyone the ability to Execute The Dream.</p>
+    </div>
+    <div class="extra">
+        <img src="{{ url_for('static', filename='images/partners/be_accountable_promo.png') }}" style="width: 100%; border-radius: 5px">
+    </div>
+    <div class="promotions">
+      <h3>Specialty Fields</h3>
+      <ul class="wftj_fields">
+        <li>Education</li>
+        <li>Transportation</li>
+        <li>Apparel & Fashion</li>
+        <li>Broadcast Media</li>
+        <li>Civic & Social Organization</li>
+        <li>Design</li>
+        <li>Education Management</li>
+        <li>Executive Office</li>
+        <li>Fundraising</li>
+        <li>Health</li>
+        <li>Graphic Design</li>
+        <li>Wellness & Fitness</li>
+        <li>Human Resources</li>
+        <li>Real Estate</li>
+        <li>Writing & editing </li>
+        <li>Wellness</li>
+      </ul>
+    </div>
+      <div class="filler"></div>
+  </div>
+  <div class="col-sm-3 col-xs-12">
+    <div class="visit_btn hidden-xs" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+    <div class="partner_sidebar">
+      <h3>Meet The Founders</h3>
+      <img src="{{ url_for('static', filename='images/partners/michelle.jpg') }}" class="img-rounded" style="width: 20%">
+      <p style="display: inline-block; font-size: 20px">Michelle Pyram</p>
+        <p style="padding: 5px 10px">Michelle Pyram (Certified Professional Coach) is the Founder of Be Accountable, Inc., and a Catalyst for career change. She was born and raised in Brooklyn, NY, and is a proud wife, mother, and daughter of immigrant parents. She is a Certified Professional Coach from the Institute of Professional Excellence(iPEC) and possesses a Masters Degree in Labor and Employment Relations from Rutgers, the State University of New Jersey. Michelle has also completed Mastery University with Tony Robbins of Robbins Research International, and brings 15 Years of corporate Human Resources experience in the NYC ‘concrete jungle’. This experience has equipped her with a unique skill set in handling career transitions and providing customized coaching and training programs to individuals and groups while promoting work-life balance. Michelle understands what it’s like to try to navigate work, family and time for self, all the while trying to advance closer towards a career you love. That’s why she’s created coaching products to help you create a life and career that you deserve, so that the DREAM of leading a fulfilling life and LOVING your job becomes a lived reality!</p>
+    </div>
+  </div>
+</div>

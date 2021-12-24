@@ -1,0 +1,12 @@
+<li class="row blog" onclick="document.location='{{ url_for('main.blog',id=blog.id) }}'">
+    <div class="col-sm-4 col-xs-12">
+        <div class="title">{{ blog.title }}</div>
+        <div class="author">{{blog.get_authors()}} • {{ moment(blog.posted).fromNow() }}</div>
+    </div>
+    <div class="col-sm-4 hidden-xs snippet">
+        {{ blog.snippet }}
+    </div>
+    <div class="col-sm-4 col-xs-12">
+        <img src="{{ blog.avatar() }}" class="img">
+    </div>
+</li>

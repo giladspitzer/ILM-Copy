@@ -1,0 +1,10 @@
+Dear {{ user.username }},
+
+Welcome to the ILMJTCV professional talent recruiter resource! Our recruiting partners now have access to your professional information. To uphold our core value of transparency, we will notify you when a recruiter views your profile. If a recruiter is interested in pursuing your expertise, you will hear from them directly.
+
+If you would like to revoke recruiter access at any time, you may do so on the website.
+
+Don't hesitate to contact us from our ""contact us"" page with any questions that arise: {{ url_for('main.contact', _external=True) }}
+
+Sincerely,
+The ILMJTCV team

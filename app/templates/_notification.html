@@ -1,0 +1,4 @@
+<li class="notification {% if not notification.read  %}unread_n{% endif %}" id="n_{{ notification.id }}" link="{{ notification.link }}">
+    {% if not notification.read %}<i class="fas fa-bookmark unread_indicator notification_alt"></i>{% endif %}
+    <div class="notify_data"><div class="timestamp">{{ moment(notification.timestamp).fromNow() }}</div> <div class="title">{{notification.title}}</div><div class="sub_title">{{notification.sub_title}}</div></div>
+</li>

@@ -1,0 +1,39 @@
+<div class="col-md-6 col-sm-6">
+    <div class="card_thx" id="{{ user.id }}">
+        <div class="container">
+            <div class="row" style="margin-top: 10px">
+                <p style="float:right; text-transform: uppercase; color: #818181ab; font-weight: 500; font-size: 10px; font-style: italic; padding-right: 10px">
+                    {% if num == 0 %}
+                        lots in common
+                    {% elif num == 1 %}
+                        similar hobbies
+                    {% elif num == 2 %}
+                        similar background
+                    {% elif num == 3 %}
+                        similar skills
+                    {% elif num == 4 %}
+                        similar values
+                    {% elif num == 5 %}
+                        similar interests
+                    {% elif num == 6 %}
+                        same primary industry
+                    {% elif num == 7 %}
+                        located near you
+                    {% endif %}
+                </p>
+            </div>
+            <div class="row centered_small" >
+                <div class="col-md-4">
+                    <img src="{{ user.avatar(80) }}" alt="user_img_{{ user.name }}" class="img-rounded" onclick="document.location='/user/{{ user.username }}'" style="cursor:pointer;">
+                </div>
+                <div class="col-md-8" style="padding-left: 0">
+                    <h2 style="font-weight: bold; color: #30415d; cursor: pointer" onclick="document.location='/user/{{ user.username }}'">{{ user.name }}</h2>
+                    <div class="row">
+                        <div class="col-sm-12"><p class="connect_btn" id="connect_with_btn" recipient-id="{{user.id}}">Connect <i class="fab fa-facebook-messenger" aria-hidden="true"></i></p></div>
+                    </div>
+                </div>
+            </div>
+            {% if user.about_me != None and user.about_me|length > 0 %}<h4 style="font-weight: lighter; text-align: left">{{ user.about_me }}</h4>{% endif %}
+        </div>
+    </div>
+</div>

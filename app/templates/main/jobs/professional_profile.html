@@ -1,0 +1,1065 @@
+{% extends "new_sidebar/new_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+{% block main_content %}
+    <div id="goes_here" class="col-sm-12" style="height:100vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff; overflow: auto">
+        {% if current_user.recruiter_visibility < 3 %}
+            <div class="content_container" style="padding-bottom: 0 !important; height: 150%; overflow-y: auto; ">
+                <div class="row">
+                    <div class="row">
+                         <div class="how_it_works">
+                    <div class="row" >
+                        <div class="col-sm-1"></div>
+                        <div class="carousel slide carousel-fade" id="carousel-hiw">
+                            <div class="col-sm-5 steps">
+                                <h2>How It Works</h2>
+                                <ol class="step-list">
+                                    <li class="step active" data-target="#carousel-hiw" data-slide-to="0">
+                                        <span>Step 1: Create your professional profile</span>
+                                        Upload your resume, write a brief bio & select <br> industries of interest
+
+                                    </li>
+                                    <li class="step" data-target="#carousel-hiw" data-slide-to="1">
+                                        <span>Step 2: Appear in recruiter talent searches</span>
+                                        Chat with recruiters seeking your expertise & <br> interview for available positions.
+
+                                    </li>
+                                    <li class="step" data-target="#carousel-hiw" data-slide-to="2">
+                                        <span>Step 3: Select your next job opportunity</span>
+                                        Choose the job offer you most desire & begin <br> your new professional journey
+
+                                    </li>
+                                </ol>
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-8">
+                                        <button class="enroll-btn" id="enroll_resume">Enroll</button>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="carousel-inner" role="listbox">
+                                        <div class="item active">
+                                            <div class="hiw-slide">
+                                                <video  autoplay="autoplay" loop="loop" muted="muted" width="100%" height="100%" preload="auto" autobuffer="true" data-aos="fade-right" data-aos-duration="2000" playsinline="playsinline">
+                                                    <source type="video/mp4" src="{{ url_for('static', filename='images/recruiting1.mp4') }}">
+                                                </video>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="hiw-slide">
+                                                <img src="{{ url_for('static', filename='images/recruiting2.png') }}" alt="logo1" data-aos="zoom-in" data-aos-duration="2000" class="img_alternator">
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="hiw-slide">
+                                                <img src="{{ url_for('static', filename='images/recruiting2.png') }}" alt="logo1" data-aos="zoom-in" data-aos-duration="2000" class="img_alternator">
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="content_container">
+                <div class="confetti_wrapper">
+                    {% for x in range(150) %}
+                        <div class="confetti-{{ x }}"></div>
+                    {% endfor %}
+                </div>
+                <div class="row" style="margin-top: 10px">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-6">
+                        <p class="no-highlight menu-item" data-toggle="modal" data-target="#job_found" style="float:right;"><i class="fas fa-clipboard-check fa-2x"></i><span style="position: relative; bottom: 3px; margin-left: 3px">Found a job? Tell us about it!</span></p>
+                        <div class="modal fade" id="job_found" tabindex="-1" role="dialog" aria-labelledby="job_found" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel" style="display: contents">CONGRATULATIONS!! We want to know more!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="color: red">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% if current_user.job_found_reports.count() %}
+                                    <p>** You lasted reported a job found on {{ moment((current_user.job_found_reports.all()|sort(attribute='timestamp', reverse=True))[0].timestamp).format('LLL') }}</p>
+                                {% endif %}
+                                <label for="name">Name</label>
+                                <input class="form-control" id="name" maxlength="140" name="name" placeholder="" required="" type="text" value="{{ current_user.name }}" disabled="">
+                                <label for="message" style="margin-top: 10px">Message</label>
+                                <textarea onkeyup="check_confirm_form_length(this)" class="form-control" id="testimonial_message" maxlength="140" name="message" placeholder="Please tell us about how you found the job using our site and whether it was through the job listings or a recruiter contact." required="" style="height:65px; overflow:auto; resize:none"></textarea>
+                                <input type="checkbox" name="testimonial" id="testimonial" checked style="margin-top: 15px">
+                                <label for="testimonial" style="margin-top: 15px; margin-left: 15px">Allow ILMJTCV to use your success story as a testimonial for marketing purposes.</label>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="close_job" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button id="submit_job" type="button" class="btn btn-default register-submit" onclick="submit_testimonial()" disabled="">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <div class="row">
+                     <div class="col-sm-10">
+                         <h3 style="margin: 0">Your <i>Professional</i> Profile <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="bottom" data-content="** The information below is only visible to you and recruiters on the site who are looking for talent. Other users cannot access your professional profile." style="cursor: pointer"></i> </h3>
+                     </div>
+                     <div class="col-sm-1"></div>
+                </div>
+                <div class="row hidden-print hidden-lg hidden-md hidden-sm" style="margin-top: 25px">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2">
+                        <img src="{{ current_user.avatar(150) }}" class="img-rounded faded" id="user_img" style="margin: auto; display: block; text-align: center">
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3>{{ current_user.name }}<span style="font-size: 14px; font-weight: normal; float: right"><a href="{{ current_user.get_resume() }}" target="_blank" id="open_resume" class="menu-item" style="float:right;">Resume <i class="fas fa-external-link-alt"></i></a></span> </h3>
+                            </div>
+                            <div class="col-sm-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% if current_user.recruiting_profile.institutions.additional_bio|length > 0  %}
+                                <div class="col-sm-3">
+                                        <p>{{ current_user.recruiting_profile.institutions.additional_bio }}</p>
+                                </div>
+                            {% endif %}
+                            <div class="col-sm-4">
+                                <p><span style="font-weight: bold; text-decoration: underline">Industries:</span> {% for industry in current_user.recruiting_profile.industries %}{{ industry.title }}, {% endfor %}</p>
+                                {% if not current_user.recruiting_profile.remote %}
+                                    <p><span style="font-weight: bold; text-decoration: underline">Locations:</span> {% for city in current_user.recruiting_profile.cities %}{{ city.name }}, {% endfor %}</p>
+                                {% else %}
+                                    <p style="font-weight: bold; text-decoration: underline">No Location Set</p>
+                                {% endif %}
+                                <p><span style="font-weight: bold; text-decoration: underline">Work Experience:</span> {{ current_user.recruiting_profile.experience.title }}</p>
+                            </div>
+                            <div class="col-sm-5">
+                                <p><span  style="font-weight: bold; text-decoration: underline">Previous Employers:</span> {% for employer in current_user.recruiting_profile.employers %}{{ employer.employer.name }}, {% endfor %}</p>
+                                <p><span style="font-weight: bold; text-decoration: underline">Institutions:</span> {% for i in current_user.recruiting_profile.institutions %}{{ i.name }}, {% endfor %}</p>
+                                <span style="font-size: 14px; font-weight: normal"><a id="edit_recruiting_profile" class="menu-item"><i class="fas fa-user-edit"></i >Edit Profile</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-eq-height hidden-xs" style="margin-top: 25px">
+                    <div class="col-sm-2" style="border: #eee solid 1px; border-right: none !important; margin-left: 15px">
+                        <img src="{{ current_user.avatar(150) }}" class="img-rounded faded" id="user_img" style="left: 50%;top: 50%;transform: translate(-50%, -50%);position: absolute">
+                    </div>
+                    <div class="col-sm-9" style="border: #eee solid 1px; border-left: none !important;">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h3>{{ current_user.name }}<span style="font-size: 14px; font-weight: normal; margin-left: 30px"><a href="{{ current_user.get_resume() }}" target="_blank" id="open_resume" class="menu-item">Resume <i class="fas fa-external-link-alt"></i></a></span> </h3>
+                            </div>
+                            <div class="col-sm-4">
+                                <span style="float: right; font-size: 14px; font-weight: normal"><a style="float: right" id="edit_recruiting_profile" class="menu-item"><i class="fas fa-user-edit"></i >Edit Profile</a></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% if current_user.recruiting_profile.additional_bio != None %}
+                            {% if current_user.recruiting_profile.additional_bio|length > 0  %}
+                                <div class="col-sm-8">
+                                    <p>{{ current_user.recruiting_profile.additional_bio }}</p>
+                                </div>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <p><span style="font-weight: bold; text-decoration: underline">Industries:</span> {% for industry in current_user.recruiting_profile.industries %}{{ industry.title }}, {% endfor %}</p>
+                                {% if not current_user.recruiting_profile.remote %}
+                                    <p><span style="font-weight: bold; text-decoration: underline">Locations:</span> {% for city in current_user.recruiting_profile.cities %}{{ city.name }}, {% endfor %}</p>
+                                {% else %}
+                                    <p style="font-weight: bold; text-decoration: underline">No Location Set</p>
+                                {% endif %}
+                                <p><span style="font-weight: bold; text-decoration: underline">Work Experience:</span> {{ current_user.recruiting_profile.experience.title }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <p><span  style="font-weight: bold; text-decoration: underline">Previous Employers:</span> {% for employer in current_user.recruiting_profile.employers %}{{ employer.employer.name }}, {% endfor %}</p>
+                                <p><span style="font-weight: bold; text-decoration: underline">Institutions:</span> {% for i in current_user.recruiting_profile.institutions %}{{ i.name }}, {% endfor %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if current_user.recruiter_visibility < 1 %}
+        <div class="modal fade" id="recruiting_enroll_resume" tabindex="-1" role="dialog" aria-labelledby="recruiting_enroll_resume" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header" id="resume_header">
+                                <h5 class="modal-title" id="recruiting_enroll_resume_header" style="display: contents">To begin, please upload your most recent resume. Only recruiters that have ongoing searches in which you meet their criteria will be able to view your data.</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="color: red">&times;</span>
+                        </button>
+                            </div>
+                            <div class="modal-body" id="recruiting_enroll_resume_body">
+                              <input class="register-resume" id="resume" name="resume" type="file">
+                            </div>
+                            <div class="modal-footer">
+                                <button id="submit_resume" type="button" class="btn btn-default register-submit" disabled="">Submit</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+        <div class="modal fade" id="edit_resume" tabindex="-1" role="dialog" aria-labelledby="edit_resume" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header" id="edit_resume_header">
+                                <h5 class="modal-title" style="display: contents">Edit your resume... Recruiters that are viewing your profile will be notified!</h5>
+                                <button type="button" class="close close-editing" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" style="color: red">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    {% if current_user.resume != False and current_user.resume != None%}
+                                        {% set url= current_user.get_resume() %}
+                                        <div class="col-sm-6">
+                                            <iframe src="{{ url }}" height="400px" width="100%"></iframe>
+                                        </div>
+                                    {% endif %}
+                                    <div class="col-sm-6">
+                                        <input class="register-resume" id="resume" name="resume" type="file" style="margin-top: 185px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="edit_resume_submit" type="button" class="btn btn-default register-submit" disabled="">Submit</button>
+                            </div>
+                    </div>
+                </div>
+        </div>
+        {% endif %}
+        <div class="modal fade" id="recruiting_enroll_confirm" tabindex="-1" role="dialog" aria-labelledby="recruiting_enroll_confirm" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header" id="things_header">
+                                <h5 class="modal-title" id="recruiting_enroll_confirm_header" style="display: contents">Please confirm the information that we have extracted from your resume.</h5>
+                            </div>
+                            <div class="modal-body" id="recruiting_enroll_confirm_body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h4 style="text-align:center; text-decoration:underline">Institutions Attended:</h4>
+                                        <ul id="institutions_confirm"></ul>
+                                        <a onclick="open_add_institution()" class="menu-item">Add Institution +</a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h4 style="text-align:center; text-decoration:underline">Previous Employers:</h4>
+                                        <ul id="employers_confirm"></ul>
+                                        <a onclick="open_add_employers()" class="menu-item">Add Employer +</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="confirm_data_btn" type="button" class="btn btn-default register-submit">Submit</button>
+                            </div>
+                    </div>
+                </div>
+        </div>
+        <div class="modal fade" id="add_institution" tabindex="-1" role="dialog" aria-labelledby="add_institution" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"  style="display: contents">Add Institution</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color: red">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="new_institution" action="">
+                                    <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="institution_name"> Institution Name</label>
+                                        <input class="institution_name form-control" id="institution_name" name="institution_name" type="text" placeholder="i.e. University of Michigan"
+                                        onkeyup="clear_errors($(this))">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="institution_city">City of Institution</label>
+                                        <input class="institution_city form-control" id="institution_city" name="institution_city" type="text" placeholder="i.e. Ann Arbor" autocomplete="off"
+                                        onkeyup="clear_errors($(this))">
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="submit_new_institution" type="button" class="btn btn-default register-submit" style="text-align: center; float: unset; display: block; margin: auto">+ Add</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        <div class="modal fade" id="add_employer" tabindex="-1" role="dialog" aria-labelledby="add_employer" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"  style="display: contents">Add Previous Employer</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color: red">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="new_employer" action="">
+                                    <div class="row">
+
+                                        <div class="col-sm-8">
+                                                <label for="employer_name">Employer Name*</label>
+                                              <input class="employer_name form-control" id="employer_name" name="employer_name" type="text" placeholder="i.e. Pizza Hut" onkeyup="clear_errors($(this))">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="employer_is_current">This is Your Current Employer*</label>
+                                            <input type="checkbox" id="employer_is_current" name="employer_is_current" onclick="$('#job_end_space').toggle()">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="employer_start">When did you START this job*</label>
+                                            <input class="date form-control date-picker" id="employer_start" name="employer_start" type="text"
+                                            onchange="clear_errors($(this))"  placeholder="MM/DD/YYYY">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span id="job_end_space">
+                                                <label for="employer_end">When did you END this job*</label>
+                                                <input class="date form-control date-picker" id="employer_end" name="employer_end" type="text"
+                                                onchange="clear_errors($(this))" placeholder="MM/DD/YYYY">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                                <label for="employer_description">Job Description*</label>
+                                            <textarea class="employer_description form-control" id="employer_description" name="employer_description" style="resize: none; height: 60px" placeholder="Please include the position title that you held and any duties that you had."
+                                            onkeyup="clear_errors($(this))"></textarea>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="submit_new_employer" type="button" class="btn btn-default register-submit">+ Add</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        <div class="modal fade" id="view_employer" tabindex="-1" role="dialog" aria-labelledby="view_employer" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"  style="display: contents">Edit Previous Employer</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color: red">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="edit_employer" action="">
+                                    <div class="row">
+
+                                        <div class="col-sm-8">
+                                                <label for="employer_name_edit">Employer Name*</label>
+                                              <input class="employer_name form-control" id="employer_name_edit" name="employer_name_edit" type="text" placeholder="i.e. Pizza Hut" onkeyup="clear_errors($(this))">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="employer_is_current_edit">This is Your Current Employer*</label>
+                                            <input type="checkbox" id="employer_is_current_edit" name="employer_is_current_edit" onclick="$('#job_end_space').toggle()">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="employer_start_edit">When did you START this job*</label>
+                                            <input class="date form-control date-picker" id="employer_start_edit" name="employer_start_edit" type="text"
+                                            onchange="clear_errors($(this))"  placeholder="MM/DD/YYYY">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span id="job_end_space">
+                                                <label for="employer_end_edit">When did you END this job*</label>
+                                                <input class="date form-control date-picker" id="employer_end_edit" name="employer_end_edit" type="text"
+                                                onchange="clear_errors($(this))"  placeholder="MM/DD/YYYY">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                                <label for="employer_description_edit">Job Description*</label>
+                                            <textarea class="employer_description form-control" id="employer_description_edit" name="employer_description_edit" style="resize: none; height: 60px" placeholder="Please include the position title that you held and any duties that you had."
+                                            onkeyup="clear_errors($(this))"></textarea>
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="submit_new_employer" type="button" class="btn btn-default register-submit">+ Add</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        <div class="modal fade" id="recruiting_enroll_questions" tabindex="-1" role="dialog" aria-labelledby="recruiting_enroll_questions" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" id="questions_header_cont">
+                                <h5 class="modal-title"  id="questions_header" style="display: contents">We just need a little bit more information</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="more_questions_form" action="">
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-10">
+                                    <div class="row" style="margin-bottom: 15px">
+                                        <div class="col-sm-12">
+                                            <label for="more_info">Please share any additional information about yourself that is not present in your resume (optional)</label>
+                                            <textarea maxlength="300" class="employer_description form-control" id="more_info" name="additional" style="resize: none; height: 60px" placeholder="i.e. -- I love spending time with family and friends and enjoying the beautiful California scenery."
+                                            onkeyup="clear_errors($(this))"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 10px">
+                                        <div class="col-sm-7">
+                                            <label for="laid_off">When were you laid off (optional)</label>
+                                            <input class="date form-control date-picker" id="laid_off" name="laid_off" type="text"
+                                            onchange="clear_errors($(this))"  placeholder="MM/DD/YYYY">
+                                        </div>
+                                        <div class="col-sm-5">
+                                                    <label class="control-label" for="experience">Work Experience *</label>
+                                                    <select class="form-control" id="experience" name="experience" required="">
+                                                            <option value="1" selected>0-2 years</option>
+                                                            <option value="2">3-5 years</option>
+                                                            <option value="3">5-7 years</option>
+                                                            <option value="4">7-10 years</option>
+                                                            <option value="5">10-15 years</option>
+                                                            <option value="6">15-20 years</option>
+                                                            <option value="7">20-25 years</option>
+                                                            <option value="8">25+ years</option>
+                                                    </select>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <a class="menu-item" onclick="$('#laid_off').val('')">clear</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label for="industry" class="control-label industry-label">Industries Applicable (select up to 3)</label>
+                                            <select class="form-control selectpicker register-industry" id="industry" data-live-search="true" name="industry" multiple="multiple" required>
+                                                <option value="4" data-tokens="Education">Education</option>
+                                                <option value="11" data-tokens="Janitorial Services">Janitorial Services</option>
+                                                <option value="14" data-tokens="Transportation">Transportation</option>
+                                                <option value="17" data-tokens="Accounting">Accounting</option>
+                                                <option value="19" data-tokens="Airlines/Aviation">Airlines/Aviation</option>
+                                                <option value="21" data-tokens="Alternative Dispute Resolution">Alternative Dispute Resolution</option>
+                                                <option value="23" data-tokens="Alternative Medicine">Alternative Medicine</option>
+                                                <option value="25" data-tokens="Animation">Animation</option>
+                                                <option value="27" data-tokens="Apparel & Fashion">Apparel & Fashion</option>
+                                                <option value="29" data-tokens="Architecture & Planning">Architecture & Planning</option>
+                                                <option value="31" data-tokens="Arts & Crafts">Arts & Crafts</option>
+                                                <option value="33" data-tokens="Automotive">Automotive</option>
+                                                <option value="35" data-tokens="Aviation & Aerospace">Aviation & Aerospace</option>
+                                                <option value="37" data-tokens="Banking">Banking</option>
+                                                <option value="39" data-tokens="Biotechnology">Biotechnology</option>
+                                                <option value="41" data-tokens="Broadcast Media">Broadcast Media</option>
+                                                <option value="43" data-tokens="Building Materials">Building Materials</option>
+                                                <option value="45" data-tokens="Business Supplies & Equipment">Business Supplies & Equipment</option>
+                                                <option value="47" data-tokens="Capital Markets">Capital Markets</option>
+                                                <option value="49" data-tokens="Chemicals">Chemicals</option>
+                                                <option value="51" data-tokens="Civic & Social Organization">Civic & Social Organization</option>
+                                                <option value="53" data-tokens="Civil Engineering">Civil Engineering</option>
+                                                <option value="55" data-tokens="Commercial Real Estate">Commercial Real Estate</option>
+                                                <option value="57" data-tokens="Computer & Network Security">Computer & Network Security</option>
+                                                <option value="59" data-tokens="Computer Games">Computer Games</option>
+                                                <option value="61" data-tokens="Computer Hardware">Computer Hardware</option>
+                                                <option value="63" data-tokens="Computer Networking">Computer Networking</option>
+                                                <option value="65" data-tokens="Computer Software">Computer Software</option>
+                                                <option value="67" data-tokens="Construction">Construction</option>
+                                                <option value="69" data-tokens="Consumer Electronics">Consumer Electronics</option>
+                                                <option value="71" data-tokens="Consumer Goods">Consumer Goods</option>
+                                                <option value="73" data-tokens="Consumer Services">Consumer Services</option>
+                                                <option value="75" data-tokens="Cosmetics">Cosmetics</option>
+                                                <option value="77" data-tokens="Dairy">Dairy</option>
+                                                <option value="79" data-tokens="Defense & Space">Defense & Space</option>
+                                                <option value="81" data-tokens="Design">Design</option>
+                                                <option value="83" data-tokens="E-learning">E-learning</option>
+                                                <option value="85" data-tokens="Education Management">Education Management</option>
+                                                <option value="87" data-tokens="Electrical & Electronic Manufacturing">Electrical & Electronic Manufacturing</option>
+                                                <option value="89" data-tokens="Entertainment">Entertainment</option>
+                                                <option value="91" data-tokens="Environmental Services">Environmental Services</option>
+                                                <option value="93" data-tokens="Events Services">Events Services</option>
+                                                <option value="95" data-tokens="Executive Office">Executive Office</option>
+                                                <option value="97" data-tokens="Facilities Services">Facilities Services</option>
+                                                <option value="99" data-tokens="Farming">Farming</option>
+                                                <option value="101" data-tokens="Financial Services">Financial Services</option>
+                                                <option value="103" data-tokens="Fine Art">Fine Art</option>
+                                                <option value="105" data-tokens="Fishery">Fishery</option>
+                                                <option value="107" data-tokens="Food & Beverages">Food & Beverages</option>
+                                                <option value="109" data-tokens="Food Production">Food Production</option>
+                                                <option value="111" data-tokens="Fundraising">Fundraising</option>
+                                                <option value="113" data-tokens="Furniture">Furniture</option>
+                                                <option value="115" data-tokens="Gambling & Casinos">Gambling & Casinos</option>
+                                                <option value="117" data-tokens="Glass">Glass</option>
+                                                <option value="119" data-tokens="Ceramics & Concrete">Ceramics & Concrete</option>
+                                                <option value="121" data-tokens="Government Administration">Government Administration</option>
+                                                <option value="123" data-tokens="Government Relations">Government Relations</option>
+                                                <option value="125" data-tokens="Graphic Design">Graphic Design</option>
+                                                <option value="127" data-tokens="Health">Health</option>
+                                                <option value="129" data-tokens="Wellness & Fitness">Wellness & Fitness</option>
+                                                <option value="131" data-tokens="Higher Education">Higher Education</option>
+                                                <option value="133" data-tokens="Hospital & Health Care">Hospital & Health Care</option>
+                                                <option value="135" data-tokens="Hospitality">Hospitality</option>
+                                                <option value="137" data-tokens="Human Resources">Human Resources</option>
+                                                <option value="139" data-tokens="Import & Export">Import & Export</option>
+                                                <option value="141" data-tokens="Individual & Family Services">Individual & Family Services</option>
+                                                <option value="143" data-tokens="Industrial Automation">Industrial Automation</option>
+                                                <option value="145" data-tokens="Information Services">Information Services</option>
+                                                <option value="147" data-tokens="Information Technology & Services">Information Technology & Services</option>
+                                                <option value="149" data-tokens="Insurance">Insurance</option>
+                                                <option value="151" data-tokens="International Affairs">International Affairs</option>
+                                                <option value="153" data-tokens="International Trade & Development">International Trade & Development</option>
+                                                <option value="155" data-tokens="Internet">Internet</option>
+                                                <option value="157" data-tokens="Investment Banking">Investment Banking</option>
+                                                <option value="159" data-tokens="Investment Management">Investment Management</option>
+                                                <option value="161" data-tokens="Judiciary">Judiciary</option>
+                                                <option value="163" data-tokens="Law Enforcement">Law Enforcement</option>
+                                                <option value="165" data-tokens="Law Practice">Law Practice</option>
+                                                <option value="167" data-tokens="Legal Services">Legal Services</option>
+                                                <option value="169" data-tokens="Legislative Office">Legislative Office</option>
+                                                <option value="171" data-tokens="Leisure">Leisure</option>
+                                                <option value="173" data-tokens="Travel & Tourism">Travel & Tourism</option>
+                                                <option value="175" data-tokens="Libraries">Libraries</option>
+                                                <option value="177" data-tokens="Logistics & Supply Chain">Logistics & Supply Chain</option>
+                                                <option value="179" data-tokens="Luxury Goods & Jewelry">Luxury Goods & Jewelry</option>
+                                                <option value="181" data-tokens="Machinery">Machinery</option>
+                                                <option value="183" data-tokens="Management Consulting">Management Consulting</option>
+                                                <option value="185" data-tokens="Maritime">Maritime</option>
+                                                <option value="187" data-tokens="Market Research">Market Research</option>
+                                                <option value="189" data-tokens="Marketing & Advertising">Marketing & Advertising</option>
+                                                <option value="191" data-tokens="Mechanical Or Industrial Engineering">Mechanical Or Industrial Engineering</option>
+                                                <option value="193" data-tokens="Media Production">Media Production</option>
+                                                <option value="195" data-tokens="Medical Device">Medical Device</option>
+                                                <option value="197" data-tokens="Medical Practice">Medical Practice</option>
+                                                <option value="199" data-tokens="Mental Health Care">Mental Health Care</option>
+                                                <option value="201" data-tokens="Military">Military</option>
+                                                <option value="203" data-tokens="Mining & Metals">Mining & Metals</option>
+                                                <option value="205" data-tokens="Motion Pictures & Film">Motion Pictures & Film</option>
+                                                <option value="207" data-tokens="Museums & Institutions">Museums & Institutions</option>
+                                                <option value="209" data-tokens="Music">Music</option>
+                                                <option value="211" data-tokens="Nanotechnology">Nanotechnology</option>
+                                                <option value="213" data-tokens="Newspapers">Newspapers</option>
+                                                <option value="215" data-tokens="Non-profit Organization Management">Non-profit Organization Management</option>
+                                                <option value="217" data-tokens="Oil & Energy">Oil & Energy</option>
+                                                <option value="219" data-tokens="Online Media">Online Media</option>
+                                                <option value="221" data-tokens="Outsourcing/Offshoring">Outsourcing/Offshoring</option>
+                                                <option value="223" data-tokens="Package/Freight Delivery">Package/Freight Delivery</option>
+                                                <option value="225" data-tokens="Packaging & Containers">Packaging & Containers</option>
+                                                <option value="227" data-tokens="Paper & Forest Products">Paper & Forest Products</option>
+                                                <option value="229" data-tokens="Performing Arts">Performing Arts</option>
+                                                <option value="231" data-tokens="Pharmaceuticals">Pharmaceuticals</option>
+                                                <option value="233" data-tokens="Philanthropy">Philanthropy</option>
+                                                <option value="235" data-tokens="Photography">Photography</option>
+                                                <option value="237" data-tokens="Plastics">Plastics</option>
+                                                <option value="239" data-tokens="Political Organization">Political Organization</option>
+                                                <option value="241" data-tokens="Primary/Secondary Education">Primary/Secondary Education</option>
+                                                <option value="244" data-tokens="Printing">Printing</option>
+                                                <option value="246" data-tokens="Professional Training & Coaching">Professional Training & Coaching</option>
+                                                <option value="248" data-tokens="Program Development">Program Development</option>
+                                                <option value="250" data-tokens="Public Policy">Public Policy</option>
+                                                <option value="252" data-tokens="Public Relations & Communications">Public Relations & Communications</option>
+                                                <option value="254" data-tokens="Public Safety">Public Safety</option>
+                                                <option value="256" data-tokens="Publishing">Publishing</option>
+                                                <option value="258" data-tokens="Railroad Manufacture">Railroad Manufacture</option>
+                                                <option value="260" data-tokens="Ranching">Ranching</option>
+                                                <option value="262" data-tokens="Real Estate">Real Estate</option>
+                                                <option value="264" data-tokens="Recreational Facilities & Services">Recreational Facilities & Services</option>
+                                                <option value="266" data-tokens="Religious Institutions">Religious Institutions</option>
+                                                <option value="268" data-tokens="Renewables & Environment">Renewables & Environment</option>
+                                                <option value="270" data-tokens="Research">Research</option>
+                                                <option value="272" data-tokens="Restaurants">Restaurants</option>
+                                                <option value="274" data-tokens="Retail">Retail</option>
+                                                <option value="276" data-tokens="Security & Investigations">Security & Investigations</option>
+                                                <option value="278" data-tokens="Semiconductors">Semiconductors</option>
+                                                <option value="280" data-tokens="Shipbuilding">Shipbuilding</option>
+                                                <option value="282" data-tokens="Sporting Goods">Sporting Goods</option>
+                                                <option value="284" data-tokens="Sports">Sports</option>
+                                                <option value="286" data-tokens="Staffing & Recruiting">Staffing & Recruiting</option>
+                                                <option value="288" data-tokens="Supermarkets">Supermarkets</option>
+                                                <option value="290" data-tokens="Telecommunications">Telecommunications</option>
+                                                <option value="292" data-tokens="Textiles">Textiles</option>
+                                                <option value="294" data-tokens="Think Tanks">Think Tanks</option>
+                                                <option value="296" data-tokens="Tobacco">Tobacco</option>
+                                                <option value="298" data-tokens="Translation & Localization">Translation & Localization</option>
+                                                <option value="300" data-tokens="Trucking/Railroad">Trucking/Railroad</option>
+                                                <option value="302" data-tokens="Utilities">Utilities</option>
+                                                <option value="304" data-tokens="Venture Capital & Private Equity">Venture Capital & Private Equity</option>
+                                                <option value="306" data-tokens="Veterinary">Veterinary</option>
+                                                <option value="308" data-tokens="Warehousing">Warehousing</option>
+                                                <option value="310" data-tokens="Wholesale">Wholesale</option>
+                                                <option value="312" data-tokens="Wine & Spirits">Wine & Spirits</option>
+                                                <option value="314" data-tokens="Wireless">Wireless</option>
+                                                <option value="315" data-tokens="Writing & Editing">Writing & Editing</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-2 no-padding">
+                                            <input type="checkbox" id="l_specific" name="l_specific" onchange="toggle_l()" style="margin:auto; display: block; margin-top: 10px">
+                                        </div>
+                                        <div class="col-sm-10 no-padding">
+                                            <label for="l_specific">Check the box if you are willing to relocate to any city</label>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row" id="location_specific_false" style="display: none">
+                                        <p>You will now appear in recruiter searches for your selected industries in any location</p>
+                                    </div>
+                                    <div class="row" id="location_specific_true">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <ul id="accepted_cities"></ul>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-11">
+                                                <label for="cities" class="city_relocations_label">Cities that you would accept a job in (50 mile radius) -- (up to 3)</label>
+                                                <input class="institution_city form-control" id="city_relocations" name="cities" type="text" placeholder="i.e. Ann Arbor" autocomplete="off"
+                                                onkeyup="clear_errors($(this))">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="submit_more_questions" type="button" class="btn btn-default register-submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="edit_profile_modal" tabindex="-1" role="dialog" aria-labelledby="edit_profile_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"  style="display: contents">Edit your recruiting profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="edit_close">
+                              <span aria-hidden="true" style="color: red">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-10">
+                                    <h3 class="menu-item" id="upload_new_resume">Upload an updated resume <i class="fas fa-external-link-alt"></i></h3>
+                                    <h3 class="menu-item" id="update_e_i">Edit Employers & Institutions <i class="fas fa-external-link-alt"></i></h3>
+                                    <h3 class="menu-item" id="edit_more">Edit More Info <i class="fas fa-external-link-alt"></i></h3>
+                                </div>
+                                <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/homepage.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dropzone.css') }}">
+        <script src="{{ url_for('static', filename='js/dropzone.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/recruiting.js') }}"></script>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/recruiting.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/confetti.css') }}">
+        <script>
+            window.addEventListener('beforeunload', (event) => {
+                var r = document.getElementById('recruiting_enroll_resume');
+                var c = document.getElementById('recruiting_enroll_confirm');
+                  if (c.style.display === 'block' || r.style.display === 'block') {
+                    event.returnValue = 'You have unfinished changes!';
+                  }
+        });
+        </script>
+        <script>
+            var elements = document.getElementsByClassName('snippet');
+            for (var i = 0; i < elements.length; ++i) {
+                elements[i].innerHTML = elements[i].textContent
+            }
+            </script>
+            <script>
+            var acc = document.getElementsByClassName("job_listing");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+              acc[i].addEventListener("click", function() {
+                this.classList.toggle("active_job");
+                if (this.innerText.includes('+')){
+                    this.innerText = this.innerText.replace('+', '-')
+                }else if (this.innerText.includes('-')){
+                    this.innerText = this.innerText.replace('-', '+')
+                }
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                  panel.style.display = "none";
+                } else {
+                  panel.style.display = "block";
+                }
+              });
+            }
+        </script>
+        <script>
+        document.getElementById('submit').classList.add('btn-block');
+            form_name = document.getElementById('name');
+            if(form_name.value.length > 0){
+                form_name.toggleAttribute('disabled')
+            }
+        </script>
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover({
+                    trigger : 'hover'
+                });
+            });
+        </script>
+        <script>
+        function send_recruiter_msg(element) {
+           var message = document.getElementById('message_'+element);
+           var subject = document.getElementById('subject_'+element);
+           var close = document.getElementById('close_'+element);
+
+           function function1(){
+               close.click()
+               alert('Successfuly Sent');
+            }
+
+                        $.ajax({
+                    type: 'POST',
+                    url: "{{url_for('main.send_recruiter_message')}}",
+                    data: { 'm': message.value, 's': subject.value, 'c':element.toString()},
+                    success: function () {
+                        setTimeout(function1(), 1000);
+                    },
+                    error: function () {
+                        error_popup()
+                    }
+                });
+        }
+        function check_form_length(element) {
+            var message = document.getElementById('message_'+element);
+            var subject = document.getElementById('subject_'+element);
+            var btn = document.getElementById('submit_'+element);
+            if (message.value.length > 5 && subject.value.length > 5){
+                btn.removeAttribute('disabled')
+            }else{
+                btn.setAttribute('disabled', '')
+            }
+        }
+        </script>
+        <script>
+        function check_confirm_form_length(element) {
+            var btn = document.getElementById('submit_job');
+            if (element.value.length > 10){
+                btn.removeAttribute('disabled')
+            }else{
+                btn.setAttribute('disabled', '')
+            }
+        }
+        function submit_testimonial() {
+            var t = document.getElementById('testimonial').checked;
+            var m = document.getElementById('testimonial_message').value;
+            var close = document.getElementById('close_job');
+                $.ajax({
+                    type: 'POST',
+                    url: "{{url_for('main.submit_job_found')}}",
+                    data: {'t': t, 'm':m},
+                    success: function () {
+                        close.click();
+                        alert('Successfully submitted!');
+                        document.location.reload()
+                    },
+                    error: function () {
+                        error_popup()
+                    }
+                });
+        }
+        </script>
+        <script>
+        $(document).on('click', '.step', function(){
+            $(this).addClass('active').siblings().removeClass('active')
+        })
+        </script>
+        {% if current_user.completed < 2 %}
+            <script src="{{ url_for('static', filename='js/more_info.js') }}"></script>
+        {% else %}
+            {% if not current_user.email_verified %}
+                <script src="{{ url_for('static', filename='js/email_required.js') }}"></script>
+            {% endif %}
+        {% endif %}
+        {% if current_user.recruiter_visibility == 0 %}
+            <script src="{{ url_for('static', filename='js/recruiting_enroll_0.js') }}"></script>
+        {% elif current_user.recruiter_visibility == 1 %}
+            <script src="{{ url_for('static', filename='js/recruiting_enroll_1.js') }}"></script>
+        {% elif current_user.recruiter_visibility == 2 %}
+            <script src="{{ url_for('static', filename='js/recruiting_enroll_2.js') }}"></script>
+        {% endif %}
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init({
+              // Global settings:
+              disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
+              startEvent: 'DOMContentLoaded', // name of the event dispatched on the document, that AOS should initialize on
+              initClassName: 'aos-init', // class applied after initialization
+              animatedClassName: 'aos-animate', // class applied on animation
+              useClassNames: false, // if true, will add content of `data-aos` as classes on scroll
+              disableMutationObserver: false, // disables automatic mutations' detections (advanced)
+              debounceDelay: 50, // the delay on debounce used while resizing window (advanced)
+              throttleDelay: 99, // the delay on throttle used while scrolling the page (advanced)
+
+
+              // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+              offset: 120, // offset (in px) from the original trigger point
+              delay: 0, // values from 0 to 3000, with step 50ms
+              duration: 400, // values from 0 to 3000, with step 50ms
+              easing: 'ease', // default easing for AOS animations
+              once: false, // whether animation should happen only once - while scrolling down
+              mirror: false, // whether elements should animate out while scrolling past them
+              anchorPlacement: 'top-bottom', // defines which position of the element regarding to window should trigger the animation
+
+    });
+
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=current_app.config.get('GOOGLE_API')"></script>
+    </div>
+    <div class="modal fade" id="new_job_search_modal" tabindex="-1" role="dialog" aria-labelledby="new_job_search_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; min-height: 30vh">
+                <div class="modal-body">
+                    <div class="row">
+                            <div class="row">
+                                <div class="col-xs-12" style="padding: 0 25px">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h3 style="display: inline-block">Add a Job Search</h3>
+                                            <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-1"></div>
+                                        <div class="col-xs-10" style="margin-bottom: 10px">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="input_form_test">
+                                                        <input class="special_input transparent" id="search_title" name="title" required="" type="text" value="">
+                                                        <label class="special_label" for="search_title">Title *</label>
+                                                    </div>
+                                                    <label for="search_description" style="color: #999999;">Description </label>
+                                                    <textarea class="form-control special_text" id="search_description" name="description" placeholder="Add a description for your search" required="" style="height:80px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px"></textarea>
+                                                    <label for="Indusry" class="control-label industry-label" style="color: #999999">Industry* <span style="font-size: 10px">(Up to 2)</span></label>
+                                                    <select class="form-control selectpicker searches-industry" style="margin-bottom: 5px" id="search_industries" data-live-search="true" name="industry" required multiple="multiple">
+                                                        <option value="4" data-tokens="Education">Education</option>
+                                                        <option value="11" data-tokens="Janitorial Services">Janitorial Services</option>
+                                                        <option value="14" data-tokens="Transportation">Transportation</option>
+                                                        <option value="17" data-tokens="Accounting">Accounting</option>
+                                                        <option value="19" data-tokens="Airlines/Aviation">Airlines/Aviation</option>
+                                                        <option value="21" data-tokens="Alternative Dispute Resolution">Alternative Dispute Resolution</option>
+                                                        <option value="23" data-tokens="Alternative Medicine">Alternative Medicine</option>
+                                                        <option value="25" data-tokens="Animation">Animation</option>
+                                                        <option value="27" data-tokens="Apparel & Fashion">Apparel & Fashion</option>
+                                                        <option value="29" data-tokens="Architecture & Planning">Architecture & Planning</option>
+                                                        <option value="31" data-tokens="Arts & Crafts">Arts & Crafts</option>
+                                                        <option value="33" data-tokens="Automotive">Automotive</option>
+                                                        <option value="35" data-tokens="Aviation & Aerospace">Aviation & Aerospace</option>
+                                                        <option value="37" data-tokens="Banking">Banking</option>
+                                                        <option value="39" data-tokens="Biotechnology">Biotechnology</option>
+                                                        <option value="41" data-tokens="Broadcast Media">Broadcast Media</option>
+                                                        <option value="43" data-tokens="Building Materials">Building Materials</option>
+                                                        <option value="45" data-tokens="Business Supplies & Equipment">Business Supplies & Equipment</option>
+                                                        <option value="47" data-tokens="Capital Markets">Capital Markets</option>
+                                                        <option value="49" data-tokens="Chemicals">Chemicals</option>
+                                                        <option value="51" data-tokens="Civic & Social Organization">Civic & Social Organization</option>
+                                                        <option value="53" data-tokens="Civil Engineering">Civil Engineering</option>
+                                                        <option value="55" data-tokens="Commercial Real Estate">Commercial Real Estate</option>
+                                                        <option value="57" data-tokens="Computer & Network Security">Computer & Network Security</option>
+                                                        <option value="59" data-tokens="Computer Games">Computer Games</option>
+                                                        <option value="61" data-tokens="Computer Hardware">Computer Hardware</option>
+                                                        <option value="63" data-tokens="Computer Networking">Computer Networking</option>
+                                                        <option value="65" data-tokens="Computer Software">Computer Software</option>
+                                                        <option value="67" data-tokens="Construction">Construction</option>
+                                                        <option value="69" data-tokens="Consumer Electronics">Consumer Electronics</option>
+                                                        <option value="71" data-tokens="Consumer Goods">Consumer Goods</option>
+                                                        <option value="73" data-tokens="Consumer Services">Consumer Services</option>
+                                                        <option value="75" data-tokens="Cosmetics">Cosmetics</option>
+                                                        <option value="77" data-tokens="Dairy">Dairy</option>
+                                                        <option value="79" data-tokens="Defense & Space">Defense & Space</option>
+                                                        <option value="81" data-tokens="Design">Design</option>
+                                                        <option value="83" data-tokens="E-learning">E-learning</option>
+                                                        <option value="85" data-tokens="Education Management">Education Management</option>
+                                                        <option value="87" data-tokens="Electrical & Electronic Manufacturing">Electrical & Electronic Manufacturing</option>
+                                                        <option value="89" data-tokens="Entertainment">Entertainment</option>
+                                                        <option value="91" data-tokens="Environmental Services">Environmental Services</option>
+                                                        <option value="93" data-tokens="Events Services">Events Services</option>
+                                                        <option value="95" data-tokens="Executive Office">Executive Office</option>
+                                                        <option value="97" data-tokens="Facilities Services">Facilities Services</option>
+                                                        <option value="99" data-tokens="Farming">Farming</option>
+                                                        <option value="101" data-tokens="Financial Services">Financial Services</option>
+                                                        <option value="103" data-tokens="Fine Art">Fine Art</option>
+                                                        <option value="105" data-tokens="Fishery">Fishery</option>
+                                                        <option value="107" data-tokens="Food & Beverages">Food & Beverages</option>
+                                                        <option value="109" data-tokens="Food Production">Food Production</option>
+                                                        <option value="111" data-tokens="Fundraising">Fundraising</option>
+                                                        <option value="113" data-tokens="Furniture">Furniture</option>
+                                                        <option value="115" data-tokens="Gambling & Casinos">Gambling & Casinos</option>
+                                                        <option value="117" data-tokens="Glass">Glass</option>
+                                                        <option value="119" data-tokens="Ceramics & Concrete">Ceramics & Concrete</option>
+                                                        <option value="121" data-tokens="Government Administration">Government Administration</option>
+                                                        <option value="123" data-tokens="Government Relations">Government Relations</option>
+                                                        <option value="125" data-tokens="Graphic Design">Graphic Design</option>
+                                                        <option value="127" data-tokens="Health">Health</option>
+                                                        <option value="129" data-tokens="Wellness & Fitness">Wellness & Fitness</option>
+                                                        <option value="131" data-tokens="Higher Education">Higher Education</option>
+                                                        <option value="133" data-tokens="Hospital & Health Care">Hospital & Health Care</option>
+                                                        <option value="135" data-tokens="Hospitality">Hospitality</option>
+                                                        <option value="137" data-tokens="Human Resources">Human Resources</option>
+                                                        <option value="139" data-tokens="Import & Export">Import & Export</option>
+                                                        <option value="141" data-tokens="Individual & Family Services">Individual & Family Services</option>
+                                                        <option value="143" data-tokens="Industrial Automation">Industrial Automation</option>
+                                                        <option value="145" data-tokens="Information Services">Information Services</option>
+                                                        <option value="147" data-tokens="Information Technology & Services">Information Technology & Services</option>
+                                                        <option value="149" data-tokens="Insurance">Insurance</option>
+                                                        <option value="151" data-tokens="International Affairs">International Affairs</option>
+                                                        <option value="153" data-tokens="International Trade & Development">International Trade & Development</option>
+                                                        <option value="155" data-tokens="Internet">Internet</option>
+                                                        <option value="157" data-tokens="Investment Banking">Investment Banking</option>
+                                                        <option value="159" data-tokens="Investment Management">Investment Management</option>
+                                                        <option value="161" data-tokens="Judiciary">Judiciary</option>
+                                                        <option value="163" data-tokens="Law Enforcement">Law Enforcement</option>
+                                                        <option value="165" data-tokens="Law Practice">Law Practice</option>
+                                                        <option value="167" data-tokens="Legal Services">Legal Services</option>
+                                                        <option value="169" data-tokens="Legislative Office">Legislative Office</option>
+                                                        <option value="171" data-tokens="Leisure">Leisure</option>
+                                                        <option value="173" data-tokens="Travel & Tourism">Travel & Tourism</option>
+                                                        <option value="175" data-tokens="Libraries">Libraries</option>
+                                                        <option value="177" data-tokens="Logistics & Supply Chain">Logistics & Supply Chain</option>
+                                                        <option value="179" data-tokens="Luxury Goods & Jewelry">Luxury Goods & Jewelry</option>
+                                                        <option value="181" data-tokens="Machinery">Machinery</option>
+                                                        <option value="183" data-tokens="Management Consulting">Management Consulting</option>
+                                                        <option value="185" data-tokens="Maritime">Maritime</option>
+                                                        <option value="187" data-tokens="Market Research">Market Research</option>
+                                                        <option value="189" data-tokens="Marketing & Advertising">Marketing & Advertising</option>
+                                                        <option value="191" data-tokens="Mechanical Or Industrial Engineering">Mechanical Or Industrial Engineering</option>
+                                                        <option value="193" data-tokens="Media Production">Media Production</option>
+                                                        <option value="195" data-tokens="Medical Device">Medical Device</option>
+                                                        <option value="197" data-tokens="Medical Practice">Medical Practice</option>
+                                                        <option value="199" data-tokens="Mental Health Care">Mental Health Care</option>
+                                                        <option value="201" data-tokens="Military">Military</option>
+                                                        <option value="203" data-tokens="Mining & Metals">Mining & Metals</option>
+                                                        <option value="205" data-tokens="Motion Pictures & Film">Motion Pictures & Film</option>
+                                                        <option value="207" data-tokens="Museums & Institutions">Museums & Institutions</option>
+                                                        <option value="209" data-tokens="Music">Music</option>
+                                                        <option value="211" data-tokens="Nanotechnology">Nanotechnology</option>
+                                                        <option value="213" data-tokens="Newspapers">Newspapers</option>
+                                                        <option value="215" data-tokens="Non-profit Organization Management">Non-profit Organization Management</option>
+                                                        <option value="217" data-tokens="Oil & Energy">Oil & Energy</option>
+                                                        <option value="219" data-tokens="Online Media">Online Media</option>
+                                                        <option value="221" data-tokens="Outsourcing/Offshoring">Outsourcing/Offshoring</option>
+                                                        <option value="223" data-tokens="Package/Freight Delivery">Package/Freight Delivery</option>
+                                                        <option value="225" data-tokens="Packaging & Containers">Packaging & Containers</option>
+                                                        <option value="227" data-tokens="Paper & Forest Products">Paper & Forest Products</option>
+                                                        <option value="229" data-tokens="Performing Arts">Performing Arts</option>
+                                                        <option value="231" data-tokens="Pharmaceuticals">Pharmaceuticals</option>
+                                                        <option value="233" data-tokens="Philanthropy">Philanthropy</option>
+                                                        <option value="235" data-tokens="Photography">Photography</option>
+                                                        <option value="237" data-tokens="Plastics">Plastics</option>
+                                                        <option value="239" data-tokens="Political Organization">Political Organization</option>
+                                                        <option value="241" data-tokens="Primary/Secondary Education">Primary/Secondary Education</option>
+                                                        <option value="244" data-tokens="Printing">Printing</option>
+                                                        <option value="246" data-tokens="Professional Training & Coaching">Professional Training & Coaching</option>
+                                                        <option value="248" data-tokens="Program Development">Program Development</option>
+                                                        <option value="250" data-tokens="Public Policy">Public Policy</option>
+                                                        <option value="252" data-tokens="Public Relations & Communications">Public Relations & Communications</option>
+                                                        <option value="254" data-tokens="Public Safety">Public Safety</option>
+                                                        <option value="256" data-tokens="Publishing">Publishing</option>
+                                                        <option value="258" data-tokens="Railroad Manufacture">Railroad Manufacture</option>
+                                                        <option value="260" data-tokens="Ranching">Ranching</option>
+                                                        <option value="262" data-tokens="Real Estate">Real Estate</option>
+                                                        <option value="264" data-tokens="Recreational Facilities & Services">Recreational Facilities & Services</option>
+                                                        <option value="266" data-tokens="Religious Institutions">Religious Institutions</option>
+                                                        <option value="268" data-tokens="Renewables & Environment">Renewables & Environment</option>
+                                                        <option value="270" data-tokens="Research">Research</option>
+                                                        <option value="272" data-tokens="Restaurants">Restaurants</option>
+                                                        <option value="274" data-tokens="Retail">Retail</option>
+                                                        <option value="276" data-tokens="Security & Investigations">Security & Investigations</option>
+                                                        <option value="278" data-tokens="Semiconductors">Semiconductors</option>
+                                                        <option value="280" data-tokens="Shipbuilding">Shipbuilding</option>
+                                                        <option value="282" data-tokens="Sporting Goods">Sporting Goods</option>
+                                                        <option value="284" data-tokens="Sports">Sports</option>
+                                                        <option value="286" data-tokens="Staffing & Recruiting">Staffing & Recruiting</option>
+                                                        <option value="288" data-tokens="Supermarkets">Supermarkets</option>
+                                                        <option value="290" data-tokens="Telecommunications">Telecommunications</option>
+                                                        <option value="292" data-tokens="Textiles">Textiles</option>
+                                                        <option value="294" data-tokens="Think Tanks">Think Tanks</option>
+                                                        <option value="296" data-tokens="Tobacco">Tobacco</option>
+                                                        <option value="298" data-tokens="Translation & Localization">Translation & Localization</option>
+                                                        <option value="300" data-tokens="Trucking/Railroad">Trucking/Railroad</option>
+                                                        <option value="302" data-tokens="Utilities">Utilities</option>
+                                                        <option value="304" data-tokens="Venture Capital & Private Equity">Venture Capital & Private Equity</option>
+                                                        <option value="306" data-tokens="Veterinary">Veterinary</option>
+                                                        <option value="308" data-tokens="Warehousing">Warehousing</option>
+                                                        <option value="310" data-tokens="Wholesale">Wholesale</option>
+                                                        <option value="312" data-tokens="Wine & Spirits">Wine & Spirits</option>
+                                                        <option value="314" data-tokens="Wireless">Wireless</option>
+                                                        <option value="315" data-tokens="Writing & Editing">Writing & Editing</option>
+                                            </select>
+                                                </div>
+                                            </div>
+                                            <div id="jobs_checkbox" style="margin-top: 10px">
+                                                <label>
+                                                    <input id="search_l_specific" name="l_specific" type="checkbox" checked="checked"> Location Specific <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="bottom" data-content="Uncheck if you are willing to re-locate and would like to see jobs for no one particular location." style="cursor: pointer"></i>
+                                                </label>
+                                            </div>
+                                            <span id="l_specific_true" style="margin-bottom: 10px">
+                                                <div class="input_form_test" style="margin-top: 0">
+                                                    <input autocomplete="off" class="special_input transparent" id="search_city" name="city"  placeholder="City that the position you are filling is located" type="text" value="">
+                                                    <label class="special_label" for="city">City *</label>
+                                                </div>
+                                                <label class="control-label" for="proximity">Proximity *</label>
+                                                  <select class="form-control" id="search_proximity" name="" required=""><option value="1">25 miles</option><option value="2">50 miles</option><option value="3">75 miles</option><option value="4">100 miles</option><option value="5">150 miles</option></select>
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-1"></div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button id="submit_new_job_search" class="btn btn-default register-submit btn-block" style="width: 100% !important; margin-bottom: 10px">+ Add Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="modal fade" id="deactivated_searches_modal" tabindex="-1" role="dialog" aria-labelledby="deactivated_searches_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="overflow: auto; margin: auto; margin-top: 10vh !important; max-width: 40vw; max-height: 50vh">
+                    <div class="modal-body" style="">
+                        <div class="row">
+                            <div class="col-xs-12" style="margin-bottom: 10px">
+                                <h4 style="display: inline-block">Deactivated Job Searches</h4>
+                                <div class="post-option" data-dismiss="modal" style="float:right;;">X</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div id="deactivated_content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock %}

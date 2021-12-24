@@ -1,0 +1,7 @@
+Dear {{ user.name }},
+We are sorry to inform you that we were unable to approve your mentorship request. The most common reason for this is falsified information on an application.
+If you would still like to be an ILMJTCV Mentor, please click below to fill out the application again.
+Sincerely,
+The ILMJTCV team
+
+{{ url_for('main.sessions_mentor') }}

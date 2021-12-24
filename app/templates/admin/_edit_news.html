@@ -1,0 +1,37 @@
+<div class="row">
+                                <div class="col-sm-12">
+                                    <h3 style="display: inline-block">Edit News</h3>
+                                    <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                                </div>
+                            </div>
+<div class="row">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-10">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <input name="id" style="display: none" value="{{ news.id }}">
+                        <div class="input_form_test">
+                            <input class="special_input transparent" id="news_title_edit" name="news_title_edit" required="" type="text" value="{{ news.title }}">
+                            <label class="special_label blurred" for="news_title_edit">Title *</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="input_form_test">
+                            <input class="special_input transparent" id="news_link_edit" name="news_link_edit" required="" type="text" value="{{ news.link }}">
+                            <label class="special_label blurred" for="news_link_edit">Link *</label>
+                        </div>
+                    </div>
+                </div>
+                <label for="news_description_edit" style="color: #999999;">Description </label>
+                <textarea class="form-control special_text" id="news_description_edit" name="news_description_edit" placeholder="Story Title" required="" style="height:80px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px">{{ news.description }}</textarea>
+                <img src="{{ news.avatar() }}" style="width: 100px; height: 100px">
+                <input id="news_img_edit" name="news_img_edit" type="file" style="margin: 10px 0">
+                <div class="register-submit btn remove" id="delete_news" news-id="{{ news.id }}" style="margin-top: 15px; margin: auto; display: inline">Delete News</div>
+                <div class="register-submit btn" id="submit_news_edit" style="margin-top: 15px; margin: auto; display: inline">Edit News</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-1"></div>
+</div>

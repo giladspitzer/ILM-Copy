@@ -1,0 +1,5 @@
+<div class="row participant_note" style="margin: 5px 0">
+    <p style="margin-bottom: 5px; margin-left: 5px; color: #818181"><a class="note_name" style="color: black" href="{{ url_for('main.user', username=note.mentor.user.username) }}" >{{ note.mentor.user.name }}</a> ~~ {{ moment(note.timestamp).fromNow() }}</p>
+    <div style="margin-top: 1px; width: 90%; margin-right: 15px; margin-left: 5px"><span style="color: #30415d; font-size: 18px" class="no-highlight"> ↳ </span>{{ note.note }}</div>
+</div>
+

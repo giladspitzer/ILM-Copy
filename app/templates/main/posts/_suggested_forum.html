@@ -1,0 +1,10 @@
+<div class="suggested_forums row">
+    <div class="col-xs-10" style="cursor: default"><span class="forum-title-indicator" style="color: black !important;"># {{ forum.forum.title }} <i class="{{ forum.forum.get_icon() }}"></i></span>{% if forum.forum.snippet != None %}<br>{{ forum.forum.snippet }}<br>{% endif %}</div>
+    <div class="col-xs-2" style="padding-left: 0">
+        {% if forum.status == 0 %}
+            <div class="suggested_forum_action join no-highlight" forum-id="{{ forum.forum_id }}" style="float: right">+</div>
+        {% else %}
+            <div class="suggested_forum_action leave no-highlight" forum-id="{{ forum.forum_id }}" style="float: right">X</div>
+        {% endif %}
+    </div>
+</div>

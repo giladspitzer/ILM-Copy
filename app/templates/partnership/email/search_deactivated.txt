@@ -1,0 +1,6 @@
+Dear {{ recruiter.user.name }},
+Your Talent Search for <b>{{ search.title }}</b> has been <b>deactivated</b>. All candidates have been notified that this talent search is no longer available.
+If you have filled the position using our platform, we would appreciate you letting us know by contacting our COO below.
+Sincerely,
+The ILMJTCV Team
+

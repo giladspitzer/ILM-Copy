@@ -1,0 +1,26 @@
+<div class="upcoming appointment {% if not appointment.enough_time_end() %}active_appointment{% endif %}" app-id="{{ appointment.id }}">
+    <div class="col-xs-9">
+        <p class="title">Mentorship Session {% if appointment.participants|length > 0 %}<i class="fas fa-hands-helping"></i>{% else %}<i class="fas fa-question"></i>{% endif %}</p>
+        <div class="info">
+            {% if appointment.participants|length == 0 %}
+                <p>Not booked yet</p>
+            {% else %}
+                <img class="img-rounded" src="{{ appointment.mentor.user.avatar(30) }}" style="display: inline">
+                <p style="display:inline;">{{ appointment.mentor.user.name }}</p>
+            {% endif %}
+        </div>
+        <p class="time">{{ moment(appointment.start_time).format('LL') }}: {{ moment(appointment.start_time).format('LT') }} -- {{ moment(appointment.end_time).format('LT') }}</p>
+        <div class="edit" app-id="{{ appointment.id }}"><i class="fas fa-pen"></i></div>
+    </div>
+    <div class="col-xs-3">
+        {% if appointment.enough_time_end() %}
+            {% if appointment.get_rating(current_user) == None %}
+                <button id="rating_btn" class="mid_item" style="max-width: 150px !important; margin: 10px auto" app-id="{{ appointment.id }}">LEAVE A RATING</button>
+            {% else %}
+                <p style="font-size: 12px; color: #818181; margin: 5px 10px 5px 0; display: inline; cursor: pointer" data-toggle="popover" data-content="Your rating of this appointment" data-placement="bottom"><i class="fas fa-star" style="color: #ffbf00"></i> {{ appointment.get_rating(current_user).rating }}/5</p>
+            {% endif %}
+        {% else %}
+            <button id="join_session" class="add_item" style="max-width: 150px !important; margin: 10px auto; text-align: center;" app-id="{{ appointment.id }}">JOIN SESSION</button>
+        {% endif %}
+    </div>
+</div>

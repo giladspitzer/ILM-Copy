@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+{% block full_content %}
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-4" style="margin-bottom: 20px">
+               <h3>Add a new search <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="bottom" data-content="You may add a search to your receruiter profile and we will update you when users match with your search." style="cursor: pointer"></i></h3>
+                {% include 'partnership/recruiter_search_form.html' %}
+        </div>
+        <div class="col-sm-6 searches-table">
+            <h3>My searches</h3>
+            <div class="row">
+                <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    {% if type == 0 %}
+                        <li class="job_listings active_tab active"><a href="#">Active</a></li>
+                        <li><a href="{{ url_for('partnership.recruiter_search', style=1) }}">Terminated</a></li>
+                    {% elif type == 1 %}
+                        <li><a href="{{ url_for('partnership.recruiter_search', style=0) }}">Active</a></li>
+                        <li class="job_listings active_tab active"><a href="#">Terminated</a></li>
+                    {% endif %}
+                </ul>
+                    <div id="job_content" style="min-height: 300px">
+                    {% if searches|length > 0 %}
+                        {% for search in searches %}
+                            <div class="row">
+                                {% include 'partnership/search_preview.html' %}
+                                <div class="col-sm-1"></div>
+                            </div>
+                        {% endfor %}
+                        <span style="text-align: center"> {{ pagination.links }}</span>
+                    {% else %}
+                        {% if type == 0 %}
+                            <p style="margin: auto; margin-top: 30px !important; max-width: 70%; text-align: center">Job searches that are on-going will appear here.</p>
+                        {% elif type == 1 %}
+                            <p style="margin: auto; margin-top: 30px !important; max-width: 70%; text-align: center">Job searches that you terminate will appear here.</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <script src='{{ url_for('static', filename='js/jquery-sortable.js') }}'></script>
+
+    <script src="{{ url_for('static', filename='js/recruiters.js') }}"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=current_app.config.get('GOOGLE_API')"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover({
+                placement : 'top',
+                trigger : 'hover'
+            });
+            $('#submit').popover({
+                placement : 'top',
+                trigger : 'hover'
+            });
+        });
+</script>
+
+    <script>
+    var acc = document.getElementsByClassName("job_listing");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+
+        this.classList.toggle("active_job");
+        if (this.innerHTML.includes('+')){
+            this.innerHTML = this.innerHTML.replace('+', '-')
+        }else if (this.innerText.includes('-')){
+            this.innerHTML = this.innerHTML.replace('-', '+')
+        }
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+    </script>
+
+{% endblock %}

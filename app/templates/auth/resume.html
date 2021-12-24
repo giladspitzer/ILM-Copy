@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block full_content %}
+    <div class="row" style="margin: 15px 30px">
+            <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-11">
+                 <p style="float: right">**Pardon the design, this page is still under construction</p>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-6"><h3>Edit Resume</h3></div>
+        <div class="col-sm-5"></div>
+    </div>
+    <div class="row" style="padding-top: 20px">
+        <div class="col-sm-1"></div>
+        {% if current_user.resume != False and current_user.resume != None%}
+            {% set url= current_user.get_resume() %}
+            <div class="col-sm-6">
+                <iframe src="{{ url }}" height="400px" width="100%"></iframe>
+            </div>
+            <div class="col-sm-4">
+                {% if current_user.recruiter_visibility != True %}
+                    <p onclick="return confirm('This action is permanent and your resume will be lost forever. Are you sure you would like to proceed?')"><a href="{{ url_for('auth.delete_resume', id=0) }}"><span style="color: red; float: left; margin-right:10px " class="close">&times</span>  Remove Resume</a></p>
+                {% else %}
+                    <p onclick="return confirm('This action is permanent and your resume will be lost forever. YOU WILL ALSO BE UN-ENROLLED IN THE PROGRAM THAT SHARES YOUR PROFILE WITH RECRUITERS. Are you sure you would like to proceed?')"><a href="{{ url_for('auth.delete_resume', id=0) }}"><span style="color: red; float: left; margin-right:10px " class="close">&times</span>  Remove Resume (and un-enroll in sharing your profile with recruiters)</a></p>
+                {% endif %}
+                <hr>
+                <h5 style="font-weight: 700">Upload new resume:</h5>
+                <form action method="post" novalidate enctype="multipart/form-data" style="margin-top: 15px">
+                {{ wtf.form_field(form.resume, class='register-resume') }}
+                {{ wtf.form_field(form.submit, class='form-control register-submit btn-block', onclick='return confirm("This action will permenantly erase your current resume and replace it with the one that you upload. Are you sure you would like to proceed?")') }}
+            </form>
+            </div>
+        {% else %}
+                <div class="col-sm-6">
+                    <iframe src="https://ilmjtcv-user-static-files.s3.us-east-2.amazonaws.com/sample/resume-samples.pdf"
+                            height="400px"
+                            width="100%"></iframe>
+                </div>
+                <div class="col-sm-4">
+                    <p>You have not uploaded a resume yet. You may do so below.</p>
+                    <hr>
+                    <form action method="post" novalidate enctype="multipart/form-data" style="margin-top: 15px">
+                        {{ wtf.form_field(form.resume, class='register-resume') }}
+                        {{ wtf.form_field(form.submit, class='form-control register-submit btn-block') }}
+                    </form>
+                </div>
+        {% endif %}
+        <div class="col-sm-1"></div>
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    function FileValidation() {
+        file = document.getElementById('resume');
+        var filePath = file.value;
+
+            // Allowing file type
+            var allowedExtensions =
+            /(\.pdf)$/i;
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Invalid file type: Must be a PDF');
+                file.value = '';
+                return false
+            }
+    }
+    </script>
+    <script>
+    document.getElementById('resume').previousElementSibling.style.display = 'none';
+    </script>
+    {% if current_user.completed < 2 %}
+        <script src="{{ url_for('static', filename='js/more_info.js') }}"></script>
+    {% else %}
+        {% if not current_user.email_verified %}
+            <script src="{{ url_for('static', filename='js/email_required.js') }}"></script>
+        {% endif %}
+    {% endif %}
+{% endblock %}

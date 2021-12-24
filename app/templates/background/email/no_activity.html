@@ -1,0 +1,17 @@
+{% extends "email_base.html" %}
+
+{% block email_content %}
+<p>Hi {{ user.username }}!</p>
+<p>We've missed seeing you on our site! We wanted to let you know that lots has happened since you last visited <a href="{{ url_for('main.index', _external=True) }}" target="_blank">ilmjtcv.com</a>.</p>
+
+<p># of Times Your Resume Has Been Viewed: {{ stats['resume_views'] }}</p>
+<p># of New Jobs Found That Meet Your Criteria: {{ stats['new_industry_jobs'] }}</p>
+<p># of New Professional Partnerships with ILMJTCV: {{ stats['new_agencies'] }}</p>
+<p># of New Recruiters at ILMJTCV: {{ stats['new_recruiters'] }}</p>
+<p># of New Users In Your Area: {{ stats['new_users_area'] }}</p>
+<p># of New Users In Your Industry: {{ stats['new_users_industry'] }}</p>
+
+<h3><a href="{{ url_for('main.index', _external=True) }}" target="_blank">Head back to the ilmjtcv.com today to check out all the latest!</a></h3>
+
+
+{% endblock %}

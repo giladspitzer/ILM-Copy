@@ -1,0 +1,54 @@
+<div class="post-option" data-dismiss="modal" style="display: inline-block; float: right; margin-right: 2%;">X</div>
+<div class="partner_header row" style="margin: 10px">
+  <div class="col-sm-3 col-xs-12 centered_small">
+    <img class="main_img" src="{{ partner.avatar() }}">
+  </div>
+  <div class="col-sm-9 col-xs-12 centered_small">
+    <h4 class="name">{{ partner.name }}</h4>
+    <p class="snippet">ILMJTCV members receive <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">FREE 45 minute</span> discovery call and <span style="font-weight: 800; text-decoration: underline; text-transform: uppercase">10% off</span> all signature programs.</p>
+    <div class="hidden-print hidden-lg hidden-md hidden-sm visit_btn" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+  </div>
+</div>
+<hr style="margin: 5px 0 0 0">
+<div class="main_partner">
+  <div class="partner_content col-sm-9 col-xs-12" style="height: 58vh">
+    <div class="about">
+      <h3>About</h3>
+      <p style="font-size: 15px">Whether you’ve been out of work for 20 minutes or 20 years, have been applying for jobs and not getting results or don’t even know where to start, this is the place for YOU. I’ve helped women in all fields and professions, at every stage from  c-suite executives to entry level.  I am super passionate about helping women unlock their awesomeness. Imagine what it would be like to not have to struggle by yourself!</p>
+    </div>
+    <div class="extra">
+        <img src="{{ url_for('static', filename='images/partners/cindy_lish_promo.png') }}" style="width: 80%; border-radius: 5px; margin: auto; display: block">
+    </div>
+    <div class="promotions">
+      <h3>Specialty Fields</h3>
+      <ul class="wftj_fields">
+        <li>Program Managers</li>
+        <li>Brand Managers</li>
+        <li>Administrative Assistants</li>
+        <li>Accountants</li>
+        <li>Customer Service Specialists</li>
+        <li>Nurses</li>
+        <li>Teachers</li>
+        <li>Attorneys</li>
+        <li>Pharmacists</li>
+        <li>Executive Assistants</li>
+        <li>IT Specialists</li>
+        <li>Auditors</li>
+        <li>Marketing Managers</li>
+        <li>Engineers</li>
+        <li>Nutritionists</li>
+        <li>Finance Specialists</li>
+      </ul>
+    </div>
+      <div class="filler"></div>
+  </div>
+  <div class="col-sm-3 col-xs-12">
+    <div class="visit_btn hidden-xs" partner-id="{{ partner.id }}">Visit <i class="fas fa-external-link-alt"></i></div>
+    <div class="partner_sidebar">
+      <h3>Meet The Founders</h3>
+      <img src="{{ url_for('static', filename='images/partners/cindy.jpg') }}" class="img-rounded" style="width: 20%">
+      <p style="display: inline-block; font-size: 20px">Cindy Lish</p>
+        <p style="padding: 5px 10px">Cindy is a results driven, highly accomplished career coach, with a proven track record of success and has  empowered over 500 individuals over the past 8 years to confidently return to the workforce. Founder of Cindy Lish, Thoreau Coaching by Cindy LLC, and former Stay at Home Mom, Cindy facilitates signature programs to empower mothers with the confidence, tools and skills to successfully return to the workforce on their terms, whether you’ve been at home 20 minutes or 20 years, Cindy has conducted 100s of workshops and presentations in the NYC Public School System, the Queens Public Libraries, the New York State Department of Labor, and Non-Profit Organizations to help individuals in the job market. Former Program Coordinator for Dress for Success Worldwide’s Going Places Network, where 85% of the women in her classes got jobs. The highest statistics worldwide. Cindy has helped over 500 women in virtually every industry, occupation and profession. If you’re ready to have an expert career coach teach you everything you need to know about today’s job market and keep you accountable so you get results, then this is the place for YOU!</p>
+    </div>
+  </div>
+</div>

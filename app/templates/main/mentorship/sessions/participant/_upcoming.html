@@ -1,0 +1,13 @@
+<div class="upcoming appointment" app-id="{{ appointment.id }}">
+        <p class="title">Mentorship Session {% if appointment.participants|length > 0 %}<i class="fas fa-hands-helping"></i>{% else %}<i class="fas fa-question"></i>{% endif %}</p>
+    <div class="info">
+        {% if appointment.participants|length == 0 %}
+            <p>Not booked yet</p>
+        {% else %}
+            <img class="img-rounded" src="{{ appointment.mentor.user.avatar(30) }}" style="display: inline">
+            <p style="display:inline;">{{ appointment.mentor.user.name }}</p>
+        {% endif %}
+    </div>
+    <p class="time">{{ moment(appointment.start_time).format('LL') }}: {{ moment(appointment.start_time).format('LT') }} -- {{ moment(appointment.end_time).format('LT') }}</p>
+    <div class="edit" app-id="{{ appointment.id }}"><i class="fas fa-pen"></i></div>
+</div>

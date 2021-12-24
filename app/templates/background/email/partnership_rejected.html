@@ -1,0 +1,24 @@
+{% extends 'email_base.html' %}
+{% block title %}
+    <p>Partnership Rejected</p>
+{% endblock %}
+{% block email_content %}
+    <p>Dear {{ recruiter.user.name }}, </p>
+    <p>Thank you for applying to be a recruiter on our platform. Unfortunately, your application has been denied.</p>
+    <p>If you believe this is a mistake and you are interested in reapplying to gain access to our unlimited talent directory, please reach out to our support team and we will be happy to further assist you!</p>
+    <p>Sincerely,</p>
+    <p>The ILMJTCV Team</p>
+{% endblock %}
+
+{% block button %}
+    <a href="mailto:support@ilmjtcv.com" target="_blank" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #4d80e4; border-radius: 60px; -webkit-border-radius: 60px; -moz-border-radius: 60px; width: auto; width: auto; border-top: 1px solid #4d80e4; border-right: 1px solid #4d80e4; border-bottom: 1px solid #4d80e4; border-left: 1px solid #4d80e4; padding-top: 15px; padding-bottom: 15px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;">
+        <span style="padding-left:30px;padding-right:30px;font-size:16px;display:inline-block;">
+            <span style="font-size: 16px; margin: 0; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><strong>Reach Out</strong>
+            </span>
+        </span>
+    </a>
+
+{% endblock %}
+
+
+

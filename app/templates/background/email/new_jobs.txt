@@ -1,0 +1,5 @@
+Hi {{ user.username }},
+There have been updates to the job listings that pertain to you! See whats new by clicking here:
+{{ url_for('main.jobs', _external=True) }}.
+Sincerely,
+The ILMJTCV Team

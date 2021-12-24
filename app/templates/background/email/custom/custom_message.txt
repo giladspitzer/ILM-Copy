@@ -1,0 +1,12 @@
+Dear {{user.name}},
+
+As a group of aspiring entrepreneurs and motivated founders, we appreciate your feedback and are eager to improve our services, offerings and platform everyday. We are committed to building the best website to help you find new talented candidates amidst the ongoing pandemic.
+
+Can you spare 60 seconds and fill out this survey? You will be entered to win an Amazon gift card!
+
+Drop us a note, share a success story, offer a new idea, and let us know how we can best be a resource for you during the continued challenging times ahead.
+
+Sincerely,
+The ILMJTCV Team
+
+https://forms.gle/cRKYm5ZEqSLCVoYS6

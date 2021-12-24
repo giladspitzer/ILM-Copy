@@ -1,0 +1,61 @@
+{% set listing = job.job %}
+<li class="col-md-4 col-sm-6">
+    <div class="jobs-card" job-id="{{ job.id }}" completed="{{ job.status }}" quick="{% if listing.quick_apply != None%}1{% else %}0{% endif %}" ilm="{% if listing.source != 1%}1{% else %}0{% endif %}">
+        <div class="row" style="height: 35%">
+            <div class="col-xs-12">
+                {% if listing.source != 1 %}<img src="{{ url_for('static', filename='images/ilm-exclusive.png') }}" data-toggle="popover" data-placement="right" data-content="ILMJTCV Exclusive Job" style="display:inline-block; height: 30px; width: 30px">{% endif %}
+                <p style="font-weight: bold; text-align: center; " id="title_{{ job.id }}">{{ listing.job_title }}</p>
+{#                <img src="https://logo.clearbit.com/{{ listing.company }}.com?size=30" onerror="$(this).remove()">#}
+            </div>
+        </div>
+        <div class="container" style="height: 40%">
+            <ul class="job_data" style="list-style: none">
+                <li id="company_{{ job.id }}"><i class="fas fa-building"></i> {{ listing.company }}</li>
+                <li class="snippet" style="display: none" id="snippet_{{ job.id }}">{{ listing.snippet }}</li>
+                <li id="location_{{ job.id }}"><i class="fas fa-map-pin"></i> {% if listing.location != None and listing.location|length > 0 %}{{ listing.location }}{% else %}Work Remote{% endif %}</li>
+                <li id="found_{{ job.id }}"><i class="far fa-clock"></i> Found: {{ moment(listing.date_found).fromNow() }}</li>
+                {% if listing.quick_apply != None %}<span style="display: none">
+                    <li id="employment_{{ job.id }}">{{ listing.quick_apply.employment.title }}</li>
+                    <li id="compensation_{{ job.id }}">
+                        {% set high = listing.quick_apply.compensation_high|string  %}
+                        {% set low = listing.quick_apply.compensation_low|string  %}
+                        <i class="fas fa-dollar-sign"></i> {{ listing.quick_apply.compensation.title }}: <span class="money_convert">{{ low.split('.')[0] }}</span> - <span class="money_convert"> {{ high.split('.')[0] }}</span>
+                    </li>
+                    <li id="pitch_{{ job.id }}">
+                            {{ listing.quick_apply.pitch }}
+                    </li>
+                </span>{% endif %}
+
+            </ul>
+        </div>
+        <div class="" style="height: 25%; vertical-align: bottom; display: initial" id="badges_{{ job.id }}">
+            <ul class="job_badges">
+                {% if job.status == 1 %}
+                    <li >
+                        <i class="fas fa-binoculars" data-toggle="popover" data-placement="bottom" data-content="You have viewed this job application" style="color: #efe84db5;"></i>
+                    </li>
+                    {% if listing.quick_apply != None %}
+                        <li class="quick_apply_bolt">
+                            <i class="fas fa-bolt" data-toggle="popover" data-placement="bottom" data-content="ILMJTCV Quick Apply" style="color: #000;"></i>
+                        </li>
+                    {% endif %}
+                {% elif job.status == 2 %}
+                    <li>
+                        <i class="fas fa-check-circle" data-toggle="popover" data-placement="bottom" data-content="You have applied to this job" style="color: #53c7558c;"></i>
+                    </li>
+                    {% if listing.quick_apply != None %}
+                        <li class="quick_apply_bolt">
+                            <i class="fas fa-bolt" data-toggle="popover" data-placement="bottom" data-content="ILMJTCV Quick Apply" style="color: #000;"></i>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    {% if listing.quick_apply != None %}
+                        <li class="quick_apply_bolt">
+                            <i class="fas fa-bolt" data-toggle="popover" data-placement="bottom" data-content="ILMJTCV Quick Apply" style="color: #000;"></i>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</li>

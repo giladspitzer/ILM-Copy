@@ -1,0 +1,8 @@
+You’ve RSVP’d to {{ event.title }}
+
+
+Dear {{ user.name }},
+We look forward to seeing you during '{{ event.title }}'! Please make sure your profile is up-to-date in advance.
+We’ll send an email reminder 5 minutes before the event with a link to launch the webinar.
+Sincerely,
+The ILMJTCV team

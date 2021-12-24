@@ -1,0 +1,29 @@
+{% extends 'email_base.html' %}
+{% block title %}
+    <p>Users are waiting to meet with you!</p>
+{% endblock %}
+
+{% block email_content %}
+    <p>Hi {{ user.name }},</p>
+    <p>Thank you for registering as a mentor at ILostMyJobToCoronavirus. Our users are eagerly awaiting your professional expertise and are excited to sign up for mentorship sessions with you.</p>
+    <p>Once you log in, navigate to “1 on 1 sessions” under the mentorship tab to add your availability and manage your individual mentor portal. Time slots can be added to your calendar up to two weeks in advance.</p>
+    <p>Thank you for your continued support of our initiative to help those in need during the ongoing pandemic. Please don’t hesitate to reach out if we can be of assistance.</p>
+    <p>Happy mentoring!</p>
+    <p>Sincerely,</p>
+    <p>The ILMJTCV team</p>
+{% endblock %}
+
+{% block button %}
+    <a href="https://ilmjtcv.com/sessions_mentor" target="_blank" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #4d80e4; border-radius: 60px; -webkit-border-radius: 60px; -moz-border-radius: 60px; width: auto; width: auto; border-top: 1px solid #4d80e4; border-right: 1px solid #4d80e4; border-bottom: 1px solid #4d80e4; border-left: 1px solid #4d80e4; padding-top: 15px; padding-bottom: 15px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;">
+        <span style="padding-left:30px;padding-right:30px;font-size:16px;display:inline-block;">
+            <span style="font-size: 16px; margin: 0; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><strong>Add Availability</strong>
+            </span>
+        </span>
+    </a>
+
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,34 @@
+{% if current_user.is_authenticated %}
+    {% if current_user.is_recruiter %}
+        {% extends "recruiter_base.html" %}
+    {% else %}
+        {% extends "new_sidebar/new_base.html" %}
+    {% endif %}
+{% else %}
+    {% extends "new_sidebar/new_base.html" %}
+{% endif %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block main_content %}
+    <div id="goes_here" class="col-sm-12" style="height:100vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+        <div class="row">
+            <div class="col-sm-12" style="padding: 10px 15px">
+                <p style="line-height: 40px; font-size: 36px; font-weight: bold; display: inline-block; color: #30415d">Blogs <i class="fas fa-blog"></i></p>
+                <p style="font-size: 18px; line-height: 26px; font-weight: 300">A no calorie energy boost brought to you exclusively by our team</p>
+                <hr style="margin-top: 10px; margin-bottom: 0">
+                <ul id="blog_posts" class="no-highlight" data-set="0" onscroll="load_more_blogs(this)">
+                    <div class="row" id="temp_row" style="animation: fadein 2s">
+                        <div class="loadingio-spinner-spinner-ok7idc80he9" style="display: block; margin: auto; text-align: center"><div class="ldio-u1oevpwp8f">
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        </div></div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(document).ready(function () {
+        load_more_blogs($('#blog_posts'))
+    })
+    </script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "special_base.html" %}
+{% block left_content %}
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/homepage.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/test.css') }}">
+        <p id="job_searches"><i>Professional</i> Profile</p>
+        {% if '/professional_profile' in request.path %}
+            <a href="{{ url_for('main.professional_profile') }}" class="current"><i class="far fa-id-card"></i> <span id="name_side">{{current_user.name}}</span> <span id="username_side" style="display: none">{{current_user.username}}</span></a>
+        {% else %}
+             <a href="{{ url_for('main.professional_profile') }}"><i class="far fa-id-card"></i> <span id="name_side">{{current_user.name}}</span> <span id="username_side" style="display: none">{{current_user.username}}</span></a>
+        {% endif %}
+        <br>
+        {% if '/recruiting' in request.path %}
+            <a href="{{ url_for('main.recruiting') }}" class="current"><i class="fas fa-user-tie"></i> Recruiting Activity</a>
+        {% else %}
+             <a href="{{ url_for('main.recruiting') }}"><i class="fas fa-user-tie"></i> Recruiting Activity</a>
+        {% endif %}
+        <br>
+
+        <p id="job_searches">Job Searches <span class="deactivated_sidebar" id="deactivated_searches_toggle">deactivated</span></p>
+        {% for search in current_user.job_searches.filter_by(status=1) %}
+            {% if '/' + search.id|string in request.path %}
+                <a href="{{ url_for('main.job_search', id=search.id) }}" class="current job_search_menu_item" id="job_search_{{ search.id }}">{% if search.last_checked < search.last_updated %}<i class="fas fa-fire flame"></i>{% endif %} {{search.title}}{% for i in search.get_icon() %} <i class="{{ i }}"></i>{% endfor %} </a>
+            {% else %}
+                <a href="{{ url_for('main.job_search', id=search.id) }}" id="job_search_{{ search.id }}" class="job_search_menu_item"> {% if search.last_checked < search.last_updated %}<i class="fas fa-fire flame"></i>{% endif %} {{search.title}}{% for i in search.get_icon() %} <i class="{{ i }}"></i>{% endfor %} </a>
+            {% endif %}
+        {% endfor %}
+        <div class="sidenav_btn no-highlight" id="new_job_search">+ Add Search</div>
+        <br>
+
+{% endblock %}
+
+
+{% block main_content %}{% endblock %}
+
+
+

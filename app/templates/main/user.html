@@ -1,0 +1,547 @@
+{% if current_user.is_recruiter %}
+{% extends "recruiter_base.html" %}
+{% else %}
+{% extends "new_sidebar/new_base.html" %}
+{% endif %}
+
+{% block main_content %}
+    <div class="modal fade" id="edit_social_profile_modal" tabindex="-1" role="dialog" aria-labelledby="edit_profile_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+                <div class="modal-content" style="overflow: auto; margin: auto; margin-top: 10vh !important; max-width: 75vw; max-height: 65vh">
+                    <div class="modal-body">
+                        <div class="row" style="margin-bottom: 10px">
+                            <div class="col-xs-12">
+                                <div class="post-option" data-dismiss="modal">X</div>
+                            </div>
+                        </div>
+                        <form id="edit_profile_form" action="/edit_profile" method="post">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input_form_test">
+                                        <input class="homepage-input special_input register-first transparent" id="g_name" name="name" placeholder="John Smith" required="" type="text" value="{{ current_user.name }}">
+                                        <label class="label-homepage special_label blurred" for="name">Full Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input_form_test">
+                                        <input class="homepage-input transparent special_input transparent register-username" id="g_username" name="username" type="text" required="" value="{{ current_user.username }}">
+                                        <label for="username" class="label-homepage special_label blurred">username</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="user_bio" style="color: #999999;">Brief Bio </label>
+                                    <textarea class="form-control special_text" id="user_bio" name="user_bio" placeholder="Add a personal bio that will be displayed on your profile card on the 'Meet Others' page." required="" style="height:100px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px">{% if current_user.about_me != None and current_user.about_me|length > 0 %}{{ current_user.about_me }}{% endif %}</textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6" style="margin-top: 31px">
+                                    <div class="input_form_test">
+                                        <select class="form-control selectpicker register-country transparent" id="country" data-live-search="true" name="country" required>
+                                        <option value="235" data-tokens="United States">United States (US) </option>
+                                        <option value="1" data-tokens="Aruba">Aruba (AW) </option>
+                                        <option value="2" data-tokens="Afghanistan">Afghanistan (AF) </option>
+                                        <option value="3" data-tokens="Angola">Angola (AO) </option>
+                                        <option value="4" data-tokens="Anguilla">Anguilla (AI) </option>
+                                        <option value="5" data-tokens="Åland Islands">Åland Islands (AX) </option>
+                                        <option value="6" data-tokens="Albania">Albania (AL) </option>
+                                        <option value="7" data-tokens="Andorra">Andorra (AD) </option>
+                                        <option value="8" data-tokens="United Arab Emirates">United Arab Emirates (AE) </option>
+                                        <option value="9" data-tokens="Argentina">Argentina (AR) </option>
+                                        <option value="10" data-tokens="Armenia">Armenia (AM) </option>
+                                        <option value="11" data-tokens="American Samoa">American Samoa (AS) </option>
+                                        <option value="12" data-tokens="Antarctica">Antarctica (AQ) </option>
+                                        <option value="13" data-tokens="French Southern Territories">French Southern Territories (TF) </option>
+                                        <option value="14" data-tokens="Antigua and Barbuda">Antigua and Barbuda (AG) </option>
+                                        <option value="15" data-tokens="Australia">Australia (AU) </option>
+                                        <option value="16" data-tokens="Austria">Austria (AT) </option>
+                                        <option value="17" data-tokens="Azerbaijan">Azerbaijan (AZ) </option>
+                                        <option value="18" data-tokens="Burundi">Burundi (BI) </option>
+                                        <option value="19" data-tokens="Belgium">Belgium (BE) </option>
+                                        <option value="20" data-tokens="Benin">Benin (BJ) </option>
+                                        <option value="21" data-tokens="Bonaire, Sint Eustatius and Saba">Bonaire, Sint Eustatius and Saba (BQ) </option>
+                                        <option value="22" data-tokens="Burkina Faso">Burkina Faso (BF) </option>
+                                        <option value="23" data-tokens="Bangladesh">Bangladesh (BD) </option>
+                                        <option value="24" data-tokens="Bulgaria">Bulgaria (BG) </option>
+                                        <option value="25" data-tokens="Bahrain">Bahrain (BH) </option>
+                                        <option value="26" data-tokens="Bahamas">Bahamas (BS) </option>
+                                        <option value="27" data-tokens="Bosnia and Herzegovina">Bosnia and Herzegovina (BA) </option>
+                                        <option value="28" data-tokens="Saint Barthélemy">Saint Barthélemy (BL) </option>
+                                        <option value="29" data-tokens="Belarus">Belarus (BY) </option>
+                                        <option value="30" data-tokens="Belize">Belize (BZ) </option>
+                                        <option value="31" data-tokens="Bermuda">Bermuda (BM) </option>
+                                        <option value="32" data-tokens="Bolivia, Plurinational State of">Bolivia, Plurinational State of (BO) </option>
+                                        <option value="33" data-tokens="Brazil">Brazil (BR) </option>
+                                        <option value="34" data-tokens="Barbados">Barbados (BB) </option>
+                                        <option value="35" data-tokens="Brunei Darussalam">Brunei Darussalam (BN) </option>
+                                        <option value="36" data-tokens="Bhutan">Bhutan (BT) </option>
+                                        <option value="37" data-tokens="Bouvet Island">Bouvet Island (BV) </option>
+                                        <option value="38" data-tokens="Botswana">Botswana (BW) </option>
+                                        <option value="39" data-tokens="Central African Republic">Central African Republic (CF) </option>
+                                        <option value="40" data-tokens="Canada">Canada (CA) </option>
+                                        <option value="41" data-tokens="Cocos (Keeling) Islands">Cocos (Keeling) Islands (CC) </option>
+                                        <option value="42" data-tokens="Switzerland">Switzerland (CH) </option>
+                                        <option value="43" data-tokens="Chile">Chile (CL) </option>
+                                        <option value="44" data-tokens="China">China (CN) </option>
+                                        <option value="45" data-tokens="Côte d'Ivoire">Côte d'Ivoire (CI) </option>
+                                        <option value="46" data-tokens="Cameroon">Cameroon (CM) </option>
+                                        <option value="47" data-tokens="Congo, The Democratic Republic of the">Congo, The Democratic Republic of the (CD) </option>
+                                        <option value="48" data-tokens="Congo">Congo (CG) </option>
+                                        <option value="49" data-tokens="Cook Islands">Cook Islands (CK) </option>
+                                        <option value="50" data-tokens="Colombia">Colombia (CO) </option>
+                                        <option value="51" data-tokens="Comoros">Comoros (KM) </option>
+                                        <option value="52" data-tokens="Cabo Verde">Cabo Verde (CV) </option>
+                                        <option value="53" data-tokens="Costa Rica">Costa Rica (CR) </option>
+                                        <option value="54" data-tokens="Cuba">Cuba (CU) </option>
+                                        <option value="55" data-tokens="Curaçao">Curaçao (CW) </option>
+                                        <option value="56" data-tokens="Christmas Island">Christmas Island (CX) </option>
+                                        <option value="57" data-tokens="Cayman Islands">Cayman Islands (KY) </option>
+                                        <option value="58" data-tokens="Cyprus">Cyprus (CY) </option>
+                                        <option value="59" data-tokens="Czechia">Czechia (CZ) </option>
+                                        <option value="60" data-tokens="Germany">Germany (DE) </option>
+                                        <option value="61" data-tokens="Djibouti">Djibouti (DJ) </option>
+                                        <option value="62" data-tokens="Dominica">Dominica (DM) </option>
+                                        <option value="63" data-tokens="Denmark">Denmark (DK) </option>
+                                        <option value="64" data-tokens="Dominican Republic">Dominican Republic (DO) </option>
+                                        <option value="65" data-tokens="Algeria">Algeria (DZ) </option>
+                                        <option value="66" data-tokens="Ecuador">Ecuador (EC) </option>
+                                        <option value="67" data-tokens="Egypt">Egypt (EG) </option>
+                                        <option value="68" data-tokens="Eritrea">Eritrea (ER) </option>
+                                        <option value="69" data-tokens="Western Sahara">Western Sahara (EH) </option>
+                                        <option value="70" data-tokens="Spain">Spain (ES) </option>
+                                        <option value="71" data-tokens="Estonia">Estonia (EE) </option>
+                                        <option value="72" data-tokens="Ethiopia">Ethiopia (ET) </option>
+                                        <option value="73" data-tokens="Finland">Finland (FI) </option>
+                                        <option value="74" data-tokens="Fiji">Fiji (FJ) </option>
+                                        <option value="75" data-tokens="Falkland Islands (Malvinas)">Falkland Islands (Malvinas) (FK) </option>
+                                        <option value="76" data-tokens="France">France (FR) </option>
+                                        <option value="77" data-tokens="Faroe Islands">Faroe Islands (FO) </option>
+                                        <option value="78" data-tokens="Micronesia, Federated States of">Micronesia, Federated States of (FM) </option>
+                                        <option value="79" data-tokens="Gabon">Gabon (GA) </option>
+                                        <option value="80" data-tokens="United Kingdom">United Kingdom (GB) </option>
+                                        <option value="81" data-tokens="Georgia">Georgia (GE) </option>
+                                        <option value="82" data-tokens="Guernsey">Guernsey (GG) </option>
+                                        <option value="83" data-tokens="Ghana">Ghana (GH) </option>
+                                        <option value="84" data-tokens="Gibraltar">Gibraltar (GI) </option>
+                                        <option value="85" data-tokens="Guinea">Guinea (GN) </option>
+                                        <option value="86" data-tokens="Guadeloupe">Guadeloupe (GP) </option>
+                                        <option value="87" data-tokens="Gambia">Gambia (GM) </option>
+                                        <option value="88" data-tokens="Guinea-Bissau">Guinea-Bissau (GW) </option>
+                                        <option value="89" data-tokens="Equatorial Guinea">Equatorial Guinea (GQ) </option>
+                                        <option value="90" data-tokens="Greece">Greece (GR) </option>
+                                        <option value="91" data-tokens="Grenada">Grenada (GD) </option>
+                                        <option value="92" data-tokens="Greenland">Greenland (GL) </option>
+                                        <option value="93" data-tokens="Guatemala">Guatemala (GT) </option>
+                                        <option value="94" data-tokens="French Guiana">French Guiana (GF) </option>
+                                        <option value="95" data-tokens="Guam">Guam (GU) </option>
+                                        <option value="96" data-tokens="Guyana">Guyana (GY) </option>
+                                        <option value="97" data-tokens="Hong Kong">Hong Kong (HK) </option>
+                                        <option value="98" data-tokens="Heard Island and McDonald Islands">Heard Island and McDonald Islands (HM) </option>
+                                        <option value="99" data-tokens="Honduras">Honduras (HN) </option>
+                                        <option value="100" data-tokens="Croatia">Croatia (HR) </option>
+                                        <option value="101" data-tokens="Haiti">Haiti (HT) </option>
+                                        <option value="102" data-tokens="Hungary">Hungary (HU) </option>
+                                        <option value="103" data-tokens="Indonesia">Indonesia (ID) </option>
+                                        <option value="104" data-tokens="Isle of Man">Isle of Man (IM) </option>
+                                        <option value="105" data-tokens="India">India (IN) </option>
+                                        <option value="106" data-tokens="British Indian Ocean Territory">British Indian Ocean Territory (IO) </option>
+                                        <option value="107" data-tokens="Ireland">Ireland (IE) </option>
+                                        <option value="108" data-tokens="Iran, Islamic Republic of">Iran, Islamic Republic of (IR) </option>
+                                        <option value="109" data-tokens="Iraq">Iraq (IQ) </option>
+                                        <option value="110" data-tokens="Iceland">Iceland (IS) </option>
+                                        <option value="111" data-tokens="Israel">Israel (IL) </option>
+                                        <option value="112" data-tokens="Italy">Italy (IT) </option>
+                                        <option value="113" data-tokens="Jamaica">Jamaica (JM) </option>
+                                        <option value="114" data-tokens="Jersey">Jersey (JE) </option>
+                                        <option value="115" data-tokens="Jordan">Jordan (JO) </option>
+                                        <option value="116" data-tokens="Japan">Japan (JP) </option>
+                                        <option value="117" data-tokens="Kazakhstan">Kazakhstan (KZ) </option>
+                                        <option value="118" data-tokens="Kenya">Kenya (KE) </option>
+                                        <option value="119" data-tokens="Kyrgyzstan">Kyrgyzstan (KG) </option>
+                                        <option value="120" data-tokens="Cambodia">Cambodia (KH) </option>
+                                        <option value="121" data-tokens="Kiribati">Kiribati (KI) </option>
+                                        <option value="122" data-tokens="Saint Kitts and Nevis">Saint Kitts and Nevis (KN) </option>
+                                        <option value="123" data-tokens="Korea, Republic of">Korea, Republic of (KR) </option>
+                                        <option value="124" data-tokens="Kuwait">Kuwait (KW) </option>
+                                        <option value="125" data-tokens="Lao People's Democratic Republic">Lao People's Democratic Republic (LA) </option>
+                                        <option value="126" data-tokens="Lebanon">Lebanon (LB) </option>
+                                        <option value="127" data-tokens="Liberia">Liberia (LR) </option>
+                                        <option value="128" data-tokens="Libya">Libya (LY) </option>
+                                        <option value="129" data-tokens="Saint Lucia">Saint Lucia (LC) </option>
+                                        <option value="130" data-tokens="Liechtenstein">Liechtenstein (LI) </option>
+                                        <option value="131" data-tokens="Sri Lanka">Sri Lanka (LK) </option>
+                                        <option value="132" data-tokens="Lesotho">Lesotho (LS) </option>
+                                        <option value="133" data-tokens="Lithuania">Lithuania (LT) </option>
+                                        <option value="134" data-tokens="Luxembourg">Luxembourg (LU) </option>
+                                        <option value="135" data-tokens="Latvia">Latvia (LV) </option>
+                                        <option value="136" data-tokens="Macao">Macao (MO) </option>
+                                        <option value="137" data-tokens="Saint Martin (French part)">Saint Martin (French part) (MF) </option>
+                                        <option value="138" data-tokens="Morocco">Morocco (MA) </option>
+                                        <option value="139" data-tokens="Monaco">Monaco (MC) </option>
+                                        <option value="140" data-tokens="Moldova, Republic of">Moldova, Republic of (MD) </option>
+                                        <option value="141" data-tokens="Madagascar">Madagascar (MG) </option>
+                                        <option value="142" data-tokens="Maldives">Maldives (MV) </option>
+                                        <option value="143" data-tokens="Mexico">Mexico (MX) </option>
+                                        <option value="144" data-tokens="Marshall Islands">Marshall Islands (MH) </option>
+                                        <option value="145" data-tokens="North Macedonia">North Macedonia (MK) </option>
+                                        <option value="146" data-tokens="Mali">Mali (ML) </option>
+                                        <option value="147" data-tokens="Malta">Malta (MT) </option>
+                                        <option value="148" data-tokens="Myanmar">Myanmar (MM) </option>
+                                        <option value="149" data-tokens="Montenegro">Montenegro (ME) </option>
+                                        <option value="150" data-tokens="Mongolia">Mongolia (MN) </option>
+                                        <option value="151" data-tokens="Northern Mariana Islands">Northern Mariana Islands (MP) </option>
+                                        <option value="152" data-tokens="Mozambique">Mozambique (MZ) </option>
+                                        <option value="153" data-tokens="Mauritania">Mauritania (MR) </option>
+                                        <option value="154" data-tokens="Montserrat">Montserrat (MS) </option>
+                                        <option value="155" data-tokens="Martinique">Martinique (MQ) </option>
+                                        <option value="156" data-tokens="Mauritius">Mauritius (MU) </option>
+                                        <option value="157" data-tokens="Malawi">Malawi (MW) </option>
+                                        <option value="158" data-tokens="Malaysia">Malaysia (MY) </option>
+                                        <option value="159" data-tokens="Mayotte">Mayotte (YT) </option>
+                                        <option value="160" data-tokens="Namibia">Namibia (NA) </option>
+                                        <option value="161" data-tokens="New Caledonia">New Caledonia (NC) </option>
+                                        <option value="162" data-tokens="Niger">Niger (NE) </option>
+                                        <option value="163" data-tokens="Norfolk Island">Norfolk Island (NF) </option>
+                                        <option value="164" data-tokens="Nigeria">Nigeria (NG) </option>
+                                        <option value="165" data-tokens="Nicaragua">Nicaragua (NI) </option>
+                                        <option value="166" data-tokens="Niue">Niue (NU) </option>
+                                        <option value="167" data-tokens="Netherlands">Netherlands (NL) </option>
+                                        <option value="168" data-tokens="Norway">Norway (NO) </option>
+                                        <option value="169" data-tokens="Nepal">Nepal (NP) </option>
+                                        <option value="170" data-tokens="Nauru">Nauru (NR) </option>
+                                        <option value="171" data-tokens="New Zealand">New Zealand (NZ) </option>
+                                        <option value="172" data-tokens="Oman">Oman (OM) </option>
+                                        <option value="173" data-tokens="Pakistan">Pakistan (PK) </option>
+                                        <option value="174" data-tokens="Panama">Panama (PA) </option>
+                                        <option value="175" data-tokens="Pitcairn">Pitcairn (PN) </option>
+                                        <option value="176" data-tokens="Peru">Peru (PE) </option>
+                                        <option value="177" data-tokens="Philippines">Philippines (PH) </option>
+                                        <option value="178" data-tokens="Palau">Palau (PW) </option>
+                                        <option value="179" data-tokens="Papua New Guinea">Papua New Guinea (PG) </option>
+                                        <option value="180" data-tokens="Poland">Poland (PL) </option>
+                                        <option value="181" data-tokens="Puerto Rico">Puerto Rico (PR) </option>
+                                        <option value="182" data-tokens="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of (KP) </option>
+                                        <option value="183" data-tokens="Portugal">Portugal (PT) </option>
+                                        <option value="184" data-tokens="Paraguay">Paraguay (PY) </option>
+                                        <option value="185" data-tokens="Palestine, State of">Palestine, State of (PS) </option>
+                                        <option value="186" data-tokens="French Polynesia">French Polynesia (PF) </option>
+                                        <option value="187" data-tokens="Qatar">Qatar (QA) </option>
+                                        <option value="188" data-tokens="Réunion">Réunion (RE) </option>
+                                        <option value="189" data-tokens="Romania">Romania (RO) </option>
+                                        <option value="190" data-tokens="Russian Federation">Russian Federation (RU) </option>
+                                        <option value="191" data-tokens="Rwanda">Rwanda (RW) </option>
+                                        <option value="192" data-tokens="Saudi Arabia">Saudi Arabia (SA) </option>
+                                        <option value="193" data-tokens="Sudan">Sudan (SD) </option>
+                                        <option value="194" data-tokens="Senegal">Senegal (SN) </option>
+                                        <option value="195" data-tokens="Singapore">Singapore (SG) </option>
+                                        <option value="196" data-tokens="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands (GS) </option>
+                                        <option value="197" data-tokens="Saint Helena, Ascension and Tristan da Cunha">Saint Helena, Ascension and Tristan da Cunha (SH) </option>
+                                        <option value="198" data-tokens="Svalbard and Jan Mayen">Svalbard and Jan Mayen (SJ) </option>
+                                        <option value="199" data-tokens="Solomon Islands">Solomon Islands (SB) </option>
+                                        <option value="200" data-tokens="Sierra Leone">Sierra Leone (SL) </option>
+                                        <option value="201" data-tokens="El Salvador">El Salvador (SV) </option>
+                                        <option value="202" data-tokens="San Marino">San Marino (SM) </option>
+                                        <option value="203" data-tokens="Somalia">Somalia (SO) </option>
+                                        <option value="204" data-tokens="Saint Pierre and Miquelon">Saint Pierre and Miquelon (PM) </option>
+                                        <option value="205" data-tokens="Serbia">Serbia (RS) </option>
+                                        <option value="206" data-tokens="South Sudan">South Sudan (SS) </option>
+                                        <option value="207" data-tokens="Sao Tome and Principe">Sao Tome and Principe (ST) </option>
+                                        <option value="208" data-tokens="Suriname">Suriname (SR) </option>
+                                        <option value="209" data-tokens="Slovakia">Slovakia (SK) </option>
+                                        <option value="210" data-tokens="Slovenia">Slovenia (SI) </option>
+                                        <option value="211" data-tokens="Sweden">Sweden (SE) </option>
+                                        <option value="212" data-tokens="Eswatini">Eswatini (SZ) </option>
+                                        <option value="213" data-tokens="Sint Maarten (Dutch part)">Sint Maarten (Dutch part) (SX) </option>
+                                        <option value="214" data-tokens="Seychelles">Seychelles (SC) </option>
+                                        <option value="215" data-tokens="Syrian Arab Republic">Syrian Arab Republic (SY) </option>
+                                        <option value="216" data-tokens="Turks and Caicos Islands">Turks and Caicos Islands (TC) </option>
+                                        <option value="217" data-tokens="Chad">Chad (TD) </option>
+                                        <option value="218" data-tokens="Togo">Togo (TG) </option>
+                                        <option value="219" data-tokens="Thailand">Thailand (TH) </option>
+                                        <option value="220" data-tokens="Tajikistan">Tajikistan (TJ) </option>
+                                        <option value="221" data-tokens="Tokelau">Tokelau (TK) </option>
+                                        <option value="222" data-tokens="Turkmenistan">Turkmenistan (TM) </option>
+                                        <option value="223" data-tokens="Timor-Leste">Timor-Leste (TL) </option>
+                                        <option value="224" data-tokens="Tonga">Tonga (TO) </option>
+                                        <option value="225" data-tokens="Trinidad and Tobago">Trinidad and Tobago (TT) </option>
+                                        <option value="226" data-tokens="Tunisia">Tunisia (TN) </option>
+                                        <option value="227" data-tokens="Turkey">Turkey (TR) </option>
+                                        <option value="228" data-tokens="Tuvalu">Tuvalu (TV) </option>
+                                        <option value="229" data-tokens="Taiwan, Province of China">Taiwan, Province of China (TW) </option>
+                                        <option value="230" data-tokens="Tanzania, United Republic of">Tanzania, United Republic of (TZ) </option>
+                                        <option value="231" data-tokens="Uganda">Uganda (UG) </option>
+                                        <option value="232" data-tokens="Ukraine">Ukraine (UA) </option>
+                                        <option value="233" data-tokens="United States Minor Outlying Islands">United States Minor Outlying Islands (UM) </option>
+                                        <option value="234" data-tokens="Uruguay">Uruguay (UY) </option>
+                                        <option value="236" data-tokens="Uzbekistan">Uzbekistan (UZ) </option>
+                                        <option value="237" data-tokens="Holy See (Vatican City State)">Holy See (Vatican City State) (VA) </option>
+                                        <option value="238" data-tokens="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines (VC) </option>
+                                        <option value="239" data-tokens="Venezuela, Bolivarian Republic of">Venezuela, Bolivarian Republic of (VE) </option>
+                                        <option value="240" data-tokens="Virgin Islands, British">Virgin Islands, British (VG) </option>
+                                        <option value="241" data-tokens="Virgin Islands, U.S.">Virgin Islands, U.S. (VI) </option>
+                                        <option value="242" data-tokens="Viet Nam">Viet Nam (VN) </option>
+                                        <option value="243" data-tokens="Vanuatu">Vanuatu (VU) </option>
+                                        <option value="244" data-tokens="Wallis and Futuna">Wallis and Futuna (WF) </option>
+                                        <option value="245" data-tokens="Samoa">Samoa (WS) </option>
+                                        <option value="246" data-tokens="Yemen">Yemen (YE) </option>
+                                        <option value="247" data-tokens="South Africa">South Africa (ZA) </option>
+                                        <option value="248" data-tokens="Zambia">Zambia (ZM) </option>
+                                        <option value="249" data-tokens="Zimbabwe">Zimbabwe (ZW) </option>
+                                    </select>
+                                                            <label for="country" class="blurred special_label">Country*</label>
+                                    <script>document.onload = function (){$('#country').selectpicker('val', {{ current_user.country_id }})}</script>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span style="display: {% if current_user.zip_code_id == None %}block{% else %}none{% endif %};" id="city_div">
+                                        <div class="input_form_test">
+                                            <input class="homepage-input transparent special_input transparent register-city" id="g_city" name="city" placeholder="London" type="text" {% if current_user.zip_code_id == None %}value="{{ current_user.city.name }}"{% endif %} autocomplete="off">
+                                            <label class="label-homepage special_label blurred" for="city">City *</label>
+                                        </div>
+                                    </span>
+                                    <span id="zip_div" style="display: {% if current_user.zip_code_id == None %}none{% else %}block{% endif %};">
+                                        <div class="input_form_test">
+                                            <input id="g_zip" name="zip" type="text" inputmode="numeric" class="homepage-input transparent special_input transparent register-zip" {% if current_user.zip_code_id != None %}value="{{ current_user.zip_code.name }}"{% endif %}>
+                                            <label class="label-homepage special_label blurred" for="zip">Zip Code *</label>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input_form_test">
+                                        <input class="homepage-input transparent special_input transparent register-email" id="g_email" name="email" placeholder="johnsmith@gmail.com" required="" type="text" value="{{current_user.email}}">
+                                        <label class="label-homepage special_label blurred" for="email">Email *</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6" style="margin-top: 20px">
+                                    <button id="edit_profile_submit" type="button" class="btn btn-default note-submit btn-block" style="margin-top: 25px">Submit</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <br><br>
+                                <div class="col-sm-6 col-xs-12">
+                                    <a href="/auth/reset_password_request" style="float: left" class="menu-item" id="password_reset">Reset your password <i class="fas fa-key"></i></a>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <a href="/auth/toggle_subscription" style="float: right" class="menu-item" id="toggle_subscription">{% if current_user.unsubscribed %}Re-Subscribe to Emails {% else %}Un-Subscribe to Emails {% endif %}<i class="fa fa-envelope"></i></a>
+                                </div>
+                                <br><br>
+                            </div>
+                            </form>
+                            <div class="row">
+                                <div class="col-xs-2"></div>
+                                <div class="col-xs-8">
+                                    <p>** You may delete your account at any time. Please be aware that this action is permanent and will result in a loss of all of your data.</p>
+                                    <button id="delete_user" class="remove enroll-btn btn-block">Delete Account</button>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="modal fade" id="edit_area_category" tabindex="-1" role="dialog" aria-labelledby="edit_area_category" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+                <div class="modal-content" style="margin: auto; margin-top: 5vh !important; width: 40vw; height: 65vh; min-width: 300px">
+                    <div class="modal-body">
+                        <div class="row" style="margin-bottom: 10px">
+                            <div class="col-xs-12">
+                                <div class="post-option" data-dismiss="modal" style="float: left">X</div>
+                                <div class="sidenav_btn no-highlight" style="float: right; width: unset; padding: 8px 10px" id="save_options_btn">Save</div>
+                            </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-xs-2"></div>
+                                <div class="col-xs-8">
+                                    <h3 style="text-align: center">Edit Your <span id="edit_area_label">Hobbies</span></h3>
+                                </div>
+                                <div class="col-xs-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-1"></div>
+                                <div class="col-sm-10">
+                                    <p style="font-size: 12px; color: #818181">* choose up to 5</p>
+                                    <div class="selectable_options" id="options_area" style="overflow-y: auto; overflow-x: hidden; height: 40vh">
+                                        <div class="row" id="loading_spinner_more"><div class="col-sm-12" style="margin: auto; text-align: center; display: block"><div class="loadingio-spinner-spinner-lmswu5gqlpl"><div class="ldio-ysqxvp0pznb">
+                                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                        </div></div></div> </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-1"></div>
+                            </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="modal fade" id="new_message_modal" tabindex="-1" role="dialog" aria-labelledby="new_message_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 15vh; min-height: 30vh">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                        <div class="post-option" style="float: right; margin: 5px" data-dismiss="modal">X</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="padding: 0 25px">
+                                        <div class="message_destination">To: <div class="post_destination" id="recipient_name"></div></div>
+                                        <textarea class="form-control special_text" id="message_subject" name="post" placeholder="Title this conversation" required="" style="height:35px; overflow:auto; resize:none"></textarea>
+                                        <textarea class="form-control special_text" id="message_body" name="post" placeholder="What would you like to say?" required="" style="height:120px; overflow:auto; resize:none; margin-top: 20px"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top: 15px">
+                                    <div class="col-sm-12">
+                                        <div id="send_message_btn" class="message_send_btn" aria-disabled="true" recipient-id="0">Send Message <i class="fas fa-long-arrow-alt-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="modal fade" id="existing_convos" tabindex="-1" role="dialog" aria-labelledby="existing_convos" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="overflow: auto; margin: auto; margin-top: 10vh !important; max-width: 40vw; max-height: 50vh">
+                    <div class="modal-body" style="">
+                        <div class="row">
+                            <div class="col-xs-12" style="margin-bottom: 10px">
+                                <div class="post-option" data-dismiss="modal" style="float:right;;">X</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4 style="display: inline-block; text-align: center">Existing Conversations With <span id="conversations_with"></span></h4>
+                                <div id="existing_convos_content"></div>
+                                <div class="sidenav_btn" style="width: 100%; margin-top: 10px" id="new_convo" recipient-id="0">Start a New Conversation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div id="goes_here" class="col-sm-12" style="height:{% if current_user.is_recruiter %}80vh{% else %}100vh{% endif %}; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff; overflow-y: auto">
+            <div class="row" style="margin-top: 15px">
+                <div class="col-sm-5 hidden-sm hidden-md hidden-lg hidden-print" style="text-align: center">
+                    <h3 style="color: #30415d">{{ user.name }}  (<span style="color: #a94442">@{{ user.username }} </span>)</h3>
+                </div>
+            </div>
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-sm-2">
+            {% if user == current_user %}
+                <div class="col-sm-3" style="margin-bottom: 15px; text-align: center">
+                    <div class="edit-img">
+                        <img src="{{ user.avatar(150) }}" class="img-rounded faded" id="user_img">
+                        {% if current_user.img == 1 %}
+                        <div class="img_hover2 hidden-xs">
+                            <p class="menu-item" onclick="$('#img_upload').click()">Edit Image</p>
+                            <hr style="border: 1px #333 solid">
+                            <p class="menu-item delete_personal_img">Delete Image</p>
+                        </div>
+                        {% else %}
+                         <div class="img_hover1 hidden-xs">
+                            <p class="menu-item" onclick="$('#img_upload').click()">Edit Image</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="row hidden-sm hidden-md hidden-lg hidden-print">
+                    <p class="menu-item" style="display: inline-block" onclick="$('#img_upload').click()">Edit Image</p>{% if current_user.img %} |
+                    <p class="menu-item delete_personal_img" style="display: inline-block">Delete Image</p>{% endif %}
+                </div>
+                </div>
+            {% else %}
+            <div class="col-sm-3" style="margin-bottom: 15px">
+                <img src="{{ user.avatar(150) }}" class="img-rounded faded" id="user_img" style="text-align: center; margin: auto; display: block">
+            </div>
+            {% endif %}
+            </div>
+            <div class="col-sm-5 hidden-sm hidden-md hidden-lg hidden-print">
+                <h4>About:</h4>
+                {% if user.about_me != None and user.about_me|length > 0 %}<p style="font-size: 15px">{{ user.about_me }}</p>{% else %}{% if current_user == user %}<p style="font-size: 15px; text-align: center; text-transform: uppercase" class="menu-item edit_profile_toggle" id="add_bio">+ Add A brief bio!!</p>{% else %}No Bio{% endif %}{% endif %}
+                <br>
+                <h4>Info: <span class="edit_profile_toggle" style="font-size: 14px; line-height: 20px; color: #4D80E4; float: right; cursor:pointer;"><span class="glyphicon glyphicon-edit"></span>Edit Profile</span></h4>
+                    <table class="table">
+                        <tr><td><i class="fas fa-location-arrow profile-ico"></i> {{ user.city.name }}, {{ user.state.name }}, {{ user.country.code }}</td></tr>
+                        <tr><td><i class="fa fa-briefcase profile-ico"></i> {{ user.industry.title }}</td></tr>
+                    </table>
+                    {% if user != current_user %}{% if not current_user.is_recruiter %}<p class="connect_btn" id="connect_with_btn" recipient-id="{{ user.id }}">Connect <i class="fab fa-facebook-messenger"></i></p>{% endif %}{% endif %}
+                    <br><br><br>
+            </div>
+            <div class="col-sm-7 hidden-xs" style="margin-left: 8vw">
+                    <h3 style="color: #30415d">{{ user.name }}  (<span style="color: #a94442">@{{ user.username }}</span>)</h3>
+                    {% if current_user == user %}<span style="float:right; color: #4D80E4; cursor: pointer" class="edit_profile_toggle"><span class="glyphicon glyphicon-edit"></span> Edit Profile</span></span>{% endif %}
+                <p><i class="fas fa-location-arrow profile-ico"></i> {{ user.city.name }}, {{ user.state.name }}, {{ user.country.code }}</p>
+                <p><i class="fa fa-briefcase profile-ico"></i> {{ user.industry.title }}</p>
+                {% if user.about_me != None and user.about_me|length > 0 %}<p style="font-size: 15px">{{ user.about_me }}</p>{% else %}{% if user == current_user %}<p style="font-size: 15px; text-transform: uppercase" class="menu-item edit_profile_toggle" id="add_bio">+ Add A brief bio!!</p>{% endif %}{% endif %}
+                {% if user != current_user %}{% if not current_user.is_recruiter %}<p class="connect_btn" id="connect_with_btn" recipient-id="{{ user.id }}">Connect <i class="fab fa-facebook-messenger"></i></p>{% endif %}{% endif %}
+                <br><br><br>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        <div class="row" style="margin: 5px">
+                <div class="col-sm-12 col-md-6 user_area" id="hobbies_area">
+                    <h4>Hobbies {% if user == current_user %}<i class="fas fa-edit area-edit" id="hobbies_edit"></i>{% endif %}</h4>
+                    <div class="area_options" type-id="1">
+                        {% if user.hobbies|length > 0%}
+                            {% for hobby in user.hobbies %}
+                                <span class="no-highlight">{{ hobby.title }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="no-highlight" style="background-color: #f8f8ff6b !important;">Nothing Selected</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 user_area" id="skills_area">
+                    <h4>Skills {% if user == current_user %}<i class="fas fa-edit area-edit" id="skills_edit"></i>{% endif %}</h4>
+                    <div class="area_options" type-id="2">
+                        {% if user.skills|length > 0 %}
+                            {% for skill in user.skills %}
+                                <span class="no-highlight">{{ skill.title }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="no-highlight" style="background-color: #f8f8ff6b !important;">Nothing Selected</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 user_area" id="interests_area">
+                    <h4>Interests {% if user == current_user %}<i class="fas fa-edit area-edit" id="interests_edit"></i>{% endif %}</h4>
+                    <div class="area_options" type-id="3">
+                        {% if user.interests|length > 0 %}
+                            {% for interest in user.interests %}
+                                <span class="no-highlight">{{ interest.title }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="no-highlight" style="background-color: #f8f8ff6b !important;">Nothing Selected</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 user_area" id="values_area">
+                    <h4>Values {% if user == current_user %}<i class="fas fa-edit area-edit" id="values_edit"></i>{% endif %}</h4>
+                    <div class="area_options" type-id="4">
+                        {% if user.values|length > 0 %}
+                            {% for value in user.values %}
+                                <span class="no-highlight">{{ value.title }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="no-highlight" style="background-color: #f8f8ff6b !important;">Nothing Selected</span>
+                        {% endif %}
+                    </div>
+                </div>
+        </div>
+    {% if current_user.completed < 2 %}
+        <script src="{{ url_for('static', filename='js/more_info.js') }}"></script>
+    {% else %}
+        {% if not current_user.email_verified %}
+            <script src="{{ url_for('static', filename='js/email_required.js') }}"></script>
+        {% endif %}
+    {% endif %}
+    </div>
+    <form id="img_upload_form" action="/img_upload" method="post" class="form" enctype="multipart/form-data" role="form" style="display: none">
+        <input id="img_upload" name="file" type="file">
+        <input class="btn btn-default" id="submit_img_upload" name="submit" type="submit" value="Submit">
+    </form>
+{% endblock %}

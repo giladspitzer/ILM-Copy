@@ -1,0 +1,103 @@
+{% extends "new_sidebar/new_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block main_content %}
+    <div id="goes_here" class="col-sm-12" style="height:100vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-12" style="margin-left: 25px; padding: 10px">
+                    <p style="line-height: 40px; font-size: 36px; font-weight: bold; display: inline-block">Meet Others Like You <i class="fas fa-users"></i></p>
+                    <p style="font-size: 18px; line-height: 26px; font-weight: 300">Discover individuals from the ILMJTCV Talent Base who are similar to you</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" id="similar_users" data-set="0" onscroll="load_more_similar_users(this)" style="overflow-y: auto; height: 85vh">
+                    <div class="row" id="temp_row" style="animation: fadein 2s">
+                        <h4 style="text-transform: uppercase; color: #818181ab; text-align: center">We are finding people for you to connect with... give us one second!</h4>
+                        <div class="loadingio-spinner-spinner-ok7idc80he9" style="display: block; margin: auto; text-align: center"><div class="ldio-u1oevpwp8f">
+                        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                        </div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="new_message_modal" tabindex="-1" role="dialog" aria-labelledby="new_message_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 15vh; min-height: 30vh">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                        <div class="post-option" style="float: right; margin: 5px" data-dismiss="modal">X</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12" style="padding: 0 25px">
+                                        <div class="message_destination">To: <div class="post_destination" id="recipient_name"></div></div>
+                                        <textarea class="form-control special_text" id="message_subject" name="post" placeholder="Title this conversation" required="" style="height:35px; overflow:auto; resize:none"></textarea>
+                                        <textarea class="form-control special_text" id="message_body" name="post" placeholder="What would you like to say?" required="" style="height:120px; overflow:auto; resize:none; margin-top: 20px"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top: 15px">
+                                    <div class="col-sm-12">
+                                        <div id="send_message_btn" class="message_send_btn" aria-disabled="true" recipient-id="0">Send Message <i class="fas fa-long-arrow-alt-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="modal fade" id="existing_convos" tabindex="-1" role="dialog" aria-labelledby="existing_convos" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="overflow: auto; margin: auto; margin-top: 10vh !important; max-width: 40vw; max-height: 50vh">
+                    <div class="modal-body" style="">
+                        <div class="row">
+                            <div class="col-xs-12" style="margin-bottom: 10px">
+                                <div class="post-option" data-dismiss="modal" style="float:right;;">X</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4 style="display: inline-block; text-align: center">Existing Conversations With <span id="conversations_with"></span></h4>
+                                <div id="existing_convos_content"></div>
+                                <div class="sidenav_btn" style="width: 100%; margin-top: 10px" id="new_convo" recipient-id="0">Start a New Conversation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% if current_user.completed < 2 %}
+        <script src="{{ url_for('static', filename='js/more_info.js') }}"></script>
+    {% else %}
+        {% if not current_user.email_verified %}
+            <script src="{{ url_for('static', filename='js/email_required.js') }}"></script>
+        {% endif %}
+    {% endif %}
+    <script>
+    $(document).ready(function () {
+        var set = $('#similar_users').attr('data-set').toString()
+        $.ajax({
+            type: 'GET',
+            url: '/get_similar_people',
+            data: {'set': set},
+            success: function (response) {
+                console.log(response)
+                if(response['status'] === 'success'){
+                    $('#similar_users').attr('data-set', '1')
+                    $('#similar_users').hide().html(response['html']).fadeIn('slow')
+                    make_moments()
+                }else{
+                    custom_error_popup(response['message'])
+                }
+            },
+            error: function () {
+                error_popup()
+            }
+        })
+    })
+    </script>
+    <script src='{{ url_for('static', filename='js/jquery-sortable.js') }}'></script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block full_content %}
+    <div class="row" style="margin-top: 30px; margin-left: 30px">
+    AUTH
+        <ul>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=0) }}">Send Partnership Request Confirmed -- partnership_confirmed</a>
+            </li>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=1) }}">Send Confirm Your Partnership Request -- confirm_partnership</a>
+            </li>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=2) }}">Your Password Has Been Reset -- password_reset_confirmed</a>
+            </li>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=3) }}">Account Registration Confirmed -- account_registration_confirmed</a>
+            </li>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=4) }}">Confirm Your Account -- confirm_email</a>
+            </li>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=5) }}">Reset Your Password -- reset_password_email</a>
+            </li>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=6) }}">Your Email Has Been Reset -- confirm_new_email</a>
+            </li>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=7) }}">Your profile has been updated -- confirm_account_changes</a>
+            </li>
+        </ul>
+
+    MAIN
+        <ul>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=8) }}">Post Reported! -- _user_post_reported</a>
+            </li>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=9) }}">Welcome to ILMJTCV-Jobs -- recruiting_enroll</a>
+            </li>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=10) }}">Un-enrolled From Recruiter Resume Access -- recruiting_unenroll</a>
+            </li>
+        </ul>
+
+    BACKGROUND
+        <ul>
+            <li>
+                    <a href="{{ url_for('main.test_email', num=12) }}">Never enrolled recruiting</a>
+            </li>
+            <li>
+{#                    <a href="{{ url_for('main.test_email', num=12) }}">We found new job listings for you! -- new_jobs</a>#}
+            </li>
+        </ul>
+
+
+    </div>
+{% endblock %}
+
+

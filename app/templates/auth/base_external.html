@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block full_content %}
+    <style>
+    .navbar{
+        background-color: #f3f3f37c !important;
+    background-image: url(/static/images/login_pattern.png) !important;
+    background-blend-mode: color;
+    background-position: inherit;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    animation: fadein 2s;
+    }
+    </style>
+    <script></script>
+    <div class="content_container login_container height_adjust">
+        <div class="row">
+            {% block external_content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,8 @@
+Dear {{ recruiter.user.name }},
+Your job posting for {{ job.job_title }} at {{ job.company }} has officially been posted.
+You will be notified when candidates apply to this posting and will then be able to access their professional profile which include their resume.
+You may view and edit this posting in a browser by clicking below.
+Sincerely,
+The ILMJTCV Team
+
+{{ url_for('partnership.job_posting', id=job.id, _external=True) }}

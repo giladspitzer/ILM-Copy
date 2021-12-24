@@ -1,0 +1,43 @@
+{% extends "new_sidebar/new_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block main_content %}
+    <div id="goes_here" class="col-sm-12" style="height:100vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+        <div class="modal fade" id="event_modal" tabindex="-1" role="dialog" aria-labelledby="event_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: unset; margin: unset">
+                <div class="modal-content partner_modal_main">
+                    <div class="modal-body" style="padding: 0; height: 100%; overflow: hidden" id="event_area"></div>
+                </div>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col-sm-12" style="padding: 10px 15px">
+                        <p style="line-height: 40px; font-size: 36px; font-weight: bold; display: inline-block">Exclusive Events <i class="far fa-calendar-plus"></i></p>
+                        <p style="font-size: 18px; line-height: 26px; font-weight: 300">Engage with professional mentors at virtual events, workshops and webinars</p>
+                        <div class="row" style="width: 100%; margin: 0 15px">
+                            <div class="col-sm-6 col-md-3 event_option {% if num == 0 %}selected_event{% endif %}"  ordering="0">
+                                Upcoming
+                            </div>
+                            <div class="col-sm-6 col-md-3 event_option {% if num == 1 %}selected_event{% endif %}"  ordering="1">
+                                Past
+                            </div>
+                        </div>
+                        <hr style="margin-top: 10px; margin-bottom: 0">
+                        <ul id="events_table" class="no-highlight" data-set="0" ordering="{{ num }}" onscroll="load_more_events(this)">
+                                <div class="row" id="temp_row" style="animation: fadein 2s">
+                                    <h4 style="text-transform: uppercase; color: #818181ab; text-align: center">We are finding events to display... give us one second!</h4>
+                                    <div class="loadingio-spinner-spinner-ok7idc80he9" style="display: block; margin: auto; text-align: center"><div class="ldio-u1oevpwp8f">
+                                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                    </div></div>
+                                </div>
+                        </ul>
+                    </div>
+                </div>
+    </div>
+    <script>
+    $(document).ready(function () {
+        refresh_events()
+    })
+    </script>
+{% endblock %}

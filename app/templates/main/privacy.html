@@ -1,0 +1,45 @@
+{% extends "info.html" %}
+{% block info_content %}
+       <div class="row" style="margin: 2vh 5vw 15vh 5vw">
+            <div class="col-sm-12 no-padding">
+	<main>
+	<div>
+		<section id="introduction">
+			<h2>Introduction</h2>
+            <p>Putting our users first is foundational to what we do and part of that is being transparent about how your data is collected, stored, and used. We use only industry standards in security and privacy to protect your information.</p>
+        </section>
+		<section id="data">
+			<h2>What kind of data do we collect?</h2>
+            <p>We collect shared data (posts in forums), restricted data (like your name, email address, and prior employment informtion), and data about how you use our platform.</p>
+        </section>
+        <section id="purpose">
+			<h2>What is the purpose of using your data?</h2>
+            <p>1) Fufillment of contract (operating the site for you)</p>
+            <p>2) Consent (interacting with you as a user of the website)</p>
+            <p>3) Legitimate Interests (government and policy)</p>
+        </section>
+        <section id="who">
+			<h2>Who uses the data we collect?</h2>
+            <p>We share data with the ILostMyJobToCoronavirus community and ILostMyJobToCoronavirus, prospective employers, and other partners. We will not share any individually identifying information without your permission. We reserve the right to share summary information about users without seeking additional consent.</p>
+        </section>
+        <section id="closure">
+			<h2>What happens if I close my account?</h2>
+            <p>You are free to close your account at any time. ILostMyJobToCoronavirus won’t display or use the data in that account after the date of deactivation. If you wish, you may request that your data be deleted. Otherwise, the data will still remain in the system, for up to 3 years. It will also remain a part of any research or policy that included it before deactivation.</p>
+        </section>
+        <section id="security">
+			<h2>What is the purpose of using your data?</h2>
+            <p>We can’t guarantee the identity of any members you may interact with on the site and who may have access to your shared data. We also can’t guarantee the authenticity of any data that members may provide about themselves.</p>
+            <p>There are also no known risks to using this website, but there is a possibility that you may feel uncomfortable sharing information online. It is possible that you could be identified using information shared on ILostMyJobToCoronavirus, so for any non-required fields of information, please share only what makes you comfortable.</p>
+        </section>
+        <section id="security">
+			<h2>You can find more info by reading our <a href="{{ url_for('main.terms') }}" class="menu-item">Terms of Use</a></h2>
+        </section>
+	</div>
+    </main>
+        </div>
+       </div>
+{% endblock %}
+{% block info_title %}
+    Privacy Policies
+{% endblock %}
+

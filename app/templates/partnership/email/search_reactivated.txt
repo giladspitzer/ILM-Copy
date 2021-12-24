@@ -1,0 +1,6 @@
+Dear {{ recruiter.user.name }},
+Your Talent Search for {{ search.title }} has been REactivated. All applicants have been notified that this search is available again.
+Sincerely,
+The ILMJTCV Team
+
+{{ url_for('partnership.saved_search', id=search.id, _external=True) }}

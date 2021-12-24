@@ -1,0 +1,47 @@
+{% extends "special_base.html" %}
+{% block left_content %}
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/homepage.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/test.css') }}">
+        <p id="profile"><i>Social</i> Profile</p>
+        {% if '/user/' + current_user.username in request.path %}
+            <a href="{{ url_for('main.user', username=current_user.username) }}" class="current"><i class="far fa-id-card"></i> {{current_user.username}}</a>
+        {% else %}
+             <a href="{{ url_for('main.user', username=current_user.username) }}"><i class="far fa-id-card"></i> {{current_user.username}}</a>
+        {% endif %}
+        <br>
+        {% if 'unemployment_map' in request.path %}
+            <a href="{{ url_for('main.unemployment_map') }}" class="current"><i class="fas fa-map-marked-alt"></i> Interactive Map</a>
+        {% else %}
+             <a href="{{ url_for('main.unemployment_map') }}"><i class="fas fa-map-marked-alt"></i> Interactive Map</a>
+        {% endif %}
+        <br>
+        {% if 'chat' in request.path %}
+            <a href="{{ url_for('main.chat') }}" class="current"><i class="fas fa-home"></i> Chat Home</a>
+        {% else %}
+             <a href="{{ url_for('main.chat') }}"><i class="fas fa-home"></i> Chat Home</a>
+        {% endif %}
+
+        <p id="forums">Forums</p>
+        {% for forum in current_user.forums %}
+            {% if '/' + forum.id|string in request.path %}
+                <a href="{{ url_for('main.forum', id=forum.id) }}" class="current" id="forum_selector_{{ forum.id }}"># {{forum.title}} <i class="{{ forum.get_icon() }}"></i> </a>
+            {% else %}
+                <a href="{{ url_for('main.forum', id=forum.id) }}" id="forum_selector_{{ forum.id }}"># {{forum.title}} <i class="{{ forum.get_icon() }}"></i> </a>
+            {% endif %}
+        {% endfor %}
+        <div class="sidenav_btn no-highlight" id="more_forums">+ Find Forums</div>
+        <br>
+         <p>Direct Messages</p>
+        {% if '/message' in request.path %}
+            <a href="{{ url_for('main.messages') }}" class="current"><i class="fab fa-facebook-messenger"></i> Conversations</a>
+        {% else %}
+             <a href="{{ url_for('main.messages') }}"><i class="fab fa-facebook-messenger"></i> Conversations</a>
+        {% endif %}
+
+{% endblock %}
+
+
+{% block main_content %}{% endblock %}
+
+
+

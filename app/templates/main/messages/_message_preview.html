@@ -1,0 +1,30 @@
+<div class="row">
+    {% if board.unread_messages(current_user) %}
+        <div class="col-sm-1" style="display: inline-block">
+            <span class="unread_dot"></span>
+        </div>
+    {% else %}
+        <div class="col-sm-1"></div>
+    {% endif %}
+    <div class="col-xs-1" style="display:inline-block;">
+        <img src="{{ board.get_latest_post().author.avatar(30) }}" class="img-rounded" style="margin-top: 0px; display: inline-block">
+    </div>
+    <div class="col-sm-10" style="display: inline-block">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 style="margin-top: 0px" class="board_subject"> {{ board.subject }}<span style="font-size: 14px; line-height: 20px; color: darkgrey" data-toggle="popover" data-content="{% if board.recruiting %}You & the '{% if board.candidate_id != None %}{{ board.candidate.search.title }}{% else %}{{ board.applicant.application.job.job_title }}{% endif %}' search recruiters{% else %}{% for x in board.members %}{% if x == current_user %}You, {% else %}{{ x.username }}, {% endif %}{% endfor %}{% endif %}"> ({{ board.members|length }} People)</span></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 hidden-md hidden-sm hidden-xs" style="line-height: 16px; white-space: nowrap;  overflow: hidden; -o-text-overflow: ellipsis; text-overflow: ellipsis; word-break: break-word">
+                {% if board.get_latest_post().author == current_user %}You:{% else %}{{ board.get_latest_post().author.username}}:{% endif %} {{board.get_latest_post().body}}
+            </div>
+            <div class="col-sm-8 hidden-lg" style="line-height: 16px; overflow: hidden; -o-text-overflow: ellipsis; text-overflow: ellipsis; word-break: break-word">
+                {{ board.get_latest_post().author.username}}: {{board.get_latest_post().body}}
+    </div>
+            <div class="col-sm-4" style="text-align: right">
+                <span class="post-username">{{ moment(board.get_latest_post().timestamp).format('LLL')}}</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<li class="col-sm-6 col-xs-12 event" event-id="{{ event.id }}">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 centered_small">
+            <img class="event_img img-rounded" src="{{ event.avatar() }}">
+        </div>
+        <div class="col-sm-12 col-xs-12 centered_small event_info">
+            {% if event.ongoing() %}<span style="font-size: 16px; color: #a94442; font-weight: 800">• Live Now</span> {% endif %}
+            <h4 class="title">{{ event.title }} <span style="font-size: 12px;">• Webinar</span></h4>
+                <p class=""><i class="fas fa-user"></i> {% if event.speakers|length > 1 %}{% for i in event.speakers %}{{ i.name }}, {% endfor %}{% else %}{{ event.speakers[0].name }}{% endif %}</p>
+                {% if not event.has_passed() %}
+                <p class=""><i class="fas fa-calendar"></i> {{ moment(event.time_end).format("L") }}</p>
+                <p class=""><i class="fas fa-clock"></i> {{ moment(event.time_start).format("LT") }} - {{ moment(event.time_end).format("LT") }}</p>
+                {% else %}
+                    {% if event.recorded %}
+                    <p class=""><i class="fab fa-youtube"></i> Event Recorded</p>
+                    {% else %}
+                    <p class="">Event Expired</p>
+                    {% endif %}
+                {% endif %}
+                {% if event.industries|length > 0 %}<p class=""><i class="fas fa-hammer"></i> Geared toward: {% for industry in event.industries %}{{ industry.title }}, {% endfor %}{% endif %}
+                <p class="snippet" style="font-size: 14px">{{ event.description[:150] }}</p>
+        </div>
+    </div>
+    <hr style="margin-bottom: 10px">
+    <div class="learn_more" event-id="{{ event.id }}">Learn More</div>
+</li>

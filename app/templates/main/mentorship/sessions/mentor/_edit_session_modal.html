@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h3 style="display: inline-block; margin-top: 0">Edit Mentorship Session</h3>
+        <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4 partner_content" style="overflow-y: hidden; height: unset">
+        <p style="color: #818181; margin: 5px 0">{{ moment(appointment.start_time).format('LL') }}: {{ moment(appointment.start_time).format('LT') }} -- {{ moment(appointment.end_time).format('LT') }}</p>
+        <button id="cancel_app" class="remove_item" style="max-width: 150px !important; margin: 10px 0" app-id="{{ appointment.id }}" booked="{% if appointment.participants|length == 0 %}false{% else %}true{% endif %}">CANCEL SESSION</button>
+        <hr style="margin: 5px 0">
+        <div class="input_form_test">
+            <input class="special_input transparent" id="appointment_zoom_link" name="appointment_zoom_link" required="" type="text" value="{{appointment.get_zoom_link()}}" style="font-size: 15px" disabled="disabled">
+            <label class="special_label blurred" for="appointment_zoom_link">Zoom Link *</label>
+        </div>
+        {% if appointment.get_zoom_password() != None %}
+            <div class="input_form_test" style="margin-top: 0;" id="zoom_password_container">
+            <input class="special_input transparent" id="appointment_zoom_password" name="appointment_zoom_password" required="" type="text" value="{{appointment.get_zoom_password()}}" style="font-size: 15px" disabled="disabled">
+            <label class="special_label blurred" for="appointment_zoom_password">Zoom Password *</label>
+        </div>
+        {% endif %}
+        {% if current_user == appointment.mentor.user %}
+            <button class="sidenav_btn" id="change_zoom_info" style="margin: 10px auto">Edit Zoom Info</button>
+        {% endif %}
+    </div>
+    <div class="col-sm-8">
+        {% if appointment.participants|length == 0 %}
+            <p style="color: #818181; text-align: center">Not booked yet</p>
+        {% else %}
+            <div class="participant" style="margin: 0 10px">
+                <img class="img-rounded" src="{{ appointment.participants[0].avatar(50) }}" style="display: inline">
+                <p style="display:inline; font-size: 20px; line-height: 30px; margin: 0 5px">{{ appointment.participants[0].name }} {% if appointment.participants[0].resume == True %}<a class="menu-item" href="{{ appointment.participants[0].get_resume() }}" target="_blank" style="margin: 0 5px"><i class="far fa-file" data-toggle="popover" data-placement="top" data-content="View Resume"></i></a>{% endif %} {% if appointment.participants[0].get_linked_in() != None  %}<a class="menu-item" href="{{ appointment.participants[0].get_linked_in() }}" target="_blank" style="margin: 0 5px"><i class="fab fa-linkedin" data-toggle="popover" data-placement="top" data-content="View LinkedIn"></i></a>{% endif %}<i class="far fa-calendar" count="{{appointment.participants[0].get_completed_sessions() }}" data-toggle="popover" data-placement="top" data-content="Previous Mentorship Sessions"></i></p>
+                <br>
+                <div class="participant_option activated" id="personal_notes_toggle" app-id="{{ appointment.id }}">
+                    Personal Notes (<span id="total_notes">{{ appointment.notes.count() }}</span>)
+                </div>
+                <div class="participant_option" id="message_toggle_participant" app-id="{{ appointment.id }}">
+                    Messages (<span id="total_messages">{{ appointment.message_board.messages.count() }}</span>)
+                </div>
+            </div>
+            <hr style="margin: 5px 0">
+            <div id="participant_extra_area">
+                {% include 'main/mentorship/sessions/mentor/participant_notes.html' %}
+            </div>
+
+        {% endif %}
+    </div>
+</div>

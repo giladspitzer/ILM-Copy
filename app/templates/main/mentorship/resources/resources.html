@@ -1,0 +1,48 @@
+{% extends "new_sidebar/new_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block main_content %}
+    <div id="goes_here" class="col-sm-12" style="height:100vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+        <div class="row">
+            <div class="col-sm-12" style="padding: 10px 15px">
+                        <p style="line-height: 40px; font-size: 36px; font-weight: bold; display: inline-block">Resources <i class="fas fa-paperclip"></i></p>
+                        <p style="font-size: 18px; line-height: 26px; font-weight: 300">Everything you need to navigate the current pandemic</p>
+                        <div class="row" style="width: 100%; margin: 0 15px">
+                            <div class="col-sm-6 col-md-3 resource_option {% if num == 0 %}selected_resource{% endif %}"  ordering="0">
+                                Virtual Networking & Job Fairs
+                            </div>
+                            <div class="col-sm-6 col-md-3 resource_option {% if num == 1 %}selected_resource{% endif %}"  ordering="1">
+                                Unemployment Assistance
+                            </div>
+                            <div class="col-sm-6 col-md-3 resource_option {% if num == 2 %}selected_resource{% endif %}"  ordering="2">
+                                Food & Shelter
+                            </div>
+                            <div class="col-sm-6 col-md-3 resource_option {% if num == 3 %}selected_resource{% endif %}"  ordering="3">
+                                Education & Skill Building
+                            </div>
+                        </div>
+                        <hr style="margin-top: 10px; margin-bottom: 0">
+                        <ul id="resources_table" class="no-highlight" data-set="0" ordering="{{ num }}" onscroll="load_more_resources(this)">
+                                <div class="row" id="temp_row" style="animation: fadein 2s">
+                                    <h4 style="text-transform: uppercase; color: #818181ab; text-align: center">We are finding you resources for this category... give us one second!</h4>
+                                    <div class="loadingio-spinner-spinner-ok7idc80he9" style="display: block; margin: auto; text-align: center"><div class="ldio-u1oevpwp8f">
+                                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                    </div></div>
+                                </div>
+                        </ul>
+                    </div>
+                </div>
+    </div>
+    <script>
+    $(document).ready(function () {
+        refresh_resources()
+    })
+    </script>
+    {% if current_user.completed < 2 %}
+        <script src="{{ url_for('static', filename='js/more_info.js') }}"></script>
+    {% else %}
+        {% if not current_user.email_verified %}
+            <script src="{{ url_for('static', filename='js/email_required.js') }}"></script>
+        {% endif %}
+    {% endif %}
+{% endblock %}

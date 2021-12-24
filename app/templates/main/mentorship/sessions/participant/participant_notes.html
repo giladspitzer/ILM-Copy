@@ -1,0 +1,13 @@
+<div class="participant_notes" id="participant_notes" style="overflow-y: auto; overflow-x: hidden" data-set="1" app-id="{{ appointment.id }}" onscroll="load_more_appointment_notes(this)">
+    {% if appointment.mentee_notes.count() > 0 %}
+        {% for note in appointment.mentee_notes[:10][::-1] %}
+            {% include 'main/mentorship/sessions/participant/_note.html' %}
+        {% endfor %}
+    {% else %}
+        <div class="no-notes" style="padding-top: 15%;"><h4 style="color: #818181ab; text-align: center">NO NOTES YET</h4></div>
+    {% endif %}
+</div>
+<div class="add_participant_note">
+    <textarea class="form-control special_text message_authoring" id="add_participant_note" name="addnote" placeholder="Add a note about this appointment (only visible to you)" required="" style="height: 55px !important; font-size: 14px"></textarea>
+    <button class="add_note_btn" id="submit_note" name="submit_note" disabled="disabled" app-id="{{appointment.id}}"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+</div>

@@ -1,0 +1,72 @@
+{% if current_user.is_authenticated %}
+    {% if current_user.is_recruiter %}
+        {% extends "recruiter_base.html" %}
+    {% else %}
+        {% extends "new_sidebar/new_base.html" %}
+    {% endif %}
+{% else %}
+        {% extends "new_sidebar/new_base.html" %}
+{% endif %}
+{% block main_content %}
+    {% if current_user.is_anynomous %}
+    <style>
+    .main_body {
+    padding-top: 100px !important;
+}
+
+.main_content{
+  overflow-y: auto !important;
+}
+    </style>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-12 no-padding">
+            <div class="info_box">
+                <div class="row top-row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-sm-12" style="border-radius: 25px;">
+                                <h1 style="font-size: 48px; text-align: center; margin: 10px 0">{% block info_title %}{% endblock %}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+            </div>
+            <div class="content_container" style="height: 100vh">
+                <div class="row"></div>
+                <div class="row">
+                     <div class="col-sm-12">
+                         <div class="row main_info_row" style="overflow-y: auto; height: 100vh; padding-bottom: 10vh; overflow-x: hidden">
+                            {% block info_content %}{% endblock %}
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    var acc = document.getElementsByClassName("accordion-reg");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active-reg");
+        if (this.innerText.includes('+')){
+            this.innerText = this.innerText.replace('+', '-')
+        }else if (this.innerText.includes('-')){
+            this.innerText = this.innerText.replace('-', '+')
+        }
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+    </script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/external.css') }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock %}

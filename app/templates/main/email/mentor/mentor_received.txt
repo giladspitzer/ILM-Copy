@@ -1,0 +1,5 @@
+Dear {{ user.name }},
+Your application to be an ILMJTCV Mentor has been successfully submitted.
+We will be in touch with you in the coming days regarding next steps. Please feel free to reach out to our team with any questions.
+Sincerely,
+The ILMJTCV team

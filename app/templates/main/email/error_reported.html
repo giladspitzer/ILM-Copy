@@ -1,0 +1,8 @@
+<p>{{ form.name.data }} has submitted an error via the submission form on the contact page.</p>
+<br>
+<p> Here is what he said (Registered User={{ form.user.data }}):</p>
+<br>
+<p>"{{ form.body.data }}"</p>
+<p>
+   Reply to them at <a href="mailto:{{ form.email.data }}">{{ form.email.data }}</a>
+</p>

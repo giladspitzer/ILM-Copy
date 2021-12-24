@@ -1,0 +1,10 @@
+Hi {{user.name}}
+
+Since you were last active on our site, there have been some exciting updates. Log in to view your talent searches and job postings. Don’t forget to add new job openings and engage with candidates who qualify for your positions. Click below to check it out!
+
+Please don’t hesitate to reach out if we can be of assistance.
+
+Sincerely,
+The ILMJTCV Team
+
+https://ilmjtcv.com

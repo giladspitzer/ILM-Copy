@@ -1,0 +1,870 @@
+{% extends "new_sidebar/job_searches_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block board_content %}
+        <div class="modal fade" id="edit_note_modal" tabindex="-1" role="dialog" aria-labelledby="edit_note_modal" aria-hidden="true" style="z-index: 3000">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 15vh">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row" style="margin-bottom: 20px">
+                                    <div class="col-xs-11" style="font-size: 20px; line-height: 22px; font-weight: 800; color: #818181ab">
+                                        <textarea class="form-control special_text" id="note_text_edit" name="note_text" placeholder="" required="" style="height:80px; overflow:auto; resize:none; margin-top: 5px" value=""></textarea>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <div class="post-option" style="float: right" data-dismiss="modal">X</div>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top: 5px">
+                                    <div class="col-xs-2">
+                                        <div id="note_job_delete" class="post-option note-delete" note-id="0" note-type=""><i class="fas fa-trash" aria-hidden="true"></i></div>
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <div class="edit_note_submit" id="edit_job_note_submit" aria-disabled="true" note-id="0" note-type="">Edit <i class="fas fa-long-arrow-alt-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+    <div class="modal fade" id="job_modal" tabindex="-1" role="dialog" aria-labelledby="job_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+                <div class="modal-content" style="overflow: auto; margin: auto; margin-top: 7vh !important; max-width: 75vw; max-height: 80vh">
+                    <div class="modal-body">
+                        <div class="post-option" data-dismiss="modal" style="float: right">X</div>
+                        {% include 'main/jobs/_job_listing_new.html' %}
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="modal fade" id="custom_message" tabindex="-1" role="dialog" aria-labelledby="custom_message" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin: 25vh auto; max-width: 40vh; height: 45vh">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <p style="font-size: 12px; line-height: 14px">Add a personalized message to this job's recruiters</p>
+                            </div>
+                        </div>
+                        <div class="row" style="margin: 10px 0 ">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10">
+                                    <textarea class="form-control special_text" id="custom_message_job" name="post" placeholder="Share a reason why the recruiters reach out to you and pursue your applicancy (optional)." required="" style="height:180px; overflow:auto; resize:none; margin-top: 5px"></textarea>
+                            </div>
+                            <div class="col-xs-1"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6"></div>
+                            <div class="col-xs-6">
+                                <div id="submit_custom_message" class="sidenav_btn quick_apply_btn_bg" style="width: 100%" job-id="">Apply!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="modal fade" id="edit_job_search_modal" tabindex="-1" role="dialog" aria-labelledby="edit_job_search_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; min-height: 30vh">
+                <div class="modal-body">
+                    <div class="row">
+                            <div class="row">
+                                <div class="col-xs-12" style="padding: 0 25px">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h3 style="display: inline-block">Edit Job Search <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="right" data-content="Any changes to location or industry will take effect moving forward but all existing job matches will remain." style="cursor: pointer" aria-hidden="true" data-original-title="" title=""></i> </h3>
+                                            <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-1"></div>
+                                        <div class="col-xs-10" style="margin-bottom: 10px">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="input_form_test">
+                                                        <input class="special_input transparent" id="search_title_edit" name="title" required="" type="text" value="{{ search.title }}">
+                                                        <label class="special_label blurred" for="search_title_edit">Title *</label>
+                                                    </div>
+                                                    <label for="search_description_edit" style="color: #999999;">Description </label>
+                                                    <textarea class="form-control special_text" id="search_description_edit" name="search_description_edit" placeholder="Add a description for your search" required="" style="height:80px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px">{{ search.snippet }}</textarea>
+                                                    <label for="search_industries_edit" class="control-label industry-label" style="color: #999999">Industry* <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="right" data-content="You are unable to edit the industries that apply to your job search. Alternatively, you may deactivate this search and create a new one." style="cursor: pointer" aria-hidden="true" data-original-title="" title=""></i> <span style="font-size: 10px">(Up to 2)</span></label>
+                                                    <select class="form-control selectpicker searches-industry disabled" style="margin-bottom: 5px" id="search_industries_edit" data-live-search="true" name="industry" required multiple="multiple" disabled="disabled">
+                                                        <option value="4" data-tokens="Education">Education</option>
+                                                        <option value="11" data-tokens="Janitorial Services">Janitorial Services</option>
+                                                        <option value="14" data-tokens="Transportation">Transportation</option>
+                                                        <option value="17" data-tokens="Accounting">Accounting</option>
+                                                        <option value="19" data-tokens="Airlines/Aviation">Airlines/Aviation</option>
+                                                        <option value="21" data-tokens="Alternative Dispute Resolution">Alternative Dispute Resolution</option>
+                                                        <option value="23" data-tokens="Alternative Medicine">Alternative Medicine</option>
+                                                        <option value="25" data-tokens="Animation">Animation</option>
+                                                        <option value="27" data-tokens="Apparel & Fashion">Apparel & Fashion</option>
+                                                        <option value="29" data-tokens="Architecture & Planning">Architecture & Planning</option>
+                                                        <option value="31" data-tokens="Arts & Crafts">Arts & Crafts</option>
+                                                        <option value="33" data-tokens="Automotive">Automotive</option>
+                                                        <option value="35" data-tokens="Aviation & Aerospace">Aviation & Aerospace</option>
+                                                        <option value="37" data-tokens="Banking">Banking</option>
+                                                        <option value="39" data-tokens="Biotechnology">Biotechnology</option>
+                                                        <option value="41" data-tokens="Broadcast Media">Broadcast Media</option>
+                                                        <option value="43" data-tokens="Building Materials">Building Materials</option>
+                                                        <option value="45" data-tokens="Business Supplies & Equipment">Business Supplies & Equipment</option>
+                                                        <option value="47" data-tokens="Capital Markets">Capital Markets</option>
+                                                        <option value="49" data-tokens="Chemicals">Chemicals</option>
+                                                        <option value="51" data-tokens="Civic & Social Organization">Civic & Social Organization</option>
+                                                        <option value="53" data-tokens="Civil Engineering">Civil Engineering</option>
+                                                        <option value="55" data-tokens="Commercial Real Estate">Commercial Real Estate</option>
+                                                        <option value="57" data-tokens="Computer & Network Security">Computer & Network Security</option>
+                                                        <option value="59" data-tokens="Computer Games">Computer Games</option>
+                                                        <option value="61" data-tokens="Computer Hardware">Computer Hardware</option>
+                                                        <option value="63" data-tokens="Computer Networking">Computer Networking</option>
+                                                        <option value="65" data-tokens="Computer Software">Computer Software</option>
+                                                        <option value="67" data-tokens="Construction">Construction</option>
+                                                        <option value="69" data-tokens="Consumer Electronics">Consumer Electronics</option>
+                                                        <option value="71" data-tokens="Consumer Goods">Consumer Goods</option>
+                                                        <option value="73" data-tokens="Consumer Services">Consumer Services</option>
+                                                        <option value="75" data-tokens="Cosmetics">Cosmetics</option>
+                                                        <option value="77" data-tokens="Dairy">Dairy</option>
+                                                        <option value="79" data-tokens="Defense & Space">Defense & Space</option>
+                                                        <option value="81" data-tokens="Design">Design</option>
+                                                        <option value="83" data-tokens="E-learning">E-learning</option>
+                                                        <option value="85" data-tokens="Education Management">Education Management</option>
+                                                        <option value="87" data-tokens="Electrical & Electronic Manufacturing">Electrical & Electronic Manufacturing</option>
+                                                        <option value="89" data-tokens="Entertainment">Entertainment</option>
+                                                        <option value="91" data-tokens="Environmental Services">Environmental Services</option>
+                                                        <option value="93" data-tokens="Events Services">Events Services</option>
+                                                        <option value="95" data-tokens="Executive Office">Executive Office</option>
+                                                        <option value="97" data-tokens="Facilities Services">Facilities Services</option>
+                                                        <option value="99" data-tokens="Farming">Farming</option>
+                                                        <option value="101" data-tokens="Financial Services">Financial Services</option>
+                                                        <option value="103" data-tokens="Fine Art">Fine Art</option>
+                                                        <option value="105" data-tokens="Fishery">Fishery</option>
+                                                        <option value="107" data-tokens="Food & Beverages">Food & Beverages</option>
+                                                        <option value="109" data-tokens="Food Production">Food Production</option>
+                                                        <option value="111" data-tokens="Fundraising">Fundraising</option>
+                                                        <option value="113" data-tokens="Furniture">Furniture</option>
+                                                        <option value="115" data-tokens="Gambling & Casinos">Gambling & Casinos</option>
+                                                        <option value="117" data-tokens="Glass">Glass</option>
+                                                        <option value="119" data-tokens="Ceramics & Concrete">Ceramics & Concrete</option>
+                                                        <option value="121" data-tokens="Government Administration">Government Administration</option>
+                                                        <option value="123" data-tokens="Government Relations">Government Relations</option>
+                                                        <option value="125" data-tokens="Graphic Design">Graphic Design</option>
+                                                        <option value="127" data-tokens="Health">Health</option>
+                                                        <option value="129" data-tokens="Wellness & Fitness">Wellness & Fitness</option>
+                                                        <option value="131" data-tokens="Higher Education">Higher Education</option>
+                                                        <option value="133" data-tokens="Hospital & Health Care">Hospital & Health Care</option>
+                                                        <option value="135" data-tokens="Hospitality">Hospitality</option>
+                                                        <option value="137" data-tokens="Human Resources">Human Resources</option>
+                                                        <option value="139" data-tokens="Import & Export">Import & Export</option>
+                                                        <option value="141" data-tokens="Individual & Family Services">Individual & Family Services</option>
+                                                        <option value="143" data-tokens="Industrial Automation">Industrial Automation</option>
+                                                        <option value="145" data-tokens="Information Services">Information Services</option>
+                                                        <option value="147" data-tokens="Information Technology & Services">Information Technology & Services</option>
+                                                        <option value="149" data-tokens="Insurance">Insurance</option>
+                                                        <option value="151" data-tokens="International Affairs">International Affairs</option>
+                                                        <option value="153" data-tokens="International Trade & Development">International Trade & Development</option>
+                                                        <option value="155" data-tokens="Internet">Internet</option>
+                                                        <option value="157" data-tokens="Investment Banking">Investment Banking</option>
+                                                        <option value="159" data-tokens="Investment Management">Investment Management</option>
+                                                        <option value="161" data-tokens="Judiciary">Judiciary</option>
+                                                        <option value="163" data-tokens="Law Enforcement">Law Enforcement</option>
+                                                        <option value="165" data-tokens="Law Practice">Law Practice</option>
+                                                        <option value="167" data-tokens="Legal Services">Legal Services</option>
+                                                        <option value="169" data-tokens="Legislative Office">Legislative Office</option>
+                                                        <option value="171" data-tokens="Leisure">Leisure</option>
+                                                        <option value="173" data-tokens="Travel & Tourism">Travel & Tourism</option>
+                                                        <option value="175" data-tokens="Libraries">Libraries</option>
+                                                        <option value="177" data-tokens="Logistics & Supply Chain">Logistics & Supply Chain</option>
+                                                        <option value="179" data-tokens="Luxury Goods & Jewelry">Luxury Goods & Jewelry</option>
+                                                        <option value="181" data-tokens="Machinery">Machinery</option>
+                                                        <option value="183" data-tokens="Management Consulting">Management Consulting</option>
+                                                        <option value="185" data-tokens="Maritime">Maritime</option>
+                                                        <option value="187" data-tokens="Market Research">Market Research</option>
+                                                        <option value="189" data-tokens="Marketing & Advertising">Marketing & Advertising</option>
+                                                        <option value="191" data-tokens="Mechanical Or Industrial Engineering">Mechanical Or Industrial Engineering</option>
+                                                        <option value="193" data-tokens="Media Production">Media Production</option>
+                                                        <option value="195" data-tokens="Medical Device">Medical Device</option>
+                                                        <option value="197" data-tokens="Medical Practice">Medical Practice</option>
+                                                        <option value="199" data-tokens="Mental Health Care">Mental Health Care</option>
+                                                        <option value="201" data-tokens="Military">Military</option>
+                                                        <option value="203" data-tokens="Mining & Metals">Mining & Metals</option>
+                                                        <option value="205" data-tokens="Motion Pictures & Film">Motion Pictures & Film</option>
+                                                        <option value="207" data-tokens="Museums & Institutions">Museums & Institutions</option>
+                                                        <option value="209" data-tokens="Music">Music</option>
+                                                        <option value="211" data-tokens="Nanotechnology">Nanotechnology</option>
+                                                        <option value="213" data-tokens="Newspapers">Newspapers</option>
+                                                        <option value="215" data-tokens="Non-profit Organization Management">Non-profit Organization Management</option>
+                                                        <option value="217" data-tokens="Oil & Energy">Oil & Energy</option>
+                                                        <option value="219" data-tokens="Online Media">Online Media</option>
+                                                        <option value="221" data-tokens="Outsourcing/Offshoring">Outsourcing/Offshoring</option>
+                                                        <option value="223" data-tokens="Package/Freight Delivery">Package/Freight Delivery</option>
+                                                        <option value="225" data-tokens="Packaging & Containers">Packaging & Containers</option>
+                                                        <option value="227" data-tokens="Paper & Forest Products">Paper & Forest Products</option>
+                                                        <option value="229" data-tokens="Performing Arts">Performing Arts</option>
+                                                        <option value="231" data-tokens="Pharmaceuticals">Pharmaceuticals</option>
+                                                        <option value="233" data-tokens="Philanthropy">Philanthropy</option>
+                                                        <option value="235" data-tokens="Photography">Photography</option>
+                                                        <option value="237" data-tokens="Plastics">Plastics</option>
+                                                        <option value="239" data-tokens="Political Organization">Political Organization</option>
+                                                        <option value="241" data-tokens="Primary/Secondary Education">Primary/Secondary Education</option>
+                                                        <option value="244" data-tokens="Printing">Printing</option>
+                                                        <option value="246" data-tokens="Professional Training & Coaching">Professional Training & Coaching</option>
+                                                        <option value="248" data-tokens="Program Development">Program Development</option>
+                                                        <option value="250" data-tokens="Public Policy">Public Policy</option>
+                                                        <option value="252" data-tokens="Public Relations & Communications">Public Relations & Communications</option>
+                                                        <option value="254" data-tokens="Public Safety">Public Safety</option>
+                                                        <option value="256" data-tokens="Publishing">Publishing</option>
+                                                        <option value="258" data-tokens="Railroad Manufacture">Railroad Manufacture</option>
+                                                        <option value="260" data-tokens="Ranching">Ranching</option>
+                                                        <option value="262" data-tokens="Real Estate">Real Estate</option>
+                                                        <option value="264" data-tokens="Recreational Facilities & Services">Recreational Facilities & Services</option>
+                                                        <option value="266" data-tokens="Religious Institutions">Religious Institutions</option>
+                                                        <option value="268" data-tokens="Renewables & Environment">Renewables & Environment</option>
+                                                        <option value="270" data-tokens="Research">Research</option>
+                                                        <option value="272" data-tokens="Restaurants">Restaurants</option>
+                                                        <option value="274" data-tokens="Retail">Retail</option>
+                                                        <option value="276" data-tokens="Security & Investigations">Security & Investigations</option>
+                                                        <option value="278" data-tokens="Semiconductors">Semiconductors</option>
+                                                        <option value="280" data-tokens="Shipbuilding">Shipbuilding</option>
+                                                        <option value="282" data-tokens="Sporting Goods">Sporting Goods</option>
+                                                        <option value="284" data-tokens="Sports">Sports</option>
+                                                        <option value="286" data-tokens="Staffing & Recruiting">Staffing & Recruiting</option>
+                                                        <option value="288" data-tokens="Supermarkets">Supermarkets</option>
+                                                        <option value="290" data-tokens="Telecommunications">Telecommunications</option>
+                                                        <option value="292" data-tokens="Textiles">Textiles</option>
+                                                        <option value="294" data-tokens="Think Tanks">Think Tanks</option>
+                                                        <option value="296" data-tokens="Tobacco">Tobacco</option>
+                                                        <option value="298" data-tokens="Translation & Localization">Translation & Localization</option>
+                                                        <option value="300" data-tokens="Trucking/Railroad">Trucking/Railroad</option>
+                                                        <option value="302" data-tokens="Utilities">Utilities</option>
+                                                        <option value="304" data-tokens="Venture Capital & Private Equity">Venture Capital & Private Equity</option>
+                                                        <option value="306" data-tokens="Veterinary">Veterinary</option>
+                                                        <option value="308" data-tokens="Warehousing">Warehousing</option>
+                                                        <option value="310" data-tokens="Wholesale">Wholesale</option>
+                                                        <option value="312" data-tokens="Wine & Spirits">Wine & Spirits</option>
+                                                        <option value="314" data-tokens="Wireless">Wireless</option>
+                                                        <option value="315" data-tokens="Writing & Editing">Writing & Editing</option>
+                                            </select>
+                                                </div>
+                                            </div>
+                                            <div id="jobs_checkbox_edit" style="margin-top: 10px">
+                                                <label>
+                                                    <input id="search_l_specific_edit" name="l_specific" type="checkbox" {% if search.l_specific %}checked="checked"{% endif %}> Location Specific <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="bottom" data-content="Uncheck if you are willing to re-locate and would like to see jobs for no one particular location." style="cursor: pointer"></i>
+                                                </label>
+                                            </div>
+                                            <span id="l_specific_true_edit" style="margin-bottom: 10px; {% if not search.l_specific %}display: none{% endif %}">
+                                                <div class="input_form_test" style="margin-top: 0">
+                                                    <input autocomplete="off" class="special_input transparent" id="search_city_edit" name="city"  placeholder="City that the position you are filling is located" type="text" value="{% if search.l_specific %}{{ search.city.name }}, {{ search.city.state.name }}{% endif %}">
+                                                    <label class="special_label {% if search.l_specific %}blurred{% endif %}" for="search_city_edit">City *</label>
+                                                </div>
+                                                <label class="control-label" for="search_proximity_edit">Proximity *</label>
+                                                  <select class="form-control" id="search_proximity_edit" name="" required=""><option value="1">25 miles</option><option value="2">50 miles</option><option value="3">75 miles</option><option value="4">100 miles</option><option value="5">150 miles</option></select>
+                                                <script>$('#search_proximity_edit').val({{ search.proximity_id }})</script>
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-1"></div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button id="edit_job_search_submit" class="btn btn-default register-submit btn-block" style="width: 100% !important; margin-bottom: 10px" search-id="{{ search.id }}">Edit Search</button>
+                                        <button id="deactivate_job_search" class="remove_item" style="max-width: 150px !important; margin-bottom: 10px; float: right" search-id="{{ search.id }}">Deactivate Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deactivated_searches_modal" tabindex="-1" role="dialog" aria-labelledby="deactivated_searches_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="overflow: auto; margin: auto; margin-top: 10vh !important; max-width: 40vw; max-height: 50vh">
+                    <div class="modal-body" style="">
+                        <div class="row">
+                            <div class="col-xs-12" style="margin-bottom: 10px">
+                                <h4 style="display: inline-block">Deactivated Job Searches</h4>
+                                <div class="post-option" data-dismiss="modal" style="float:right;;">X</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div id="deactivated_content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="modal fade" id="job_search_deactivated" tabindex="-1" role="dialog" aria-labelledby="job_search_deactivated" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 10vh !important; min-height: 35vh; max-width: 60vw; margin: auto; overflow: auto">
+                    <div class="modal-body">
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-10">
+                                <h3>This Job Search has been deactivated.</h3>
+                                <p>In order to view its contents, you must reactivate it.</p>
+                                <div class="sidenav_btn no-highlight safety" onclick="document.location='{{ url_for('main.job_searches') }}'"><-- Back to safety</div>
+                                <div class="sidenav_btn no-highlight" id="reactivate_job_search" search-id="{{ search.id }}">Reactivate Job Search</div>
+                            </div>
+                            <div class="col-sm-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div id="goes_here" class="col-sm-12" style="height:100vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+        <div class="row job-content">
+            <div class="row">
+                <div class="col-sm-11 no-padding">
+                    <h3>{{search.title}} {% for i in search.get_icon() %} <i class="{{ i }}"></i>{% endfor %} <span style="font-size: 14px; line-height: 20px; color: darkgrey"><br>Last Updated: {{ moment(search.last_updated).fromNow() }}</span></h3>
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 no-padding " style="overflow-y: auto; height: 90vh; padding-bottom: 100px">
+                    <h4>Info</h4>
+                    <ul>
+                             <li>
+                                Started {{ moment(search.start).fromNow() }}
+                            </li>
+                            {% if search.status == 0 %}
+                            <li>
+                                Terminated {{ moment(search.ended).fromNow() }}
+                            </li>
+                            {% endif %}
+                            <li>
+                                {% for industry in search.industries %}
+                                    {{ industry.title }},
+                                {% endfor %}
+                            </li>
+                            {% if search.l_specific %}
+                                <li>
+                                    {{ search.city.name }}, {{ search.city.state.name }} (within {{ search.proximity.title }})
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% if search.snippet|length > 0  %}
+                    <h4>Description</h4>
+                        <ul>
+                            <li style="font-size: 15px">
+                                {{ search.snippet }}
+                            </li>
+                        </ul>
+                    {% endif %}
+                    <div style="float:right; color: #4D80E4; cursor: pointer" id="edit_job_search_toggle" search-id="{{search.id}}"><span class="glyphicon glyphicon-edit"></span> Edit Job Search</div>
+                    <hr style="margin-bottom: 10px; margin-top: 40px">
+                    <h4>Notes (<span id="general_notes_counter">{{ search.notes.count() }}</span>)<p class="add_note no-highlight" onclick="drop_note(this)"><i class="sign-indicator glyphicon glyphicon-chevron-down"></i>Add new note</p></h4>
+                        <div class="note-post" style="margin-bottom: 60px; display: none">
+                            <textarea id="general_notes" style="max-height: 200px; margin-bottom: 10px; margin-left: 25px; width: -webkit-fill-available" class="form-control post-body-form" placeholder="Say something..."></textarea>
+                            <button id="submit_job_search_note" class="btn btn-default note-submit" style="float: right;" search-id="{{ search.id }}">Add Note</button>
+                        </div>
+                        <div class="notes" style="max-height: 300px; overflow-y: auto; overflow-x: hidden; border-bottom: 3px solid white" id="main_notes">
+                            {% if search.notes.count() > 0 %}
+                            {% for note in search.notes.all() %}
+                                {% include 'main/jobs/_job_ss_note.html' %}
+                            {% endfor %}
+                            {% else %}
+                                <h5 class="no-posts">Your notes will appear here</h5>
+                            {% endif %}
+                        </div>
+                </div>
+                <div class="col-sm-9">
+                    <h4 style="display: inline-block">Job Listings (<span id="jobs_counter">{{ search.get_jobs(0).count() }}</span>)</h4>
+                    <div class="dropdown post-filter-main" style="display: inline-block; float: right !important; margin: 15px 0 5px 0 !important;">
+                      <button class="btn btn-default dropdown-toggle post-filter-btn" type="button" id="job_filtering" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="padding: 0 10px;">
+                        All Jobs
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="job_filtering" id="job_filtering">
+                        <li class="job-dropdown-item active" ordering="0"><a href="#">All Jobs</a></li>
+                        <li class="job-dropdown-item" ordering="1"><a href="#">Viewed</a></li>
+                        <li class="job-dropdown-item" ordering="2"><a href="#">Applied</a></li>
+                      </ul>
+                    </div>
+                    <hr style="margin-bottom: 10px; margin-top: 10px">
+                        <ul id="jobs_table" class="jobs-row row no-highlight" data-set="1" ordering="0" onscroll="load_more_job_listings(this)" search-id="{{ search.id }}">
+                            {% if search.get_jobs(0).count() > 0 %}
+                                {% for job in search.get_jobs(0,0) %}
+                                    {% include 'main/jobs/_job_listing_card.html' %}
+                                {% endfor %}
+                            {% else %}
+                                <div class="row"><div class="col-sm-12" style="text-align:center; margin: auto; display: block">No jobs to show at this time</div> </div>
+                            {% endif %}
+                        </ul>
+                </div>
+            </div>
+
+        <script src='{{ url_for('static', filename='js/jquery-sortable.js') }}'></script>
+
+        <link href="{{ url_for('static', filename='css/jobs.css') }}" rel="stylesheet" />
+
+        <script>
+             $(function() {
+                $( "#applied, #considering, #viewed, #uninterested" ).sortable({
+                  connectWith: "#candidates, #considering, #strongly",
+                    handle: '.handle',
+                });
+             });
+          </script>
+        <script>
+        function jut_out(candidate) {
+            var arrow = document.getElementById('glyph-'+ candidate);
+            var side = document.getElementById('user-viewer');
+            var html = document.getElementById(candidate).innerHTML;
+            var blank_html = document.getElementById('user-viewer-safe');
+
+            if (arrow.classList.contains('active-candidate')){
+                function close() {
+                    arrow.classList.remove('active-candidate');
+                    arrow.parentElement.parentElement.children[2].innerHTML = side.innerHTML
+                    side.innerHTML = blank_html.innerHTML;
+                    side.classList = []
+                }
+                close()
+            }else{
+                function open() {
+                    window.scrollTo(500, 120);
+                    elements = document.getElementsByClassName('active-candidate');
+                    arr = []
+                    if (elements.length == 0){
+                        blank_html.innerHTML = side.innerHTML;
+                    }else{
+                        for (i = 0; i < elements.length; i++) {
+                            arr.push(elements[i])
+                            elements[i].classList.remove('active-candidate');
+                        }
+                        for (i = 0; i < arr.length; i++) {
+                            arr[i].parentElement.nextElementSibling.innerHTML = side.innerHTML
+                        }
+
+                    }
+
+                    side.innerHTML = html;
+                    side.classList.add('viewer');
+                    arrow.classList.add('active-candidate');
+                }
+                if ($('#general_notes').val().length > 5){
+                    var response = confirm("Your drafted note will be deleted if you open a candidate's profile. Would you like to proceed?")
+                    if (response){
+                        open();
+                        $('#main_btn').attr('disabled', '')
+                    }
+                }else{
+                    open()
+                }
+            }
+
+        }
+        </script>
+        <script>
+        var acc = document.getElementsByClassName("accordion-reg");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+          acc[i].addEventListener("click", function() {
+            this.classList.toggle("active-reg");
+            if (this.innerText.includes('+')){
+                this.innerText = this.innerText.replace('+', '-')
+            }else if (this.innerText.includes('-')){
+                this.innerText = this.innerText.replace('-', '+')
+            }
+            var panel = this.nextElementSibling;
+            if (panel.nodeName == 'HR'){
+                panel = panel.nextElementSibling
+            }
+            var col = this.parentElement;
+            if (panel.style.display === "block") {
+              panel.style.display = "none";
+              col.classList.remove('candidates-row')
+            } else {
+              panel.style.display = "block";
+              col.classList.add('candidates-row')
+            }
+          });
+        }
+        </script>
+        <script>
+
+            var applied = $('#applied');
+            var considering = $('#considering');
+            var viewed = $('#viewed');
+            var uninterested = $('#uninterested');
+
+            function get_order(element){
+                    var arr = [];
+                    for (i = 0; i < element.children().length; i++){
+                        arr.push(element.children()[i].id.toString())
+                    }
+                    return arr.toString()
+                }
+
+            var o_applied = get_order(applied);
+            var o_considering = get_order(considering);
+            var o_viewed = get_order(viewed);
+            var o_uninterested = get_order(uninterested);
+
+            $('#applied, #considering, #viewed, #uninterested, .default.glyphicon-move .handle').on('DOMSubtreeModified', function() {
+                btn = document.getElementById('save-btn');
+                if (get_order(applied) !== o_applied || get_order(considering) !== o_considering || get_order(viewed) !== o_viewed || get_order(uninterested) !== o_uninterested){
+                    btn.style.display = 'block'
+                }else{
+                    btn.style.display = 'none'
+                }
+            });
+
+            function save_orders() {
+                var applied = $('#applied');
+                var considering = $('#considering');
+                var viewed = $('#viewed');
+                var uninterested = $('#uninterested');
+
+                var arr = [[], [], [], []];
+                if (applied[0] != null){
+                    for (i = 0; i < applied[0].childElementCount; i++){
+                        arr[0].push(applied.children()[i].id)
+                    }
+                }
+                for (i = 0; i < considering[0].childElementCount; i++){
+                    arr[1].push(considering.children()[i].id)
+                }
+                for (i = 0; i < viewed[0].childElementCount; i++){
+                    arr[2].push(viewed.children()[i].id)
+                }
+                for (i = 0; i < uninterested[0].childElementCount; i++){
+                    arr[3].push(uninterested.children()[i].id)
+                }
+
+                function function1(){
+                    alert('Successfuly Saved');
+                    document.getElementById('save-btn').style.display = 'none'
+                    o_applied = get_order(applied);
+                    o_considering = get_order(considering);
+                    o_viewed = get_order(viewed);
+                    o_uninterested = get_order(uninterested);
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "{{url_for('main.change_job_order', id=search.id)}}",
+                    data: { 'q': arr},
+                    success: function () {
+                        setTimeout(function1(), 1000);
+                    },
+                    error: function () {
+                        error_popup()
+                    }
+                });
+            }
+        </script>
+
+        <script>
+            window.addEventListener('beforeunload', (event) => {
+                var c = document.getElementById('save-btn')
+                  if (c.style.display == 'block') {
+                    event.returnValue = 'You have unfinished changes!';
+                  }
+        });
+        </script>
+        <script>
+            function drop_note(element) {
+                if (element.parentElement.nextElementSibling.style.display == 'block') {
+                    element.parentElement.nextElementSibling.style.display = 'none';
+                    if (!element.previousElementSibling.id.includes('s_notes')){
+                        element.parentElement.nextElementSibling.nextElementSibling.style.height = '300px';
+                    }
+                    element.firstElementChild.classList = 'sign-indicator glyphicon glyphicon-chevron-down'
+                    element.firstElementChild.style.color = '#4D80E4'
+                } else {
+                    element.parentElement.nextElementSibling.style.display = 'block'
+                    if (!element.previousElementSibling.id.includes('s_notes')){
+                        element.parentElement.nextElementSibling.nextElementSibling.style.height = '185px';
+                    }
+                    element.firstElementChild.classList = 'sign-indicator glyphicon glyphicon-chevron-up'
+                    element.firstElementChild.style.color = 'orange'
+                }
+            }
+
+            function check_form(element) {
+                if (element.value.length > 5){
+                    element.nextElementSibling.removeAttribute('disabled');
+                    element.nextElementSibling.classList.remove('disabled')
+                }else{
+                    element.nextElementSibling.setAttribute('disabled', '');
+                    element.nextElementSibling.classList.add('disabled')
+                }
+            }
+
+
+        </script>
+
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover({
+                    trigger : 'hover'
+                });
+            });
+        </script>
+
+
+        <script>
+        $(document).ready(function () {
+            var elements = document.getElementsByClassName('snippet');
+            for (var i = 0; i < elements.length; ++i) {
+                elements[i].innerHTML = elements[i].textContent
+            }
+        });
+        </script>
+        <script>
+        function add_listeners() {
+            var acc = document.getElementsByClassName("job_listing");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+              acc[i].addEventListener("click", function() {
+                this.classList.toggle("active_job");
+                if (this.innerText.includes('+')){
+                    this.innerText = this.innerText.replace('+', '-')
+                }else if (this.innerText.includes('-')){
+                    this.innerText = this.innerText.replace('-', '+')
+                }
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                  panel.style.display = "none";
+                } else {
+                  panel.style.display = "block";
+                }
+              });
+            }
+        }
+        $(document).ready(function () {
+            add_listeners()
+        });
+        $(document).on('click', '.default, .close', function () {
+            add_listeners()
+        })
+
+        </script>
+
+    </div>
+        <div class="modal fade" id="new_job_search_modal" tabindex="-1" role="dialog" aria-labelledby="new_job_search_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; min-height: 30vh">
+                <div class="modal-body">
+                    <div class="row">
+                            <div class="row">
+                                <div class="col-xs-12" style="padding: 0 25px">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h3 style="display: inline-block">Add a Job Search</h3>
+                                            <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-1"></div>
+                                        <div class="col-xs-10" style="margin-bottom: 10px">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="input_form_test">
+                                                        <input class="special_input transparent" id="search_title" name="title" required="" type="text" value="">
+                                                        <label class="special_label" for="search_title">Title *</label>
+                                                    </div>
+                                                    <label for="search_description" style="color: #999999;">Description </label>
+                                                    <textarea class="form-control special_text" id="search_description" name="description" placeholder="Add a description for your search" required="" style="height:80px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px"></textarea>
+                                                    <label for="Indusry" class="control-label industry-label" style="color: #999999">Industry* <span style="font-size: 10px">(Up to 2)</span></label>
+                                                    <select class="form-control selectpicker searches-industry" style="margin-bottom: 5px" id="search_industries" data-live-search="true" name="industry" required multiple="multiple">
+                                                        <option value="4" data-tokens="Education">Education</option>
+                                                        <option value="11" data-tokens="Janitorial Services">Janitorial Services</option>
+                                                        <option value="14" data-tokens="Transportation">Transportation</option>
+                                                        <option value="17" data-tokens="Accounting">Accounting</option>
+                                                        <option value="19" data-tokens="Airlines/Aviation">Airlines/Aviation</option>
+                                                        <option value="21" data-tokens="Alternative Dispute Resolution">Alternative Dispute Resolution</option>
+                                                        <option value="23" data-tokens="Alternative Medicine">Alternative Medicine</option>
+                                                        <option value="25" data-tokens="Animation">Animation</option>
+                                                        <option value="27" data-tokens="Apparel & Fashion">Apparel & Fashion</option>
+                                                        <option value="29" data-tokens="Architecture & Planning">Architecture & Planning</option>
+                                                        <option value="31" data-tokens="Arts & Crafts">Arts & Crafts</option>
+                                                        <option value="33" data-tokens="Automotive">Automotive</option>
+                                                        <option value="35" data-tokens="Aviation & Aerospace">Aviation & Aerospace</option>
+                                                        <option value="37" data-tokens="Banking">Banking</option>
+                                                        <option value="39" data-tokens="Biotechnology">Biotechnology</option>
+                                                        <option value="41" data-tokens="Broadcast Media">Broadcast Media</option>
+                                                        <option value="43" data-tokens="Building Materials">Building Materials</option>
+                                                        <option value="45" data-tokens="Business Supplies & Equipment">Business Supplies & Equipment</option>
+                                                        <option value="47" data-tokens="Capital Markets">Capital Markets</option>
+                                                        <option value="49" data-tokens="Chemicals">Chemicals</option>
+                                                        <option value="51" data-tokens="Civic & Social Organization">Civic & Social Organization</option>
+                                                        <option value="53" data-tokens="Civil Engineering">Civil Engineering</option>
+                                                        <option value="55" data-tokens="Commercial Real Estate">Commercial Real Estate</option>
+                                                        <option value="57" data-tokens="Computer & Network Security">Computer & Network Security</option>
+                                                        <option value="59" data-tokens="Computer Games">Computer Games</option>
+                                                        <option value="61" data-tokens="Computer Hardware">Computer Hardware</option>
+                                                        <option value="63" data-tokens="Computer Networking">Computer Networking</option>
+                                                        <option value="65" data-tokens="Computer Software">Computer Software</option>
+                                                        <option value="67" data-tokens="Construction">Construction</option>
+                                                        <option value="69" data-tokens="Consumer Electronics">Consumer Electronics</option>
+                                                        <option value="71" data-tokens="Consumer Goods">Consumer Goods</option>
+                                                        <option value="73" data-tokens="Consumer Services">Consumer Services</option>
+                                                        <option value="75" data-tokens="Cosmetics">Cosmetics</option>
+                                                        <option value="77" data-tokens="Dairy">Dairy</option>
+                                                        <option value="79" data-tokens="Defense & Space">Defense & Space</option>
+                                                        <option value="81" data-tokens="Design">Design</option>
+                                                        <option value="83" data-tokens="E-learning">E-learning</option>
+                                                        <option value="85" data-tokens="Education Management">Education Management</option>
+                                                        <option value="87" data-tokens="Electrical & Electronic Manufacturing">Electrical & Electronic Manufacturing</option>
+                                                        <option value="89" data-tokens="Entertainment">Entertainment</option>
+                                                        <option value="91" data-tokens="Environmental Services">Environmental Services</option>
+                                                        <option value="93" data-tokens="Events Services">Events Services</option>
+                                                        <option value="95" data-tokens="Executive Office">Executive Office</option>
+                                                        <option value="97" data-tokens="Facilities Services">Facilities Services</option>
+                                                        <option value="99" data-tokens="Farming">Farming</option>
+                                                        <option value="101" data-tokens="Financial Services">Financial Services</option>
+                                                        <option value="103" data-tokens="Fine Art">Fine Art</option>
+                                                        <option value="105" data-tokens="Fishery">Fishery</option>
+                                                        <option value="107" data-tokens="Food & Beverages">Food & Beverages</option>
+                                                        <option value="109" data-tokens="Food Production">Food Production</option>
+                                                        <option value="111" data-tokens="Fundraising">Fundraising</option>
+                                                        <option value="113" data-tokens="Furniture">Furniture</option>
+                                                        <option value="115" data-tokens="Gambling & Casinos">Gambling & Casinos</option>
+                                                        <option value="117" data-tokens="Glass">Glass</option>
+                                                        <option value="119" data-tokens="Ceramics & Concrete">Ceramics & Concrete</option>
+                                                        <option value="121" data-tokens="Government Administration">Government Administration</option>
+                                                        <option value="123" data-tokens="Government Relations">Government Relations</option>
+                                                        <option value="125" data-tokens="Graphic Design">Graphic Design</option>
+                                                        <option value="127" data-tokens="Health">Health</option>
+                                                        <option value="129" data-tokens="Wellness & Fitness">Wellness & Fitness</option>
+                                                        <option value="131" data-tokens="Higher Education">Higher Education</option>
+                                                        <option value="133" data-tokens="Hospital & Health Care">Hospital & Health Care</option>
+                                                        <option value="135" data-tokens="Hospitality">Hospitality</option>
+                                                        <option value="137" data-tokens="Human Resources">Human Resources</option>
+                                                        <option value="139" data-tokens="Import & Export">Import & Export</option>
+                                                        <option value="141" data-tokens="Individual & Family Services">Individual & Family Services</option>
+                                                        <option value="143" data-tokens="Industrial Automation">Industrial Automation</option>
+                                                        <option value="145" data-tokens="Information Services">Information Services</option>
+                                                        <option value="147" data-tokens="Information Technology & Services">Information Technology & Services</option>
+                                                        <option value="149" data-tokens="Insurance">Insurance</option>
+                                                        <option value="151" data-tokens="International Affairs">International Affairs</option>
+                                                        <option value="153" data-tokens="International Trade & Development">International Trade & Development</option>
+                                                        <option value="155" data-tokens="Internet">Internet</option>
+                                                        <option value="157" data-tokens="Investment Banking">Investment Banking</option>
+                                                        <option value="159" data-tokens="Investment Management">Investment Management</option>
+                                                        <option value="161" data-tokens="Judiciary">Judiciary</option>
+                                                        <option value="163" data-tokens="Law Enforcement">Law Enforcement</option>
+                                                        <option value="165" data-tokens="Law Practice">Law Practice</option>
+                                                        <option value="167" data-tokens="Legal Services">Legal Services</option>
+                                                        <option value="169" data-tokens="Legislative Office">Legislative Office</option>
+                                                        <option value="171" data-tokens="Leisure">Leisure</option>
+                                                        <option value="173" data-tokens="Travel & Tourism">Travel & Tourism</option>
+                                                        <option value="175" data-tokens="Libraries">Libraries</option>
+                                                        <option value="177" data-tokens="Logistics & Supply Chain">Logistics & Supply Chain</option>
+                                                        <option value="179" data-tokens="Luxury Goods & Jewelry">Luxury Goods & Jewelry</option>
+                                                        <option value="181" data-tokens="Machinery">Machinery</option>
+                                                        <option value="183" data-tokens="Management Consulting">Management Consulting</option>
+                                                        <option value="185" data-tokens="Maritime">Maritime</option>
+                                                        <option value="187" data-tokens="Market Research">Market Research</option>
+                                                        <option value="189" data-tokens="Marketing & Advertising">Marketing & Advertising</option>
+                                                        <option value="191" data-tokens="Mechanical Or Industrial Engineering">Mechanical Or Industrial Engineering</option>
+                                                        <option value="193" data-tokens="Media Production">Media Production</option>
+                                                        <option value="195" data-tokens="Medical Device">Medical Device</option>
+                                                        <option value="197" data-tokens="Medical Practice">Medical Practice</option>
+                                                        <option value="199" data-tokens="Mental Health Care">Mental Health Care</option>
+                                                        <option value="201" data-tokens="Military">Military</option>
+                                                        <option value="203" data-tokens="Mining & Metals">Mining & Metals</option>
+                                                        <option value="205" data-tokens="Motion Pictures & Film">Motion Pictures & Film</option>
+                                                        <option value="207" data-tokens="Museums & Institutions">Museums & Institutions</option>
+                                                        <option value="209" data-tokens="Music">Music</option>
+                                                        <option value="211" data-tokens="Nanotechnology">Nanotechnology</option>
+                                                        <option value="213" data-tokens="Newspapers">Newspapers</option>
+                                                        <option value="215" data-tokens="Non-profit Organization Management">Non-profit Organization Management</option>
+                                                        <option value="217" data-tokens="Oil & Energy">Oil & Energy</option>
+                                                        <option value="219" data-tokens="Online Media">Online Media</option>
+                                                        <option value="221" data-tokens="Outsourcing/Offshoring">Outsourcing/Offshoring</option>
+                                                        <option value="223" data-tokens="Package/Freight Delivery">Package/Freight Delivery</option>
+                                                        <option value="225" data-tokens="Packaging & Containers">Packaging & Containers</option>
+                                                        <option value="227" data-tokens="Paper & Forest Products">Paper & Forest Products</option>
+                                                        <option value="229" data-tokens="Performing Arts">Performing Arts</option>
+                                                        <option value="231" data-tokens="Pharmaceuticals">Pharmaceuticals</option>
+                                                        <option value="233" data-tokens="Philanthropy">Philanthropy</option>
+                                                        <option value="235" data-tokens="Photography">Photography</option>
+                                                        <option value="237" data-tokens="Plastics">Plastics</option>
+                                                        <option value="239" data-tokens="Political Organization">Political Organization</option>
+                                                        <option value="241" data-tokens="Primary/Secondary Education">Primary/Secondary Education</option>
+                                                        <option value="244" data-tokens="Printing">Printing</option>
+                                                        <option value="246" data-tokens="Professional Training & Coaching">Professional Training & Coaching</option>
+                                                        <option value="248" data-tokens="Program Development">Program Development</option>
+                                                        <option value="250" data-tokens="Public Policy">Public Policy</option>
+                                                        <option value="252" data-tokens="Public Relations & Communications">Public Relations & Communications</option>
+                                                        <option value="254" data-tokens="Public Safety">Public Safety</option>
+                                                        <option value="256" data-tokens="Publishing">Publishing</option>
+                                                        <option value="258" data-tokens="Railroad Manufacture">Railroad Manufacture</option>
+                                                        <option value="260" data-tokens="Ranching">Ranching</option>
+                                                        <option value="262" data-tokens="Real Estate">Real Estate</option>
+                                                        <option value="264" data-tokens="Recreational Facilities & Services">Recreational Facilities & Services</option>
+                                                        <option value="266" data-tokens="Religious Institutions">Religious Institutions</option>
+                                                        <option value="268" data-tokens="Renewables & Environment">Renewables & Environment</option>
+                                                        <option value="270" data-tokens="Research">Research</option>
+                                                        <option value="272" data-tokens="Restaurants">Restaurants</option>
+                                                        <option value="274" data-tokens="Retail">Retail</option>
+                                                        <option value="276" data-tokens="Security & Investigations">Security & Investigations</option>
+                                                        <option value="278" data-tokens="Semiconductors">Semiconductors</option>
+                                                        <option value="280" data-tokens="Shipbuilding">Shipbuilding</option>
+                                                        <option value="282" data-tokens="Sporting Goods">Sporting Goods</option>
+                                                        <option value="284" data-tokens="Sports">Sports</option>
+                                                        <option value="286" data-tokens="Staffing & Recruiting">Staffing & Recruiting</option>
+                                                        <option value="288" data-tokens="Supermarkets">Supermarkets</option>
+                                                        <option value="290" data-tokens="Telecommunications">Telecommunications</option>
+                                                        <option value="292" data-tokens="Textiles">Textiles</option>
+                                                        <option value="294" data-tokens="Think Tanks">Think Tanks</option>
+                                                        <option value="296" data-tokens="Tobacco">Tobacco</option>
+                                                        <option value="298" data-tokens="Translation & Localization">Translation & Localization</option>
+                                                        <option value="300" data-tokens="Trucking/Railroad">Trucking/Railroad</option>
+                                                        <option value="302" data-tokens="Utilities">Utilities</option>
+                                                        <option value="304" data-tokens="Venture Capital & Private Equity">Venture Capital & Private Equity</option>
+                                                        <option value="306" data-tokens="Veterinary">Veterinary</option>
+                                                        <option value="308" data-tokens="Warehousing">Warehousing</option>
+                                                        <option value="310" data-tokens="Wholesale">Wholesale</option>
+                                                        <option value="312" data-tokens="Wine & Spirits">Wine & Spirits</option>
+                                                        <option value="314" data-tokens="Wireless">Wireless</option>
+                                                        <option value="315" data-tokens="Writing & Editing">Writing & Editing</option>
+                                            </select>
+                                                </div>
+                                            </div>
+                                            <div id="jobs_checkbox" style="margin-top: 10px">
+                                                <label>
+                                                    <input id="search_l_specific" name="l_specific" type="checkbox" checked="checked"> Location Specific <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="bottom" data-content="Uncheck if you are willing to re-locate and would like to see jobs for no one particular location." style="cursor: pointer"></i>
+                                                </label>
+                                            </div>
+                                            <span id="l_specific_true" style="margin-bottom: 10px">
+                                                <div class="input_form_test" style="margin-top: 0">
+                                                    <input autocomplete="off" class="special_input transparent" id="search_city" name="city"  placeholder="City that the position you are filling is located" type="text" value="">
+                                                    <label class="special_label" for="city">City *</label>
+                                                </div>
+                                                <label class="control-label" for="proximity">Proximity *</label>
+                                                  <select class="form-control" id="search_proximity" name="" required=""><option value="1">25 miles</option><option value="2">50 miles</option><option value="3">75 miles</option><option value="4">100 miles</option><option value="5">150 miles</option></select>
+                                            </span>
+                                        </div>
+                                        <div class="col-xs-1"></div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button id="submit_new_job_search" class="btn btn-default register-submit btn-block" style="width: 100% !important; margin-bottom: 10px">+ Add Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+    </div>
+    <script>
+    $(document).ready(
+        function () {
+            $('#search_industries_edit').selectpicker('val', {{ search.get_industry_list() }})
+        }
+    )
+    </script>
+    {% if search.status == 0 %}
+    <script>
+        $('#job_search_deactivated').modal({backdrop: 'static', keyboard: false})
+    </script>
+    {% endif %}
+{% endblock %}

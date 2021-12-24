@@ -1,0 +1,8 @@
+Dear {{ user.username }},
+You have been un-enrolled in the ILMJTCV-Jobs program. The recruiting agencies that we are partnering
+will no longer have access to your name, resume, and additional information that you provided when you signed up.
+
+You may re-sign up for the program whenever you'd like at ilmjtcv.com/jobs.
+
+Sincerely,
+The ILMJTCV team

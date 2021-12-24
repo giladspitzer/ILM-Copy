@@ -1,0 +1,25 @@
+{% extends 'email_base.html' %}
+{% block title %}
+    <p>Job Successfully Posted</p>
+{% endblock %}
+
+{% block email_content %}
+    <p>Dear {{ recruiter.user.name }},</p>
+    <p>Your job posting for <b>{{ job.job_title }}</b> at <b>{{ job.company }}</b> has officially been posted as an ILMJTCV Quick Apply Job.</p>
+     <p>You will be notified when candidates apply to this posting and will then be able to access their professional profile which include their resume.</p>
+    <p>You may view and edit this posting in a browser by clicking below.</p>
+    <p>Sincerely,</p>
+    <p>The ILMJTCV Team</p>
+{% endblock %}
+
+
+{% block button %}
+    <a href="{{ url_for('partnership.job_posting', id=job.id, _external=True) }}" target="_blank" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #4d80e4; border-radius: 60px; -webkit-border-radius: 60px; -moz-border-radius: 60px; width: auto; width: auto; border-top: 1px solid #4d80e4; border-right: 1px solid #4d80e4; border-bottom: 1px solid #4d80e4; border-left: 1px solid #4d80e4; padding-top: 15px; padding-bottom: 15px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;">
+        <span style="padding-left:30px;padding-right:30px;font-size:16px;display:inline-block;">
+            <span style="font-size: 16px; margin: 0; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><strong>View Job</strong>
+            </span>
+        </span>
+    </a>
+
+{% endblock %}
+

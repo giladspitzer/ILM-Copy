@@ -1,0 +1,51 @@
+{% extends 'email_base.html' %}
+{% block title %}
+    <p>Your Mentor Profile Has Been Updated</p>
+{% endblock %}
+
+{% block email_content %}
+    <p>Dear {{ user.name }},</p>
+    <p>There have been changes made to your Mentor Profile. Please ensure that the information below is accurate and up-to-date.</p>
+    {% set mentor = user.mentor_profile %}
+    <p class="special_label" for="appointment_zoom_link" style="margin-bottom: 0">Zoom Link *</p>
+    <a class="special_input transparent" id="appointment_zoom_link" name="appointment_zoom_link" required="" type="text" value="" style="font-size: 15px" href="{{ mentor.zoom_link }}">{{ mentor.zoom_link }}</a>
+    <br>
+    <div class="row" style="margin-top: 15px">
+        <div class="col-sm-2">
+            <input type="checkbox" id="zoom_password_check" name="zoom_password_check" style="margin: auto; display: block; margin-top: 5px" onchange="$('#zoom_password_container').toggle()" {% if mentor.zoom_password != None and mentor.zoom_password|length > 0 %}checked="checked"{% endif %} disabled="disabled">
+        </div>
+        <div class="col-sm-10">
+            <label for="zoom_password_check" style="font-size: 12px">Does your Zoom meeting have an entrance password?</label>
+        </div>
+    </div>
+    <br>
+    {% if mentor.zoom_password != None and mentor.zoom_password|length > 0 %}
+        <p class="special_label" for="appointment_zoom_password" style="margin-bottom: 0">Zoom Password *</p>
+        <p style="color: #818181; margin-left: 5px">{{ mentor.zoom_password }}</p>
+    {% endif %}
+    <br>
+    <p class="special_label" for="linked_in_profile" style="margin-bottom: 0">LinkedIn Profile *</p>
+    <a class="special_input transparent" id="linked_in_profile" name="linked_in_profile" required="" type="text" value="" style="font-size: 15px" href="{{ mentor.linked_in }}">{{ mentor.linked_in }}</a>
+    <br>
+    <p class="special_label" for="mentor_bio" style="margin-bottom: 0">Mentor Bio *</p>
+    <p style="color: #818181; margin-left: 5px">
+        {{ mentor.bio }}
+    </p>
+    <p>Sincerely,</p>
+    <p>The ILMJTCV team</p>
+{% endblock %}
+
+{% block button %}
+    <a href="{{ url_for('main.sessions_mentor', _external=True) }}" target="_blank" style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #4d80e4; border-radius: 60px; -webkit-border-radius: 60px; -moz-border-radius: 60px; width: auto; width: auto; border-top: 1px solid #4d80e4; border-right: 1px solid #4d80e4; border-bottom: 1px solid #4d80e4; border-left: 1px solid #4d80e4; padding-top: 15px; padding-bottom: 15px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;">
+        <span style="padding-left:30px;padding-right:30px;font-size:16px;display:inline-block;">
+            <span style="font-size: 16px; margin: 0; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><strong>Visit ILMJTCV</strong>
+            </span>
+        </span>
+    </a>
+
+{% endblock %}
+
+
+
+
+

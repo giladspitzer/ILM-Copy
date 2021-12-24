@@ -1,0 +1,114 @@
+{% extends "community_base.html" %}
+{% block main_content %}
+    <div class="content_container">
+        <div class="row top">
+            <div class="col-sm-12">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="section_bar">Notifications</div>
+                <div class="notification_section">
+                    <div class="section_items">
+                        {% if current_user.notifications.count() > 0%}
+                            {% for notification in current_user.notifications %}
+                                {% include 'main/_activity.html' %}
+                            {% endfor %}
+                        {% else %}
+                            <p class="no_new">No New Forum Activity</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="section_bar">Job Postings</div>
+                <div class="notification_section">
+                    <div class="section_items">
+                        {% if current_user.notifications.count() > 0%}
+                            {% for notification in current_user.notifications %}
+                                {% include 'main/_activity.html' %}
+                            {% endfor %}
+                        {% else %}
+                            <p class="no_new">No New Job Postings</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="section_bar">Forum Activity</div>
+                <div class="notification_section">
+                    <div class="section_items">
+                        {% if current_user.notifications.count() > 0%}
+                            {% for notification in current_user.notifications %}
+                                {% include 'main/_activity.html' %}
+                            {% endfor %}
+                        {% else %}
+                            <p class="no_new">No New Forum Activity</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+        {#<div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="widget-box" id="inbox-widget-box">
+                    <h3>Inbox</h3>
+                    <div class="widget-content">
+                        {% for search in recruiter_searches %}
+                           <h4>{{ search }}</h4>
+                        {% endfor %}
+                    </div>
+                    <button class="button">Go to Inbox</button>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="widget-box" id="forum-widget-box">
+                    <h3>Forums</h3>
+                    <div class="widget-content">
+                        {% for forum in forums %}
+                            <h4>{{ forum }}</h4>
+                            <hr class="divider">
+                        {% endfor %}
+                    </div>
+                    <button class="button">Explore Forums</button>
+                </div>
+            </div>
+             <div class="col-md-4 col-sm-12">
+                <div class="widget-box" id="resource-widget-box">
+                    <h3>Resources</h3>
+                    <div class="widget-content">
+                        {% for resource in resources %}
+                            <h4>{{ resource }}</h4>
+                        {% endfor %}
+                    </div>
+                    <button class="button">View Resources</button>
+                </div>
+            </div>
+        </div>#}
+
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dashboard.css') }}">
+    {% if current_user.completed < 2 %}
+        <script src="{{ url_for('static', filename='js/more_info.js') }}"></script>
+    {% else %}
+        {% if not current_user.email_verified %}
+            <script src="{{ url_for('static', filename='js/email_required.js') }}"></script>
+        {% endif %}
+    {% endif %}
+{% endblock %}

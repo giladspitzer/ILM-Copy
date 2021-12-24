@@ -1,0 +1,106 @@
+{% extends "new_sidebar/new_base_full.html" %}
+{% block left_content %}
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/homepage.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/test.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/recruiters.css') }}">
+        <script src="{{ url_for('static', filename='js/recruiters.js') }}"></script>
+            {% if '/user/' + current_user.username in request.path %}
+            <a href="{{ url_for('main.user', username=current_user.username) }}" class="current"><i class="far fa-id-card"></i> <span id="name_side">{{current_user.name}}</span> <span id="img_side" style="display: none"><img src="{{ current_user.avatar(50) }}" class="img-rounded" style="margin-top: 0px; text-align: center"></span><span id="username_side" style="display: none">{{current_user.username}}</span></a>
+        {% else %}
+             <a href="{{ url_for('main.user', username=current_user.username) }}"><i class="far fa-id-card"></i> <span id="name_side">{{current_user.name}}</span><span id="username_side" style="display: none">{{current_user.username}}</span><span id="img_side" style="display: none"><img src="{{ current_user.avatar(50) }}" class="img-rounded" style="margin-top: 0px; text-align: center"></span></a>
+        {% endif %}
+        {% if '/partner' in request.path %}
+            <a href="{{ url_for('partnership.partner', id=current_user.recruiter.agency_id) }}" class="current"><i class="fas fa-sitemap"></i> {{current_user.recruiter.agency.name}}</a>
+        {% else %}
+             <a href="{{ url_for('partnership.partner', id=current_user.recruiter.agency_id) }}"><i class="fas fa-sitemap"></i> {{current_user.recruiter.agency.name}}</a>
+        {% endif %}
+        <br>
+        <p class="main_navbar_tab" style="font">Talent Searches <i class="fa fa-caret-down"></i></p>
+        <div id="talent_tab" class="content_tab">
+                {% for search in current_user.recruiter.get_searches(1) %}
+                {% if '/saved_search/' + search.id|string in request.path %}
+                    <a href="{{ url_for('partnership.saved_search', id=search.id) }}" class="current" id="search_selector_{{ search.id }}"># {{search.title}} <i class="{{ search.get_icons() }}"></i> </a>
+                {% else %}
+                    <a href="{{ url_for('partnership.saved_search', id=search.id) }}" id="search_selector_{{ search.id }}"># {{search.title}} <i class="{{ search.get_icons() }}"></i></a>
+                {% endif %}
+            {% endfor %}
+            <div class="sidenav_btn no-highlight" id="add_search">+ Add a Talent Search</div>
+        </div>
+
+        <p class="main_navbar_tab">Job Postings <i class="fa fa-caret-down"></i></p>
+        <div id="job_postings_tab" class="content_tab">
+            {% if current_user.recruiter.get_job_postings(1)|length > 0 %}
+                {% for job in current_user.recruiter.get_job_postings(1) %}
+                    {% if '/job_posting/' + job.id|string in request.path %}
+                        <a href="{{ url_for('partnership.job_posting', id=job.id) }}" class="current" id="job_selector_{{ job.id }}">{% if job.quick_apply == None %}#{% else %}<i class="fas fa-bolt"></i>{% endif %} {{job.job_title}} {% for i in job.get_icons() %}<i class="{{ i }}"></i>{% endfor %}</a>
+                    {% else %}
+                        <a href="{{ url_for('partnership.job_posting', id=job.id) }}" id="job_selector_{{ job.id }}">{% if job.quick_apply == None %}#{% else %}<i class="fas fa-bolt"></i>{% endif %} {{job.job_title}} {% for i in job.get_icons() %}<i class="{{ i }}"></i>{% endfor %}</a>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <div class='row' id='no-more-comments'><div class='col-sm-12 no-more-indicator' style="cursor: default; margin: 5px 0">No Job Postings Yet</div></div>
+            {% endif %}
+            <div class="sidenav_btn no-highlight" id="add_job">+ Add a Job Posting</div>
+        </div>
+        <p class="main_navbar_tab">About <i class="fa fa-caret-down"></i></p>
+        <div id="about_tab" class="content_tab">
+        <p>Who we are</p>
+        {% if '/about' in request.path %}
+            <a href="{{ url_for('main.about') }}" class="current"><i class="far fa-id-card"></i> About Us</a>
+        {% else %}
+             <a href="{{ url_for('main.about') }}"><i class="far fa-id-card"></i> About Us</a>
+        {% endif %}
+        {% if '/contact' in request.path %}
+            <a href="{{ url_for('main.contact') }}" class="current"><i class="fas fa-phone"></i> Contact Us</a>
+        {% else %}
+             <a href="{{ url_for('main.contact') }}"><i class="fas fa-phone"></i> Contact Us</a>
+        {% endif %}
+        {% if '/news' in request.path %}
+            <a href="{{ url_for('main.news') }}" class="current"><i class="fas fa-newspaper"></i> ILMJTCV in the News</a>
+        {% else %}
+             <a href="{{ url_for('main.news') }}"><i class="fas fa-newspaper"></i> ILMJTCV in the News</a>
+        {% endif %}
+        {% if '/thx' in request.path %}
+            <a href="{{ url_for('main.thx') }}" class="current"><i class="fas fa-hands"></i> Our Thank You's</a>
+        {% else %}
+             <a href="{{ url_for('main.thx') }}"><i class="fas fa-hands"></i> Our Thank You's</a>
+        {% endif %}
+        <a href="https://twitter.com/ILMJTCV" class="social menu-item" target="_blank" style="display: inline-block">
+            <i class="fa fa-twitter fa-lg"></i>
+        </a>
+        <a href="https://www.instagram.com/ilostmyjobtocoronavirus/" class="social menu-item" target="_blank" style="display:inline-block;">
+                <i class="fa fa-instagram fa-lg "></i>
+        </a>
+        <a href="mailto:support@ilmjtcv.com" class="social menu-item" target="_blank" style="display: inline-block">
+            <i class="fa fa-envelope fa-lg"></i>
+        </a>
+        <br>
+
+        <p>For the geeks</p>
+        {% if '/terms' in request.path %}
+            <a href="{{ url_for('main.terms') }}" class="current"><i class="fas fa-sticky-note"></i> Terms of Use</a>
+        {% else %}
+             <a href="{{ url_for('main.terms') }}"><i class="fas fa-sticky-note"></i> Terms of Use</a>
+        {% endif %}
+        {% if '/privacy' in request.path %}
+            <a href="{{ url_for('main.privacy') }}" class="current"><i class="fas fa-user-secret"></i> Privacy Policies</a>
+        {% else %}
+             <a href="{{ url_for('main.privacy') }}"><i class="fas fa-user-secret"></i> Privacy Policies</a>
+        {% endif %}
+        </div>
+        <p class="main_navbar_tab">Direct Messages <i class="fa fa-caret-down"></i></p>
+        <div id="chat_tab" class="content_tab" style="display:block;">
+        {% if '/message' in request.path %}
+            <a href="{{ url_for('main.messages') }}" class="current"><i class="fab fa-facebook-messenger"></i> Conversations</a>
+        {% else %}
+             <a href="{{ url_for('main.messages') }}"><i class="fab fa-facebook-messenger"></i> Conversations</a>
+        {% endif %}
+        </div>
+{% endblock %}
+
+
+{% block main_content %}{% endblock %}
+
+
+

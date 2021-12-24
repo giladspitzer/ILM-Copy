@@ -1,0 +1,27 @@
+{% extends 'email_base.html' %}
+{% block title %}
+    <p>Post reported</p>
+{% endblock %}
+
+{% block email_content %}
+    <p>Dear {{ user.username }},</p>
+
+    <p>We noticed you have reported a post and wanted to let you know that our team will
+        begin investigating shortly.</p>
+
+    <p>Here is what you said about the post:</p>
+
+    <p>"{{ description }}"</p>
+
+    <p>If you did not report a post, or believe someone may have accessed your account, please reset your password as soon as possible.</p>
+
+    <p>Sincerely,</p>
+    <p>The ILMJTCV Team</p>
+{% endblock %}
+
+
+
+
+
+
+

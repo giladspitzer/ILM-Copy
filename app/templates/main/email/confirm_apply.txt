@@ -1,0 +1,5 @@
+Dear {{ user.username }},
+Thank you for applying to {{ job.job_title }} @ {{ company }}.
+Your quick apply professional profile is now accessible to the recruiters for this posting. They will reach out directly if interested in further pursuing your applicancy.
+Sincerely,
+The ILMJTCV team

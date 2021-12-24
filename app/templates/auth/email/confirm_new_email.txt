@@ -1,0 +1,9 @@
+Dear {{ user.username }},
+
+There have been changes made to your email preferences. Please visit {{ url_for('auth.confirm_email', token=token, _external=True) }} to confirm this request.
+
+If you did not make these changes, please login and change your password to secure your account. For further assistance, please contact our support team.
+
+Sincerely,
+The ILMJTCV Team
+

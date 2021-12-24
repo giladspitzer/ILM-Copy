@@ -1,0 +1,268 @@
+{% extends "new_sidebar/new_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block main_content %}
+    <style>
+    .ui-widget.ui-widget-content {
+        border:none;
+    }
+    .carousel-indicators{
+        bottom: -30px;
+    }
+    .carousel-control span{
+        font-size: 20px !important;
+        color: #30415d;
+    }
+    .carousel-control {
+        opacity: 0.65;
+    }
+   .carousel-control:hover {
+        opacity: 1;
+    }
+    .carousel-control.right{
+        right: -30px;
+    }
+    .carousel-control .glyphicon-chevron-left{
+        left: -27%;
+    }
+    .carousel-indicators .active {
+        background-color: #30415d;
+    }
+    .carousel-indicators li {
+    border-color: #30415d;
+}
+    </style>
+    <script>
+    function refresh_mentors(elelemt) {
+        $('#mentor_options_window').html('<div class="row" id="loading_spinner_more"><div class="col-sm-12" style="margin: auto; text-align: center; display: block"><div class="loadingio-spinner-spinner-lmswu5gqlpl"><div class="ldio-ysqxvp0pznb">\n' +
+                            '<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>\n' +
+                            '</div></div></div> </div>')
+        $(elelemt).addClass('selected')
+        var time = $(elelemt).attr('data-start-time')
+        $('#mentor_options').modal({backdrop: 'static', keyboard: false})
+        $.ajax({
+            type: 'GET',
+            url: '/get_mentor_options',
+            data: {'date': time},
+            success: function (response) {
+                if(response['status'] === 'success'){
+                    $('#mentor_options_window').html(response['html'])
+                    make_moments()
+                }else{
+                    custom_error_popup(response['message'])
+                    $('#mentor_options').modal('hide')
+                    var time = $('#mentee_datepicker').val()
+                    refresh_slots(time)
+                }
+            },
+            error: function () {
+                error_popup()
+                $('#mentor_options').modal('hide')
+                var time = $('#mentee_datepicker').val()
+                refresh_slots(time)
+            }
+        })
+    }
+    function refresh_slots(date) {
+        if($('#slots').children().first().id !== 'loading_spinner_more') {
+                                $('#slots').html('<div class="row" id="loading_spinner_more"><div class="col-sm-12" style="margin: auto; text-align: center; display: block"><div class="loadingio-spinner-spinner-lmswu5gqlpl"><div class="ldio-ysqxvp0pznb">\n' +
+                                    '<div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>\n' +
+                                    '</div></div></div> </div> ')
+                            }
+        $.ajax({
+            type: 'GET',
+            url: '/get_day_slots',
+            data: {'date': date},
+            success: function (response) {
+                if(response['status'] === 'success'){
+                    $('#slots').html(response['html'])
+                    make_moments()
+                }else{
+                    custom_error_popup(response['message'])
+                }
+            },
+            error: function () {
+                error_popup()
+            }
+        })
+    }
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover({
+                trigger : 'hover',
+                placeholder: 'right'
+            });
+            refresh_mentee_appointments()
+            var today = new Date();
+            var nextweek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+14);
+            $('#mentee_datepicker').datepicker({
+                minDate: 0,
+                maxDate: nextweek,
+                inline: true,
+                altField: '#selected_date',
+                todayHighlight: true,
+                onSelect: function(date) {
+                    refresh_slots(date)
+                }
+            })
+        })
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js" integrity="sha512-WNZwVebQjhSxEzwbettGuQgWxbpYdoLf7mH+25A7sfQbbxKeS5SQ9QBf97zOY4nOlwtksgDA/czSTmfj4DUEiQ==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha512-GDey37RZAxFkpFeJorEUwNoIbkTwsyC736KNSYucu1WJWFK9qTdzYub8ATxktr6Dwke7nbFaioypzbDOQykoRg==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css" integrity="sha512-2e0Kl/wKgOUm/I722SOPMtmphkIjECJFpJrTRRyL8gjJSJIP2VofmEbqyApMaMfFhU727K3voz0e5EgE3Zf2Dg==" crossorigin="anonymous" />
+    <div id="goes_here" class="col-sm-12" style="height:100vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+        <div class="row">
+            <div class="col-sm-12" style="padding: 10px 15px">
+                <p style="line-height: 40px; font-size: 36px; font-weight: bold; display: inline-block; margin-right: 10px">1 on 1 Sessions <i class="fas fa-people-arrows" aria-hidden="true"></i></p><a class="menu-item" style="display: inline-block; float:right;" href="{{ url_for('main.sessions_mentor') }}">{% if current_user.mentor_profile == None %}Apply to be a mentor!{% else %}Mentor Portal <i class="fas fa-chevron-circle-right"></i>{% endif %}</a>
+                <p style="font-size: 18px; line-height: 26px; font-weight: 300">An individualized coaching adventure to enhance your future prospects </p>
+                <hr style="margin-top: 10px; margin-bottom: 0">
+                <div class="row">
+                    <div class="col-sm-8 mentor_big_col">
+                        {% include 'main/mentorship/sessions/participant/_mentee_profile.html' %}
+                        <p style="font-size: 16px; font-weight: 600; margin: 5px 0">Review Past Appointments</p>
+                        <hr style="margin: 5px 0">
+                        <div id="past_appointments" data-set="0" onscroll="load_more_past_mentee(this)" style="overflow-x: hidden; overflow-y: auto; max-height: 65vh; min-height: 10vh">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="loadingio-spinner-spinner-ok7idc80he9" style="display: block; margin: auto; text-align: center"><div class="ldio-u1oevpwp8f">
+                                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                    </div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" >
+                        <p style="font-size: 16px; font-weight: 600; margin: 5px 0">Upcoming Appointments</p>
+                        <hr style="margin: 5px 0">
+                        <button class='sidenav_btn' id='booking_btn' style="margin: 10px auto">Book a Session</button>
+                        <div id="upcoming_appointments" data-set="0" onscroll="load_more_upcoming_mentee(this)" style="overflow-x: hidden; overflow-y: auto; height: 73vh">
+                            <div class="row" id="loading_spinner_more"><div class="col-sm-12" style="margin: auto; text-align: center; display: block"><div class="loadingio-spinner-spinner-lmswu5gqlpl"><div class="ldio-ysqxvp0pznb">
+                                <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                                </div></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="booking_modal" tabindex="-1" role="dialog" aria-labelledby="booking_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; min-height: 40vh">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 style="display: inline-block">Book a Mentorship Session</h3>
+                            <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin: 0">
+                        <p style="color: #818181">Select a date to view available time slots. <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="right" data-content="You may only book up to two weeks in advance" style="cursor: pointer" aria-hidden="true" data-original-title="" title=""></i></p>
+                        <div class="row">
+                            <div class='col-sm-6'>
+                                <input id="selected_date" type="text" style="display:none;">
+                                <div id="mentee_datepicker"></div>
+                            </div>
+                            <div class="col-sm-6" id="slots"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="edit_app_modal" tabindex="-1" role="dialog" aria-labelledby="edit_app_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: fit-content">
+            <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; min-height: 70vh; width: 70vw; min-width: 300px">
+                <div class="modal-body" id="edit_session_content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="loadingio-spinner-spinner-ok7idc80he9" style="display: block; margin: auto; text-align: center"><div class="ldio-u1oevpwp8f">
+                            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                            </div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="mentor_options" tabindex="-1" role="dialog" aria-labelledby="mentor_options" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: fit-content">
+            <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; height: 75vh; width: 25vw; min-width: 300px; min-height: 400px">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 style="display: inline-block">Available Mentors</h3>
+                            <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                        </div>
+                        <div class="col-sm-12">
+                            <p style="font-size: 10px; font-weight: 500; color: #818181">please confirm your appointment with the mentor of your choice</p>
+                        </div>
+                        <div class="col-sm-12" id="mentor_options_window">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="join_session_modal" tabindex="-1" role="dialog" aria-labelledby="join_session_modal" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: fit-content">
+            <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; height: 25vh; width: 25vw; min-width: 300px; min-height: 300px">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 style="display: inline-block">Join Session</h3>
+                            <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                        </div>
+                        <div class="col-sm-12" id="session_info">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="rate_session" tabindex="-1" role="dialog" aria-labelledby="rate_session" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: fit-content">
+            <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; height: 55vh; width: 25vw; min-width: 300px; min-height: 320px">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 style="display: inline-block">Rate Session</h3>
+                            <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                        </div>
+                        <div class="col-sm-12" id="rating_session_info">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="edit_mentee_info" tabindex="-1" role="dialog" aria-labelledby="edit_mentee_info" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: fit-content">
+            <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 5vh; height: 25vh; width: 20vw; min-width: 300px; min-height: 400px">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 style="display: inline-block">Edit Info</h3>
+                            <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                        </div>
+                    </div>
+                    <form id="mentee_info_form">
+                        {% if current_user.resume == True %}
+                        <p style="font-size: 10px; font-weight: 500; color: #818181">Resume already uploaded. You may upload a new one below though.</p>
+                        {% endif %}
+                        <input class="register-resume" id="resume" name="resume" type="file">
+                        <div class="input_form_test" style="margin-top: 0; " id="linked_in_link_container">
+                            <input class="special_input transparent" id="linked_in_link" name="linked_in_link" required="" type="text" value="{% if current_user.get_linked_in() != None %}{{ current_user.get_linked_in() }}{% endif %}" style="font-size: 15px">
+                            <label class="special_label {% if current_user.get_linked_in() != None %}blurred{% endif %}" for="linked_in_link"><i class="fab fa-linkedin-in"></i> | LinkedIn Profile *</label>
+                        </div>
+                    </form>
+                    <div class="check_btn" id="confirm_mentee_info"><i class="fas fa-check"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

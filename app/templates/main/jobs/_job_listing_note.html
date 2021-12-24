@@ -1,0 +1,5 @@
+<div class="row note" style="margin: 5px 0" listing-note-id="{{ note.id }}">
+    <p style="margin-bottom: 5px; color: #818181; padding-left: 5px"><a class="note_name" style="color: black" href="{{ url_for('main.user', username=note.search.user.username) }}" >{{ note.search.user.name }}</a><span style="color: black"> • </span>{{ moment(note.timestamp).fromNow() }}</p>
+    <div style="margin-top: 1px; width: 90%; margin-right: 15px; margin-left: 5px"><span style="color: #30415d; font-size: 18px" class="no-highlight"> ↳ </span><span class="note_text" listing-note-id="{{ note.id }}">{{ note.body }}</span> {% if current_user == note.search.user %}<div class="comment-option note-edit job-listing-note-edit" listing-note-id="{{note.id}}"><i class="fas fa-pencil-alt" aria-hidden="true"></i></div>{% endif %}</div>
+</div>
+

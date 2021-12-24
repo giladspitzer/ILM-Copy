@@ -1,0 +1,22 @@
+<td class="col-xs-2" style="padding-right: 0px">
+    <img src="{{ applicant.application.job.lister.agency.avatar(50) }}" class="candidacy-img img-rounded">
+</td>
+<td class="col-xs-3">
+    <p class="candidacy-text"><a href="{{ applicant.application.job.lister.website }}" target="_blank">{{ applicant.application.job.lister.agency.name }}</a></p>
+</td>
+<td class="col-xs-3">
+    <p class="candidacy-text">{{ applicant.application.job.job_title }} @ {{ applicant.application.job.company }}</p>
+</td>
+<td class="col-xs-2" style="text-align: center; vertical-align: middle">
+    {{ applicant.application.applicants.count() }}
+</td>
+<td class="col-xs-2" style="padding-left: 0; text-align: center">
+    {% if applicant.message_board.count() > 0 %}
+        <a href="{{ url_for('main.message', id=applicant.message_board.first().id) }}">
+            <i class="far fa-comment fa-2x menu-item" style="margin-top: 18px"></i>
+            {% if applicant.message_board.first().unread_messages(current_user) %}
+                <span class="badge" id="message_count">!!!</span>
+            {% endif %}
+        </a>
+    {% endif %}
+</td>

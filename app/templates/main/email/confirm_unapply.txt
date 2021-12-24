@@ -1,0 +1,10 @@
+>Dear {{ user.username }},
+Your application to {{ job.job_title }} @ {{ company }} has been removed.
+Your quick apply professional profile is no longer accessible to the recruiters for this posting. They have been notified that you have withdrawn your application.
+Sincerely,
+The ILMJTCV team
+
+
+
+
+

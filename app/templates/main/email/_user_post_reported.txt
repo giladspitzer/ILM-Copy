@@ -1,0 +1,13 @@
+Dear {{ user.username }},
+
+We noticed that you have reported a post in a community forum. Our team will begin an investigation shortly.
+
+Here is what you said about the post:
+
+"{{ description }}"
+
+If you did not report a post, or believe someone may have accessed your account, please head to {{ url_for('auth.reset_password_request', _external=True) }} to reset your password as soon as possible.
+
+
+Sincerely,
+The ILMJTCV Team

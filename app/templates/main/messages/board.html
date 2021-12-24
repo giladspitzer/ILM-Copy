@@ -1,0 +1,99 @@
+{% extends "new_sidebar/messages_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block board_content %}
+    <div class="row">
+    <div class="col-sm-12" style="height:{% if current_user.is_recruiter %}85vh{% else %}100vh{% endif %}">
+        <div class="message_header">
+        {% if current_user.is_recruiter %}
+            <h3 style="margin-top: 5px">{{ board.subject }}</h3>
+            <span style="color: #818181ab">
+                    {% if board.applicant_id == None %}
+                        Talent Search Candidate Conversation:
+                    {% else %}
+                        Job Posting Applicant Conversation:
+                    {% endif %}
+                <a href="{{ url_for('main.user', username=current_user.username) }}" class="menu-item">You, </a>
+                {% for m in board.members %}
+                    {% if m != current_user %}
+                        {% if m.is_recruiter %}
+                            <a href="{{ url_for('main.user', username=m.username) }}" class="menu-item">{{ m.name }}, </a>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                    {% if board.applicant_id == None %}
+                            <a href="{{ url_for('main.user', username=board.candidate.user.username) }}" class="menu-item">{{ board.candidate.user.name }}, </a>
+                            <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="right" data-content="Names of specific recruiters are hidden from the candidate until they compose a message." aria-hidden="true" data-original-title="" title=""></i>
+                    {% else %}
+                            <a href="{{ url_for('main.user', username=board.applicant.user.username) }}" class="menu-item">{{ board.applicant.user.name }}, </a>
+                            <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="right" data-content="Names of specific recruiters are hidden from the applicant until they compose a message." aria-hidden="true" data-original-title="" title=""></i>
+                    {% endif %}
+            </span>
+        {% else %}
+            <h3 style="margin-top: 5px">{{ board.subject }} {% if board.recruiting %}<i class="fab fa-searchengin" data-toggle="popover" data-placement="bottom" data-content="Recruiter Conversation" style="cursor: pointer" aria-hidden="true" data-original-title="" title=""></i>{% endif %}</h3>
+            <span style="color: #818181ab">
+            <a href="{{ url_for('main.user', username=current_user.username) }}" style="color: #4D80E4 !important">You </a>
+                {% if board.recruiting %} &
+                    {% if board.candidate_id != None %}
+                    the '{{ board.candidate.search.title }}' search recruiters
+                    {% elif board.applicant_id != None %}
+                        the '{{ board.applicant.application.job.job_title }}' job posting recruiters
+                    {% endif %}
+                {% else %}
+                    ,
+                    {% for user in board.members %}
+                        {% if user != current_user %}
+                            <a href="{{ url_for('main.user', username=user.username) }}" style="color: #4D80E4 !important">{{ user.username }}</a>,
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </span>
+        {% endif %}
+        </div>
+        <div id="messages_container" class="messages_board" data-set="1" board-id="{{ board.id }}" onscroll="load_more_messages(this)">
+            {% for message in board.get_messages(0, 0)[::-1] %}
+                {% include 'main/messages/_message.html' %}
+            {% endfor %}
+            {% if board.recruiting %}
+                {% if board.candidate_id != None %}
+                    {% if board.candidate.status != 1 %}
+                         <script>$(document).ready(function () {
+                                $('.send_message_container').remove()
+                            })</script>
+                        {% if current_user.is_recruiter %}
+                            <p style="text-align: center; color: #818181ab; text-transform: uppercase">This Candidate has been removed from the talent search by one of the recruiters.</p>
+                        {% else %}
+                            <p style="text-align: center; color: #818181ab; text-transform: uppercase">Unfortunately, you are no longer a candidate of this talent search.</p>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% if board.applicant.status != 1 %}
+                        <script>$(document).ready(function () {
+                                $('.send_message_container').remove()
+                            })</script>
+                        {% if current_user.is_recruiter %}
+                            <p style="text-align: center; color: #818181ab; text-transform: uppercase">This Applicant has been removed from the job posting by one of the recruiters.</p>
+                        {% else %}
+                            <p style="text-align: center; color: #818181ab; text-transform: uppercase">Unfortunately, you are no longer an applicant of this job posting.</p>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="send_message_container">
+                <textarea class="form-control special_text message_authoring" id="send_message_text" name="post" placeholder="Reply to this thread" required=""></textarea>
+            <button class="btn send_message_btn disabled" id="submit_msg" name="submit_msg" disabled="disabled" board-id="{{ board.id }}"><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover({
+                    trigger : 'hover'
+                });
+            });
+            $("#messages_container").animate({ scrollTop: $('#messages_container').prop("scrollHeight")}, 1000);
+        </script>
+
+{% endblock %}

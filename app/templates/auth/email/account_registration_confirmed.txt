@@ -1,0 +1,9 @@
+Hi {{ user.username }},
+
+Thank you for signing up for ILMJTCV! Your account has been confirmed.
+
+Head to {{ url_for('main.index', _external=True) }} to begin your journey back to employment. We are proud to be your first stop to your next step.
+
+Sincerely,
+The ILMJTCV Team
+

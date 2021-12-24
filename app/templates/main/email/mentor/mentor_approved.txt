@@ -1,0 +1,9 @@
+Dear {{ user.name }},
+Your application to be an ILMJTCV Mentor has been approved!
+We are very excited for you to start working with our members and helping them stand out as serious candidates during their respective job searches.
+
+Please feel free to reach out to us with any questions!
+Sincerely,
+The ILMJTCV team
+
+{{ url_for('main.sessions_mentor') }}

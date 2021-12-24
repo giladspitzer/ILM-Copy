@@ -1,0 +1,15 @@
+<li class="col-sm-6 col-xs-12 partner" partner-id="{{ partner.id }}">
+    <img class="cover_img" src="{{ partner.avatar_cover() }}">
+    <br>
+    <div class="row">
+        <div class="col-sm-5 col-xs-12 centered_small">
+            <img class="main_img" src="{{ partner.avatar() }}">
+        </div>
+        <div class="col-sm-7 col-xs-12 centered_small" style="overflow-y: hidden">
+            <h4 class="name">{{ partner.name }}</h4>
+        </div>
+    </div>
+    <p class="snippet">{{ partner.description }}</p>
+    <hr style="margin-bottom: 10px">
+    <div class="learn_more" partner-id="{{ partner.id }}">Learn More</div>
+</li>

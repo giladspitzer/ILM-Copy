@@ -1,0 +1,5 @@
+Dear {{ recruiter.user.name }},
+Your job posting for {{ job.job_title }} at {{ job.company }} has been deactivated. All applicants have been notified that this job posting is no longer available.
+If you have filled the position using our platform, we would appreciate you letting us know by contacting our COO below.
+Sincerely,
+The ILMJTCV Team

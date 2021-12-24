@@ -1,0 +1,7 @@
+{{ form.name.data }} has submitted an error via the submission form on the contact page.
+
+Here is what he said (Registered User={{ form.user.data }}):
+
+"{{ form.body.data }}"
+
+Reply to them at {{ form.email.data }}

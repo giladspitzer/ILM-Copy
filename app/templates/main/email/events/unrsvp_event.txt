@@ -1,0 +1,6 @@
+No longer attending '{{ event.title }}'?
+
+Dear {{ user.name }},
+You have indicated that you will no longer be able to attend '{{ event.title }}'. Feel free to check out our other upcoming events by clicking below.
+Sincerely,
+The ILMJTCV team

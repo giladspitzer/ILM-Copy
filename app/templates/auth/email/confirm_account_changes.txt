@@ -1,0 +1,12 @@
+Hi {{ user.username }},
+
+There have been changes made to your profile. Here are the specifics:
+{% for change in changes %}
+    {{ change['field'] }} = {{change['old']}} --> {{change['new'] }}
+{% endfor %}
+
+If you did not make these changes, please login and change your password. For further assistance, please contact our support team.
+
+Sincerely,
+The ILMJTCV Team
+

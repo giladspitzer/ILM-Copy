@@ -1,0 +1,8 @@
+<p>Dear {{ recruiter.user.name }}, </p>
+
+<p>You have been added to the '{{ recruiter.agency.name }}' team. In order to proceed, you must complete your individual account setup by clicking <a href="{{ url_for('auth.confirm_recruiter', token=token, _external=True) }}">here</a>.</p>
+
+<p>Please reach out to your administrator if you have any questions, comments or concerns!</p>
+
+<p>Sincerely,</p>
+<p>The ILMJTCV Team</p>

@@ -1,0 +1,19 @@
+{% set board = appointment.message_board %}
+<style>
+    p.board_message_body{
+        font-size: 14px !important;
+    }
+</style>
+<div class="participant_messages" id="participant_messages" style="overflow-y: auto; overflow-x: hidden" data-set="1" board-id="{{ board.id }}" onscroll="load_more_messages(this)">
+    {% if board.messages.count() > 0 %}
+        {% for message in board.get_messages(0, 0)[::-1] %}
+                {% include 'main/messages/_message.html' %}
+        {% endfor %}
+    {% else %}
+        <div class="no-notes" style="padding-top: 15%;"><h4 style="color: #818181ab; text-align: center">NO MESSAGES YET</h4></div>
+    {% endif %}
+</div>
+<div class="add_participant_message">
+    <textarea class="form-control special_text message_authoring" id="add_participant_message" name="add_message" placeholder="{% if current_user == appointment.mentor.user %}Send a message to this client{% else %}Send a message to this mentor{% endif %}" required="" style="height: 55px !important; font-size: 14px"></textarea>
+    <button class="add_note_btn" id="submit_message" name="submit_message" disabled="disabled" board-id="{{board.id}}"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+</div>

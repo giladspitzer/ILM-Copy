@@ -1,0 +1,7 @@
+Dear {{ recruiter.user.name }},
+Your job posting for {{ job.job_title }} at {{ job.company }} has a new applicant!!!
+Check it out by clicking below.
+Sincerely,
+The ILMJTCV Team
+
+{{ url_for('partnership.job_posting', id=job.id, _external=True) }}

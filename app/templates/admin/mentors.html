@@ -1,0 +1,44 @@
+{% extends "new_sidebar/new_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block main_content %}
+    <div id="goes_here" class="col-sm-12" style="height:100vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+        <div class="row" style="overflow-y: auto; height: 100vh">
+            <div class="col-sm-12" style="padding: 10px 15px">
+                <h4>Mentor Applications</h4>
+                <hr style="margin-top: 10px; margin-bottom: 0">
+                    <div class="table-responsive" style="max-height: 615px; overflow-y: auto">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <th class="speaker_col">Img</th>
+                            <th class="speaker_col">Name</th>
+                            <th class="speaker_col">Why</th>
+                            <th class="speaker_col">Bio</th>
+                            <th class="speaker_col">Linkedin</th>
+                            <th class="speaker_col">Zoom Link</th>
+                            <th class="speaker_col">Zoom Password</th>
+                            <th class="speaker_col">Approve</th>
+                            <th class="speaker_col">Reject</th>
+                            </thead>
+                            <tbody>
+                            {% for mentor in mentors %}
+                                <tr>
+                                    <td class="speaker_col"><img src="{{ mentor.user.avatar(50) }}" style="height: 50px; width: 50px"> </td>
+                                    <td class="speaker_col">{{ mentor.user.name }}</td>
+                                    <td class="speaker_col">{{ mentor.why }}</td>
+                                    <td class="speaker_col">{{ mentor.bio }}</td>
+                                    <td class="speaker_col"><a href="{{ mentor.linked_in }}" class="menu-item">{{ mentor.linked_in }}</a> </td>
+                                    <td class="speaker_col"><a href="{{ mentor.zoom_link }}" class="menu-item">{{ mentor.zoom_link }}</a></td>
+                                    <td class="speaker_col">{{ mentor.zoom_password }}</td>
+                                    <td class="speaker_col"><button class="btn btn-primary approve_mentor" mentor-id="{{ mentor.id }}">Approve</button> </td>
+                                    <td class="speaker_col"><button class="btn btn-danger reject_mentor" mentor-id="{{ mentor.id }}">Reject</button> </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

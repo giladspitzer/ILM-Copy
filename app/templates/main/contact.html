@@ -1,0 +1,73 @@
+{% extends "info.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+            {% block info_title %}Contact Us{% endblock %}
+
+{% block info_content %}
+    <div class="row" style="margin: 2vh 5vw 15vh 2vw">
+            <div class="row">
+        <div class="col-sm-12">
+            <div class="content_container" style="min-height: 80vh; margin-bottom: 15px">
+                <div class="row" style="margin: 15px">
+                    <div class="col-sm-5">
+                        <p>Want to partner with us? Click <a onclick="reload('{{ url_for('main.partnerships_') }}')" style="color: #4D80E4">here</a> to learn more.</p>
+                                        <p>You can view our <a href="{{ url_for('main.privacy') }}" style="color: #4D80E4">Privacy Policy here</a> and our <a href="{{ url_for('main.terms') }}" style="color:#4D80E4;">Terms of Use Policy Here</a>.</p>
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <a href="mailto:support@ilmjtcv.com"><img src="https://img.icons8.com/ios/32/000000/new-post.png" style="margin-top: 5px; margin-right: 10px"/></a>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <p style="font-weight: bold" >The best way to get in contact with us is via email. You can send us messages at <a href="mailto:support@ilmjtcv.com" style="color: #4D80E4">support@ilmjtcv.com</a>.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <a href="tel:3108530859"><img src="https://img.icons8.com/wired/32/000000/phone.png" style="margin-top: 5px; margin-right: 10px"/></a>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <p >You may also leave a message on our voice-mailbox by calling <a href="tel:3108530859" style="color: #4D80E4">(310) 853-0859</a>.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <a href="https://www.instagram.com/ilostmyjobtocoronavirus/"><img src="https://img.icons8.com/ios/32/000000/instagram-new.png" style="margin-top: 5px; margin-right: 10px"/></a>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <p style="margin-top: 10px">Follow us on Instagram at <a href="https://www.instagram.com/ilostmyjobtocoronavirus/" style="color: #4D80E4">@ilostmyjobtocoronavirus</a>.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 3px">
+                                            <div class="col-sm-2">
+                                                <a href="https://twitter.com/ILMJTCV"><img src="https://img.icons8.com/ios/32/000000/twitter.png" style="margin-top: 5px; margin-right: 10px"/></a>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <p style="margin-top: 10px">Tweet at us <a href="https://twitter.com/ILMJTCV" style="color: #4D80E4">@ILMJTCV</a>.</p>
+                                            </div>
+                                        </div>
+                    </div>
+                    <div class="col-sm-7 border-top-xs">
+                        <p>Please pardon any service errors that you receive. We are hard at work developing the best interface for <a href="ilmjtcv.com" style="color: #4D80E4">ilmjtcv.com</a>; however, we are still in the beta testing phase. Help us
+                                                out by detailing any issues that you have been having recently.</p>
+                                                {{ wtf.quick_form(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        form_name = document.getElementById('name');
+        form_email = document.getElementById('email');
+        document.getElementById('user').parentElement.style.display = 'none';
+        document.getElementById('submit').classList.add('btn-block');
+        document.getElementById('submit').classList.add('register-submit');
+        if(form_email.value.length > 0){
+            form_email.toggleAttribute('disabled')
+        }
+        if(form_name.value.length > 0){
+            form_name.toggleAttribute('disabled')
+        }
+
+</script>
+    <script src="{{ url_for('static', filename='js/form_char_counter.js') }}"></script>
+{% endblock %}

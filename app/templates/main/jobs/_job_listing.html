@@ -1,0 +1,43 @@
+<div class="col-sm-11">
+    <h5 class="job_listing no-highlight">+ {{ job.company }} ~~ {{ job.job_title }}</h5>
+    <div class="job_info">
+        <ul>
+            <li>
+                Posted {{ moment(job.start).fromNow() }}
+            </li>
+            <li class="snippet">
+                {{ job.snippet }}
+            </li>
+            <li>
+                {{ job.location }}
+            </li>
+        </ul>
+        <div class="row" style="text-align: center; margin-bottom: 5px">
+            {% if type == 1 %}
+                <div class="col-sm-3 application_btn apply" style="padding-right: 0; font-size: 11px; margin-top: 10px">
+                    <a href="{{ url_for('main.edit_job_activity', id=job.id, direction=2) }}" style="color: green"><span class="glyphicon glyphicon-ok"></span> Mark as applied</a>
+                </div>
+                <div class="col-sm-6" style="text-align: center">
+                    <button class="register-submit" onclick="window.open('{{ url_for('main.mark_job_viewed', id=job.id) }}','_blank')">Apply Now!</button>
+                </div>
+                <div class="col-sm-3 application_btn remove" style="padding-left: 0; font-size: 11px">
+                    <a href="{{ url_for('main.edit_job_activity', id=job.id, direction=0) }}" style="color: red"><span class="glyphicon glyphicon-remove"></span> Remove from viewed</a>
+                </div>
+            {% elif type == 2 %}
+                <div class="col-sm-3"></div>
+                 <div class="col-sm-6" style="text-align: center; margin-bottom: 5px">
+                    <a href="{{ url_for('main.edit_job_activity', id=job.id, direction=1) }}" style="color: red"><span class="glyphicon glyphicon-remove"></span> Remove from applied</a>
+                </div>
+                <div class="col-sm-3" style="padding-left: 0; font-size: 11px">
+                </div>
+            {% else %}
+            <div class="col-sm-3"></div>
+                 <div class="col-sm-6" style="text-align: center">
+                    <button class="register-submit" onclick="window.open('{{ url_for('main.mark_job_viewed', id=job.id) }}','_blank')">Apply Now!</button>
+                </div>
+                <div class="col-sm-3"></div>
+            {% endif %}
+            </div>
+
+    </div>
+</div>

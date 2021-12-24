@@ -1,0 +1,7 @@
+<li class="col-xs-12 col-sm-6 resource resource-ui {% if resource.link != None and resource.link|length > 0 %}external_link{% endif %}" {% if resource.link != None and resource.link|length > 0 %}style="cursor: pointer" link="{{ resource.link }}"{% endif %}>
+    <img src="{{ resource.avatar() }}" class="img-rounded resource_img">
+    <div class="resource_info">
+        <h5>{{ resource.title }}</h5>
+        {% if resource.description and resource.description|length > 0 %}<p>{{ resource.description }}</p>{% endif %}
+    </div>
+</li>

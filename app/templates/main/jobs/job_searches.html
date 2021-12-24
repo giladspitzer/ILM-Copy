@@ -1,0 +1,21 @@
+{% extends "new_sidebar/job_searches_base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block board_content %}
+    <div class="row">
+        <div class="col-sm-12" style="height: {% if current_user.is_recruiter %}85vh{% else %}100vh{% endif %}">
+            <div class="no-posts" style="margin: 50% 30px; font-size: 24px; line-height: 32px; font-weight: 700">
+                Select a job search from the sidebar to view its contents
+            </div>
+        </div>
+    </div>
+
+    {% if current_user.completed < 2 %}
+        <script src="{{ url_for('static', filename='js/more_info.js') }}"></script>
+    {% else %}
+        {% if not current_user.email_verified %}
+            <script src="{{ url_for('static', filename='js/email_required.js') }}"></script>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

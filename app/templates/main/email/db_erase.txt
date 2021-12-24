@@ -1,0 +1,11 @@
+Thank you for being apart of the ILMJTCV.com beta testing.
+
+We have just cleared our database in order to prepare for our initial roll-out,
+so your account has been deleted.
+
+If you would like to sign up again, you may do so here:
+
+{{ url_for('auth.register', _external=True) }}
+
+Sincerely,
+The ILMJTCV Team

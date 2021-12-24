@@ -1,0 +1,8 @@
+Dear {{ recruiter.user.name }},
+Thank you for applying to be a recruiter on our platform. Unfortunately, your application has been denied.
+If you believe this is a mistake and you are interested in reapplying to gain access to our unlimited talent directory, please reach out to our support team and we will be happy to further assist you!
+Sincerely,
+The ILMJTCV Team
+
+mailto:support@ilmjtcv.com
+

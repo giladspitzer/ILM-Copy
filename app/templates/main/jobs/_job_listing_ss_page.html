@@ -1,0 +1,16 @@
+<div class="col-sm-11">
+    <h5 class="job_listing no-highlight" style="font-size: 16px">+ {{ job.company }} ~~ {{ job.job_title }}</h5>
+    <div class="job_info">
+        <ul>
+            <li>
+                Posted {{ moment(job.date).fromNow() }}
+            </li>
+            <li class="snippet">
+                {{ job.snippet }}
+            </li>
+            <li>
+                {{ job.location }}
+            </li>
+        </ul>
+    </div>
+</div>

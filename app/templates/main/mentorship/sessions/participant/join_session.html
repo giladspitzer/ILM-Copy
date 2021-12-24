@@ -1,0 +1,11 @@
+<div class="upcoming">
+    <div class="info">
+        <img class="img-rounded" src="{{ appointment.mentor.user.avatar(30) }}" style="display: inline">
+        <p style="display:inline;">{{ appointment.mentor.user.name }}</p>
+    </div>
+    <p class="time">{{ moment(appointment.start_time).format('LL') }}: {{ moment(appointment.start_time).format('LT') }} -- {{ moment(appointment.end_time).format('LT') }}</p>
+</div>
+
+<div class="sidenav_btn" onclick="window.open('/appointment_check_in/{{ appointment.id }}', '_blank')">CLICK HERE TO JOIN THE ZOOM MEETING</div>
+<br>
+{% if appointment.get_zoom_password() != None %}<p style="font-size: 12px">Zoom Password (if required): {{ appointment.get_zoom_password() }}</p>{% endif %}

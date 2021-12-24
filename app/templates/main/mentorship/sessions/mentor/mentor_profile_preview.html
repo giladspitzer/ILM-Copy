@@ -1,0 +1,18 @@
+{% set mentor = appointment.mentor %}
+<div class="row mentor_profile" style="margin: 10px 0">
+    <div class="col-xs-12">
+        <img class="img-rounded" src="{{ mentor.user.avatar(80) }}" style="text-align: center; display: block; margin: 5px auto">
+        <h4 style="margin-top: 0; text-align: center" class="centered_small">{{ mentor.user.name }}</h4>
+    </div>
+    <div class="col-xs-12">
+        <p style="font-size: 12px; color: #818181; margin: 5px 10px 5px 0; display: inline; cursor: pointer" data-toggle="popover" data-content="Mentor Rating" data-placement="right"><i class="fas fa-star" style="color: #ffbf00"></i> {{ mentor.get_rating() }}</p>
+        <p style="display: inline; font-size: 12px; color: #818181; margin: 5px 10px 5px 0; cursor: pointer" data-toggle="popover" data-content="Completed Appointments" data-placement="right"><i class="fas fa-calendar-alt" style="color: #92ca91"></i> {{ mentor.get_completed_appointments() }}</p>
+    </div>
+    <div class="col-xs-12">
+        <a href="{{ mentor.linked_in }}" class="menu-item" target="_blank"><i class="fab fa-linkedin"></i> Linkedin Profile</a>
+        <p style="font-weight: lighter; margin: 10px 0; font-size: 12px; line-height: 14px" class="centered_small">{{ mentor.bio }}</p>
+    </div>
+    <div class="col-xs-12">
+        <div class="confirm_session_btn" app-id="{{ appointment.id }}">CONFIRM SESSION</div>
+    </div>
+</div>

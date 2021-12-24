@@ -1,0 +1,1205 @@
+{% extends "recruiter_base.html" %}
+
+{% block main_content %}
+    <div class="modal fade" id="add_talent_search_modal" tabindex="-1" role="dialog" aria-labelledby="add_talent_search_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 10vh !important; min-height: 70vh; max-width: 40vw; margin: auto; overflow: auto">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 style="display: inline-block">Add a Talent Search</h3>
+                                <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="input_form_test">
+                                            <input class="special_input transparent" id="search_title" name="title" required="" type="text" value="">
+                                            <label class="special_label" for="g_username">Title *</label>
+                                        </div>
+                                        <label for="search_description" style="color: #999999;">Description </label>
+                                        <textarea class="form-control special_text" id="search_description" name="description" placeholder="Add a description for your search" required="" style="height:80px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px"></textarea>
+                                        <label for="Indusry" class="control-label industry-label" style="color: #999999">Industry*</label>
+                                        <select class="form-control selectpicker register-industry" style="margin-bottom: 5px" id="industry" data-live-search="true" name="industry" required onchange="check_industry($(this))">
+                                    <option value="0">Please select an industry</option>
+                                    <option value="4" data-tokens="Education">Education</option>
+                                    <option value="11" data-tokens="Janitorial Services">Janitorial Services</option>
+                                    <option value="14" data-tokens="Transportation">Transportation</option>
+                                    <option value="17" data-tokens="Accounting">Accounting</option>
+                                    <option value="19" data-tokens="Airlines/Aviation">Airlines/Aviation</option>
+                                    <option value="21" data-tokens="Alternative Dispute Resolution">Alternative Dispute Resolution</option>
+                                    <option value="23" data-tokens="Alternative Medicine">Alternative Medicine</option>
+                                    <option value="25" data-tokens="Animation">Animation</option>
+                                    <option value="27" data-tokens="Apparel & Fashion">Apparel & Fashion</option>
+                                    <option value="29" data-tokens="Architecture & Planning">Architecture & Planning</option>
+                                    <option value="31" data-tokens="Arts & Crafts">Arts & Crafts</option>
+                                    <option value="33" data-tokens="Automotive">Automotive</option>
+                                    <option value="35" data-tokens="Aviation & Aerospace">Aviation & Aerospace</option>
+                                    <option value="37" data-tokens="Banking">Banking</option>
+                                    <option value="39" data-tokens="Biotechnology">Biotechnology</option>
+                                    <option value="41" data-tokens="Broadcast Media">Broadcast Media</option>
+                                    <option value="43" data-tokens="Building Materials">Building Materials</option>
+                                    <option value="45" data-tokens="Business Supplies & Equipment">Business Supplies & Equipment</option>
+                                    <option value="47" data-tokens="Capital Markets">Capital Markets</option>
+                                    <option value="49" data-tokens="Chemicals">Chemicals</option>
+                                    <option value="51" data-tokens="Civic & Social Organization">Civic & Social Organization</option>
+                                    <option value="53" data-tokens="Civil Engineering">Civil Engineering</option>
+                                    <option value="55" data-tokens="Commercial Real Estate">Commercial Real Estate</option>
+                                    <option value="57" data-tokens="Computer & Network Security">Computer & Network Security</option>
+                                    <option value="59" data-tokens="Computer Games">Computer Games</option>
+                                    <option value="61" data-tokens="Computer Hardware">Computer Hardware</option>
+                                    <option value="63" data-tokens="Computer Networking">Computer Networking</option>
+                                    <option value="65" data-tokens="Computer Software">Computer Software</option>
+                                    <option value="67" data-tokens="Construction">Construction</option>
+                                    <option value="69" data-tokens="Consumer Electronics">Consumer Electronics</option>
+                                    <option value="71" data-tokens="Consumer Goods">Consumer Goods</option>
+                                    <option value="73" data-tokens="Consumer Services">Consumer Services</option>
+                                    <option value="75" data-tokens="Cosmetics">Cosmetics</option>
+                                    <option value="77" data-tokens="Dairy">Dairy</option>
+                                    <option value="79" data-tokens="Defense & Space">Defense & Space</option>
+                                    <option value="81" data-tokens="Design">Design</option>
+                                    <option value="83" data-tokens="E-learning">E-learning</option>
+                                    <option value="85" data-tokens="Education Management">Education Management</option>
+                                    <option value="87" data-tokens="Electrical & Electronic Manufacturing">Electrical & Electronic Manufacturing</option>
+                                    <option value="89" data-tokens="Entertainment">Entertainment</option>
+                                    <option value="91" data-tokens="Environmental Services">Environmental Services</option>
+                                    <option value="93" data-tokens="Events Services">Events Services</option>
+                                    <option value="95" data-tokens="Executive Office">Executive Office</option>
+                                    <option value="97" data-tokens="Facilities Services">Facilities Services</option>
+                                    <option value="99" data-tokens="Farming">Farming</option>
+                                    <option value="101" data-tokens="Financial Services">Financial Services</option>
+                                    <option value="103" data-tokens="Fine Art">Fine Art</option>
+                                    <option value="105" data-tokens="Fishery">Fishery</option>
+                                    <option value="107" data-tokens="Food & Beverages">Food & Beverages</option>
+                                    <option value="109" data-tokens="Food Production">Food Production</option>
+                                    <option value="111" data-tokens="Fundraising">Fundraising</option>
+                                    <option value="113" data-tokens="Furniture">Furniture</option>
+                                    <option value="115" data-tokens="Gambling & Casinos">Gambling & Casinos</option>
+                                    <option value="117" data-tokens="Glass">Glass</option>
+                                    <option value="119" data-tokens="Ceramics & Concrete">Ceramics & Concrete</option>
+                                    <option value="121" data-tokens="Government Administration">Government Administration</option>
+                                    <option value="123" data-tokens="Government Relations">Government Relations</option>
+                                    <option value="125" data-tokens="Graphic Design">Graphic Design</option>
+                                    <option value="127" data-tokens="Health">Health</option>
+                                    <option value="129" data-tokens="Wellness & Fitness">Wellness & Fitness</option>
+                                    <option value="131" data-tokens="Higher Education">Higher Education</option>
+                                    <option value="133" data-tokens="Hospital & Health Care">Hospital & Health Care</option>
+                                    <option value="135" data-tokens="Hospitality">Hospitality</option>
+                                    <option value="137" data-tokens="Human Resources">Human Resources</option>
+                                    <option value="139" data-tokens="Import & Export">Import & Export</option>
+                                    <option value="141" data-tokens="Individual & Family Services">Individual & Family Services</option>
+                                    <option value="143" data-tokens="Industrial Automation">Industrial Automation</option>
+                                    <option value="145" data-tokens="Information Services">Information Services</option>
+                                    <option value="147" data-tokens="Information Technology & Services">Information Technology & Services</option>
+                                    <option value="149" data-tokens="Insurance">Insurance</option>
+                                    <option value="151" data-tokens="International Affairs">International Affairs</option>
+                                    <option value="153" data-tokens="International Trade & Development">International Trade & Development</option>
+                                    <option value="155" data-tokens="Internet">Internet</option>
+                                    <option value="157" data-tokens="Investment Banking">Investment Banking</option>
+                                    <option value="159" data-tokens="Investment Management">Investment Management</option>
+                                    <option value="161" data-tokens="Judiciary">Judiciary</option>
+                                    <option value="163" data-tokens="Law Enforcement">Law Enforcement</option>
+                                    <option value="165" data-tokens="Law Practice">Law Practice</option>
+                                    <option value="167" data-tokens="Legal Services">Legal Services</option>
+                                    <option value="169" data-tokens="Legislative Office">Legislative Office</option>
+                                    <option value="171" data-tokens="Leisure">Leisure</option>
+                                    <option value="173" data-tokens="Travel & Tourism">Travel & Tourism</option>
+                                    <option value="175" data-tokens="Libraries">Libraries</option>
+                                    <option value="177" data-tokens="Logistics & Supply Chain">Logistics & Supply Chain</option>
+                                    <option value="179" data-tokens="Luxury Goods & Jewelry">Luxury Goods & Jewelry</option>
+                                    <option value="181" data-tokens="Machinery">Machinery</option>
+                                    <option value="183" data-tokens="Management Consulting">Management Consulting</option>
+                                    <option value="185" data-tokens="Maritime">Maritime</option>
+                                    <option value="187" data-tokens="Market Research">Market Research</option>
+                                    <option value="189" data-tokens="Marketing & Advertising">Marketing & Advertising</option>
+                                    <option value="191" data-tokens="Mechanical Or Industrial Engineering">Mechanical Or Industrial Engineering</option>
+                                    <option value="193" data-tokens="Media Production">Media Production</option>
+                                    <option value="195" data-tokens="Medical Device">Medical Device</option>
+                                    <option value="197" data-tokens="Medical Practice">Medical Practice</option>
+                                    <option value="199" data-tokens="Mental Health Care">Mental Health Care</option>
+                                    <option value="201" data-tokens="Military">Military</option>
+                                    <option value="203" data-tokens="Mining & Metals">Mining & Metals</option>
+                                    <option value="205" data-tokens="Motion Pictures & Film">Motion Pictures & Film</option>
+                                    <option value="207" data-tokens="Museums & Institutions">Museums & Institutions</option>
+                                    <option value="209" data-tokens="Music">Music</option>
+                                    <option value="211" data-tokens="Nanotechnology">Nanotechnology</option>
+                                    <option value="213" data-tokens="Newspapers">Newspapers</option>
+                                    <option value="215" data-tokens="Non-profit Organization Management">Non-profit Organization Management</option>
+                                    <option value="217" data-tokens="Oil & Energy">Oil & Energy</option>
+                                    <option value="219" data-tokens="Online Media">Online Media</option>
+                                    <option value="221" data-tokens="Outsourcing/Offshoring">Outsourcing/Offshoring</option>
+                                    <option value="223" data-tokens="Package/Freight Delivery">Package/Freight Delivery</option>
+                                    <option value="225" data-tokens="Packaging & Containers">Packaging & Containers</option>
+                                    <option value="227" data-tokens="Paper & Forest Products">Paper & Forest Products</option>
+                                    <option value="229" data-tokens="Performing Arts">Performing Arts</option>
+                                    <option value="231" data-tokens="Pharmaceuticals">Pharmaceuticals</option>
+                                    <option value="233" data-tokens="Philanthropy">Philanthropy</option>
+                                    <option value="235" data-tokens="Photography">Photography</option>
+                                    <option value="237" data-tokens="Plastics">Plastics</option>
+                                    <option value="239" data-tokens="Political Organization">Political Organization</option>
+                                    <option value="241" data-tokens="Primary/Secondary Education">Primary/Secondary Education</option>
+                                    <option value="244" data-tokens="Printing">Printing</option>
+                                    <option value="246" data-tokens="Professional Training & Coaching">Professional Training & Coaching</option>
+                                    <option value="248" data-tokens="Program Development">Program Development</option>
+                                    <option value="250" data-tokens="Public Policy">Public Policy</option>
+                                    <option value="252" data-tokens="Public Relations & Communications">Public Relations & Communications</option>
+                                    <option value="254" data-tokens="Public Safety">Public Safety</option>
+                                    <option value="256" data-tokens="Publishing">Publishing</option>
+                                    <option value="258" data-tokens="Railroad Manufacture">Railroad Manufacture</option>
+                                    <option value="260" data-tokens="Ranching">Ranching</option>
+                                    <option value="262" data-tokens="Real Estate">Real Estate</option>
+                                    <option value="264" data-tokens="Recreational Facilities & Services">Recreational Facilities & Services</option>
+                                    <option value="266" data-tokens="Religious Institutions">Religious Institutions</option>
+                                    <option value="268" data-tokens="Renewables & Environment">Renewables & Environment</option>
+                                    <option value="270" data-tokens="Research">Research</option>
+                                    <option value="272" data-tokens="Restaurants">Restaurants</option>
+                                    <option value="274" data-tokens="Retail">Retail</option>
+                                    <option value="276" data-tokens="Security & Investigations">Security & Investigations</option>
+                                    <option value="278" data-tokens="Semiconductors">Semiconductors</option>
+                                    <option value="280" data-tokens="Shipbuilding">Shipbuilding</option>
+                                    <option value="282" data-tokens="Sporting Goods">Sporting Goods</option>
+                                    <option value="284" data-tokens="Sports">Sports</option>
+                                    <option value="286" data-tokens="Staffing & Recruiting">Staffing & Recruiting</option>
+                                    <option value="288" data-tokens="Supermarkets">Supermarkets</option>
+                                    <option value="290" data-tokens="Telecommunications">Telecommunications</option>
+                                    <option value="292" data-tokens="Textiles">Textiles</option>
+                                    <option value="294" data-tokens="Think Tanks">Think Tanks</option>
+                                    <option value="296" data-tokens="Tobacco">Tobacco</option>
+                                    <option value="298" data-tokens="Translation & Localization">Translation & Localization</option>
+                                    <option value="300" data-tokens="Trucking/Railroad">Trucking/Railroad</option>
+                                    <option value="302" data-tokens="Utilities">Utilities</option>
+                                    <option value="304" data-tokens="Venture Capital & Private Equity">Venture Capital & Private Equity</option>
+                                    <option value="306" data-tokens="Veterinary">Veterinary</option>
+                                    <option value="308" data-tokens="Warehousing">Warehousing</option>
+                                    <option value="310" data-tokens="Wholesale">Wholesale</option>
+                                    <option value="312" data-tokens="Wine & Spirits">Wine & Spirits</option>
+                                    <option value="314" data-tokens="Wireless">Wireless</option>
+                                    <option value="315" data-tokens="Writing & Editing">Writing & Editing</option>
+
+                                </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 15px">
+                                    <div class="col-sm-2">
+                                        <input type="checkbox" id="remote" name="remote" onclick="$('#city_space').toggle()" style="margin: auto; display: block; margin-top: 15px">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <label for="remote">Check this box if you are looking for talent that can work remotely</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span id="city_space">
+                                            <div class="input_form_test" style="margin-top: 5px">
+                                                <input autocomplete="off" class="special_input transparent" id="city" name="city"  placeholder="City that the position you are filling is located" type="text" value="">
+                                                <label class="special_label" for="city">City *</label>
+                                            </div>
+                                        </span>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input id="public" name="public" type="checkbox"><i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="right" data-content="Candidates for your search will be able to initiate a conversation with the recruiters of this search." style="cursor: pointer"></i> Public
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-1"></div>
+                        </div>
+                        <div class="col-sm-12">
+                            <button id="submit_new_search_r" class="btn btn-default register-submit btn-block" style="width: 100% !important; margin-bottom: 10px">+ Add Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+    <div class="modal fade" id="job_type_selection" tabindex="-1" role="dialog" aria-labelledby="job_type_selection" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 10vh !important; min-height: 35vh; max-width: 60vw; margin: auto; overflow: auto">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 style="display: inline-block">Add a job posting</h3>
+                                <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 20px">
+                            <div class="col-xs-6">
+                                <div class="job_type no-highlight" id="quick_apply"><h4>ILMJTCV Quick Apply</h4><p>Users will submit a 'professional profile' including a resume to your job posting</p></div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="job_type no-highlight" id="external_apply"><h4>External</h4><p>Users will be redirected to an external apply link</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="modal fade" id="external_apply_modal" tabindex="-1" role="dialog" aria-labelledby="external_apply_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #ffffff; border-radius: 15px; margin-top: 3vh !important; height: 80vh; max-width: 40vw; margin: auto; overflow: auto">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 style="display: inline-block; float: left; width: 80%">Add a job (external application)</h3>
+                                <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="input_form_test" style="margin-top: 0">
+                                            <input class="special_input transparent" id="job_title" name="title" required="" type="text" value="">
+                                            <label class="special_label" for="job_title">Title *</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                         <div class="input_form_test" style="margin-top: 0">
+                                            <input class="special_input transparent" id="job_company_name" name="company" required="" type="text" value="">
+                                            <label class="special_label" for="job_company_name">Company Name *</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="input_form_test" style="margin-top: 0">
+                                            <input class="special_input transparent" id="job_link" name="link" required="" type="text" value="">
+                                            <label class="special_label" for="job_link" id="job_link_label">Application Link *</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6" style="min-height: 85px">
+                                        <label for="Indusry" class="control-label industry-label" style="color: #999999">Industries (up to 3)*</label>
+                                        <select class="form-control selectpicker job-industries" style="margin-bottom: 5px" id="job_industries" data-live-search="true" name="industry" required multiple="multiple">
+                                    <option value="4" data-tokens="Education">Education</option>
+                                    <option value="11" data-tokens="Janitorial Services">Janitorial Services</option>
+                                    <option value="14" data-tokens="Transportation">Transportation</option>
+                                    <option value="17" data-tokens="Accounting">Accounting</option>
+                                    <option value="19" data-tokens="Airlines/Aviation">Airlines/Aviation</option>
+                                    <option value="21" data-tokens="Alternative Dispute Resolution">Alternative Dispute Resolution</option>
+                                    <option value="23" data-tokens="Alternative Medicine">Alternative Medicine</option>
+                                    <option value="25" data-tokens="Animation">Animation</option>
+                                    <option value="27" data-tokens="Apparel & Fashion">Apparel & Fashion</option>
+                                    <option value="29" data-tokens="Architecture & Planning">Architecture & Planning</option>
+                                    <option value="31" data-tokens="Arts & Crafts">Arts & Crafts</option>
+                                    <option value="33" data-tokens="Automotive">Automotive</option>
+                                    <option value="35" data-tokens="Aviation & Aerospace">Aviation & Aerospace</option>
+                                    <option value="37" data-tokens="Banking">Banking</option>
+                                    <option value="39" data-tokens="Biotechnology">Biotechnology</option>
+                                    <option value="41" data-tokens="Broadcast Media">Broadcast Media</option>
+                                    <option value="43" data-tokens="Building Materials">Building Materials</option>
+                                    <option value="45" data-tokens="Business Supplies & Equipment">Business Supplies & Equipment</option>
+                                    <option value="47" data-tokens="Capital Markets">Capital Markets</option>
+                                    <option value="49" data-tokens="Chemicals">Chemicals</option>
+                                    <option value="51" data-tokens="Civic & Social Organization">Civic & Social Organization</option>
+                                    <option value="53" data-tokens="Civil Engineering">Civil Engineering</option>
+                                    <option value="55" data-tokens="Commercial Real Estate">Commercial Real Estate</option>
+                                    <option value="57" data-tokens="Computer & Network Security">Computer & Network Security</option>
+                                    <option value="59" data-tokens="Computer Games">Computer Games</option>
+                                    <option value="61" data-tokens="Computer Hardware">Computer Hardware</option>
+                                    <option value="63" data-tokens="Computer Networking">Computer Networking</option>
+                                    <option value="65" data-tokens="Computer Software">Computer Software</option>
+                                    <option value="67" data-tokens="Construction">Construction</option>
+                                    <option value="69" data-tokens="Consumer Electronics">Consumer Electronics</option>
+                                    <option value="71" data-tokens="Consumer Goods">Consumer Goods</option>
+                                    <option value="73" data-tokens="Consumer Services">Consumer Services</option>
+                                    <option value="75" data-tokens="Cosmetics">Cosmetics</option>
+                                    <option value="77" data-tokens="Dairy">Dairy</option>
+                                    <option value="79" data-tokens="Defense & Space">Defense & Space</option>
+                                    <option value="81" data-tokens="Design">Design</option>
+                                    <option value="83" data-tokens="E-learning">E-learning</option>
+                                    <option value="85" data-tokens="Education Management">Education Management</option>
+                                    <option value="87" data-tokens="Electrical & Electronic Manufacturing">Electrical & Electronic Manufacturing</option>
+                                    <option value="89" data-tokens="Entertainment">Entertainment</option>
+                                    <option value="91" data-tokens="Environmental Services">Environmental Services</option>
+                                    <option value="93" data-tokens="Events Services">Events Services</option>
+                                    <option value="95" data-tokens="Executive Office">Executive Office</option>
+                                    <option value="97" data-tokens="Facilities Services">Facilities Services</option>
+                                    <option value="99" data-tokens="Farming">Farming</option>
+                                    <option value="101" data-tokens="Financial Services">Financial Services</option>
+                                    <option value="103" data-tokens="Fine Art">Fine Art</option>
+                                    <option value="105" data-tokens="Fishery">Fishery</option>
+                                    <option value="107" data-tokens="Food & Beverages">Food & Beverages</option>
+                                    <option value="109" data-tokens="Food Production">Food Production</option>
+                                    <option value="111" data-tokens="Fundraising">Fundraising</option>
+                                    <option value="113" data-tokens="Furniture">Furniture</option>
+                                    <option value="115" data-tokens="Gambling & Casinos">Gambling & Casinos</option>
+                                    <option value="117" data-tokens="Glass">Glass</option>
+                                    <option value="119" data-tokens="Ceramics & Concrete">Ceramics & Concrete</option>
+                                    <option value="121" data-tokens="Government Administration">Government Administration</option>
+                                    <option value="123" data-tokens="Government Relations">Government Relations</option>
+                                    <option value="125" data-tokens="Graphic Design">Graphic Design</option>
+                                    <option value="127" data-tokens="Health">Health</option>
+                                    <option value="129" data-tokens="Wellness & Fitness">Wellness & Fitness</option>
+                                    <option value="131" data-tokens="Higher Education">Higher Education</option>
+                                    <option value="133" data-tokens="Hospital & Health Care">Hospital & Health Care</option>
+                                    <option value="135" data-tokens="Hospitality">Hospitality</option>
+                                    <option value="137" data-tokens="Human Resources">Human Resources</option>
+                                    <option value="139" data-tokens="Import & Export">Import & Export</option>
+                                    <option value="141" data-tokens="Individual & Family Services">Individual & Family Services</option>
+                                    <option value="143" data-tokens="Industrial Automation">Industrial Automation</option>
+                                    <option value="145" data-tokens="Information Services">Information Services</option>
+                                    <option value="147" data-tokens="Information Technology & Services">Information Technology & Services</option>
+                                    <option value="149" data-tokens="Insurance">Insurance</option>
+                                    <option value="151" data-tokens="International Affairs">International Affairs</option>
+                                    <option value="153" data-tokens="International Trade & Development">International Trade & Development</option>
+                                    <option value="155" data-tokens="Internet">Internet</option>
+                                    <option value="157" data-tokens="Investment Banking">Investment Banking</option>
+                                    <option value="159" data-tokens="Investment Management">Investment Management</option>
+                                    <option value="161" data-tokens="Judiciary">Judiciary</option>
+                                    <option value="163" data-tokens="Law Enforcement">Law Enforcement</option>
+                                    <option value="165" data-tokens="Law Practice">Law Practice</option>
+                                    <option value="167" data-tokens="Legal Services">Legal Services</option>
+                                    <option value="169" data-tokens="Legislative Office">Legislative Office</option>
+                                    <option value="171" data-tokens="Leisure">Leisure</option>
+                                    <option value="173" data-tokens="Travel & Tourism">Travel & Tourism</option>
+                                    <option value="175" data-tokens="Libraries">Libraries</option>
+                                    <option value="177" data-tokens="Logistics & Supply Chain">Logistics & Supply Chain</option>
+                                    <option value="179" data-tokens="Luxury Goods & Jewelry">Luxury Goods & Jewelry</option>
+                                    <option value="181" data-tokens="Machinery">Machinery</option>
+                                    <option value="183" data-tokens="Management Consulting">Management Consulting</option>
+                                    <option value="185" data-tokens="Maritime">Maritime</option>
+                                    <option value="187" data-tokens="Market Research">Market Research</option>
+                                    <option value="189" data-tokens="Marketing & Advertising">Marketing & Advertising</option>
+                                    <option value="191" data-tokens="Mechanical Or Industrial Engineering">Mechanical Or Industrial Engineering</option>
+                                    <option value="193" data-tokens="Media Production">Media Production</option>
+                                    <option value="195" data-tokens="Medical Device">Medical Device</option>
+                                    <option value="197" data-tokens="Medical Practice">Medical Practice</option>
+                                    <option value="199" data-tokens="Mental Health Care">Mental Health Care</option>
+                                    <option value="201" data-tokens="Military">Military</option>
+                                    <option value="203" data-tokens="Mining & Metals">Mining & Metals</option>
+                                    <option value="205" data-tokens="Motion Pictures & Film">Motion Pictures & Film</option>
+                                    <option value="207" data-tokens="Museums & Institutions">Museums & Institutions</option>
+                                    <option value="209" data-tokens="Music">Music</option>
+                                    <option value="211" data-tokens="Nanotechnology">Nanotechnology</option>
+                                    <option value="213" data-tokens="Newspapers">Newspapers</option>
+                                    <option value="215" data-tokens="Non-profit Organization Management">Non-profit Organization Management</option>
+                                    <option value="217" data-tokens="Oil & Energy">Oil & Energy</option>
+                                    <option value="219" data-tokens="Online Media">Online Media</option>
+                                    <option value="221" data-tokens="Outsourcing/Offshoring">Outsourcing/Offshoring</option>
+                                    <option value="223" data-tokens="Package/Freight Delivery">Package/Freight Delivery</option>
+                                    <option value="225" data-tokens="Packaging & Containers">Packaging & Containers</option>
+                                    <option value="227" data-tokens="Paper & Forest Products">Paper & Forest Products</option>
+                                    <option value="229" data-tokens="Performing Arts">Performing Arts</option>
+                                    <option value="231" data-tokens="Pharmaceuticals">Pharmaceuticals</option>
+                                    <option value="233" data-tokens="Philanthropy">Philanthropy</option>
+                                    <option value="235" data-tokens="Photography">Photography</option>
+                                    <option value="237" data-tokens="Plastics">Plastics</option>
+                                    <option value="239" data-tokens="Political Organization">Political Organization</option>
+                                    <option value="241" data-tokens="Primary/Secondary Education">Primary/Secondary Education</option>
+                                    <option value="244" data-tokens="Printing">Printing</option>
+                                    <option value="246" data-tokens="Professional Training & Coaching">Professional Training & Coaching</option>
+                                    <option value="248" data-tokens="Program Development">Program Development</option>
+                                    <option value="250" data-tokens="Public Policy">Public Policy</option>
+                                    <option value="252" data-tokens="Public Relations & Communications">Public Relations & Communications</option>
+                                    <option value="254" data-tokens="Public Safety">Public Safety</option>
+                                    <option value="256" data-tokens="Publishing">Publishing</option>
+                                    <option value="258" data-tokens="Railroad Manufacture">Railroad Manufacture</option>
+                                    <option value="260" data-tokens="Ranching">Ranching</option>
+                                    <option value="262" data-tokens="Real Estate">Real Estate</option>
+                                    <option value="264" data-tokens="Recreational Facilities & Services">Recreational Facilities & Services</option>
+                                    <option value="266" data-tokens="Religious Institutions">Religious Institutions</option>
+                                    <option value="268" data-tokens="Renewables & Environment">Renewables & Environment</option>
+                                    <option value="270" data-tokens="Research">Research</option>
+                                    <option value="272" data-tokens="Restaurants">Restaurants</option>
+                                    <option value="274" data-tokens="Retail">Retail</option>
+                                    <option value="276" data-tokens="Security & Investigations">Security & Investigations</option>
+                                    <option value="278" data-tokens="Semiconductors">Semiconductors</option>
+                                    <option value="280" data-tokens="Shipbuilding">Shipbuilding</option>
+                                    <option value="282" data-tokens="Sporting Goods">Sporting Goods</option>
+                                    <option value="284" data-tokens="Sports">Sports</option>
+                                    <option value="286" data-tokens="Staffing & Recruiting">Staffing & Recruiting</option>
+                                    <option value="288" data-tokens="Supermarkets">Supermarkets</option>
+                                    <option value="290" data-tokens="Telecommunications">Telecommunications</option>
+                                    <option value="292" data-tokens="Textiles">Textiles</option>
+                                    <option value="294" data-tokens="Think Tanks">Think Tanks</option>
+                                    <option value="296" data-tokens="Tobacco">Tobacco</option>
+                                    <option value="298" data-tokens="Translation & Localization">Translation & Localization</option>
+                                    <option value="300" data-tokens="Trucking/Railroad">Trucking/Railroad</option>
+                                    <option value="302" data-tokens="Utilities">Utilities</option>
+                                    <option value="304" data-tokens="Venture Capital & Private Equity">Venture Capital & Private Equity</option>
+                                    <option value="306" data-tokens="Veterinary">Veterinary</option>
+                                    <option value="308" data-tokens="Warehousing">Warehousing</option>
+                                    <option value="310" data-tokens="Wholesale">Wholesale</option>
+                                    <option value="312" data-tokens="Wine & Spirits">Wine & Spirits</option>
+                                    <option value="314" data-tokens="Wireless">Wireless</option>
+                                    <option value="315" data-tokens="Writing & Editing">Writing & Editing</option>
+
+                                </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="row" style="margin-top: 15px">
+                                            <div class="col-sm-2">
+                                                <input type="checkbox" id="job_remote" name="remote" onclick="$('#job_city_space').toggle()" style="margin: auto; display: block; margin-top: 15px">
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <label for="remote">Check the box if this job can be worked remotely</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <span id="job_city_space">
+                                                    <div class="input_form_test" style="margin-top: 0">
+                                                        <input autocomplete="off" class="special_input transparent" id="job_city_external" name="city"  placeholder="City that the position you are filling is located" type="text" value="">
+                                                        <label class="special_label" for="job_city_external">Job Location (city)*</label>
+                                                    </div>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12" style="margin-top: 15px">
+                                        <label for="job_description" style="color: #999999;">Job Description * </label>
+                                        <textarea class="form-control special_text" id="job_description" name="description" placeholder="Add a description for this job posting" required="" style="height:80px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px"></textarea>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-top: 20px">
+                                        <button id="submit_new_external_job" class="btn btn-default register-submit btn-block" style="width: 100% !important; margin-bottom: 10px">+ Post Job</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+     <div class="modal fade" id="quick_apply_modal_1" tabindex="-1" role="dialog" aria-labelledby="quick_apply_modal_1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #f3f3f3e0 !important; background-image: url(/static/images/login_pattern.png) !important; background-blend-mode: color; background-position: inherit; background-size: cover; background-repeat: no-repeat; border-radius: 15px; margin-top: 3vh !important; height: 80vh; max-width: 40vw; margin: auto; overflow: auto">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 style="display: inline-block; float: left; width: 80%">Add a job (ILMJTCV 'quick apply')!!!</h3>
+                                <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="input_form_test" style="margin-top: 0">
+                                            <input class="special_input transparent" id="job_title_quick" name="title" required="" type="text" value="">
+                                            <label class="special_label" for="job_title_quick">Title *</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                         <div class="input_form_test" style="margin-top: 0">
+                                            <input class="special_input transparent" id="job_company_name_quick" name="company" required="" type="text" value="">
+                                            <label class="special_label" for="job_company_name_quick">Company Name *</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="row" style="margin-top: 15px">
+                                            <div class="col-sm-2">
+                                                <input type="checkbox" id="job_remote_quick" name="remote" onclick="$('#job_city_space_quick').toggle()" style="margin: auto; display: block; margin-top: 15px; background-color: transparent">
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <label for="job_remote_quick" style="color: #9e9e9e;" class="no-highlight">Check the box if this job can be worked remotely</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <span id="job_city_space_quick">
+                                                    <div class="input_form_test" style="margin-top: 0">
+                                                        <input autocomplete="off" class="special_input transparent" id="job_city_quick" name="city"  placeholder="City that the position you are filling is located" type="text" value="">
+                                                        <label class="special_label" for="job_city_quick">Job Location (city)*</label>
+                                                    </div>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <label for="employment_type" class="control-label employment_type-label" style="color: #999999">Employment Type *</label>
+                                        <select class="form-control selectpicker transparent employment_type" style="margin-bottom: 5px" id="employment_type" data-live-search="true" name="employment_type" required>
+                                            <option value="1" data-tokens="Full Time">Full Time</option>
+                                            <option value="2" data-tokens="Part Time">Part Time</option>
+                                            <option value="3" data-tokens="Contractor">Contractor</option>
+                                            <option value="4" data-tokens="Temporary">Temporary</option>
+                                            <option value="5" data-tokens="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6" style="min-height: 85px">
+                                        <label for="job_industries_quick" class="control-label industry-label-quick" style="color: #999999">Industries (up to 3)*</label>
+                                        <select class="form-control selectpicker job-industries" style="margin-bottom: 5px" id="job_industries_quick" data-live-search="true" name="industry" required multiple="multiple">
+                                    <option value="4" data-tokens="Education">Education</option>
+                                    <option value="11" data-tokens="Janitorial Services">Janitorial Services</option>
+                                    <option value="14" data-tokens="Transportation">Transportation</option>
+                                    <option value="17" data-tokens="Accounting">Accounting</option>
+                                    <option value="19" data-tokens="Airlines/Aviation">Airlines/Aviation</option>
+                                    <option value="21" data-tokens="Alternative Dispute Resolution">Alternative Dispute Resolution</option>
+                                    <option value="23" data-tokens="Alternative Medicine">Alternative Medicine</option>
+                                    <option value="25" data-tokens="Animation">Animation</option>
+                                    <option value="27" data-tokens="Apparel & Fashion">Apparel & Fashion</option>
+                                    <option value="29" data-tokens="Architecture & Planning">Architecture & Planning</option>
+                                    <option value="31" data-tokens="Arts & Crafts">Arts & Crafts</option>
+                                    <option value="33" data-tokens="Automotive">Automotive</option>
+                                    <option value="35" data-tokens="Aviation & Aerospace">Aviation & Aerospace</option>
+                                    <option value="37" data-tokens="Banking">Banking</option>
+                                    <option value="39" data-tokens="Biotechnology">Biotechnology</option>
+                                    <option value="41" data-tokens="Broadcast Media">Broadcast Media</option>
+                                    <option value="43" data-tokens="Building Materials">Building Materials</option>
+                                    <option value="45" data-tokens="Business Supplies & Equipment">Business Supplies & Equipment</option>
+                                    <option value="47" data-tokens="Capital Markets">Capital Markets</option>
+                                    <option value="49" data-tokens="Chemicals">Chemicals</option>
+                                    <option value="51" data-tokens="Civic & Social Organization">Civic & Social Organization</option>
+                                    <option value="53" data-tokens="Civil Engineering">Civil Engineering</option>
+                                    <option value="55" data-tokens="Commercial Real Estate">Commercial Real Estate</option>
+                                    <option value="57" data-tokens="Computer & Network Security">Computer & Network Security</option>
+                                    <option value="59" data-tokens="Computer Games">Computer Games</option>
+                                    <option value="61" data-tokens="Computer Hardware">Computer Hardware</option>
+                                    <option value="63" data-tokens="Computer Networking">Computer Networking</option>
+                                    <option value="65" data-tokens="Computer Software">Computer Software</option>
+                                    <option value="67" data-tokens="Construction">Construction</option>
+                                    <option value="69" data-tokens="Consumer Electronics">Consumer Electronics</option>
+                                    <option value="71" data-tokens="Consumer Goods">Consumer Goods</option>
+                                    <option value="73" data-tokens="Consumer Services">Consumer Services</option>
+                                    <option value="75" data-tokens="Cosmetics">Cosmetics</option>
+                                    <option value="77" data-tokens="Dairy">Dairy</option>
+                                    <option value="79" data-tokens="Defense & Space">Defense & Space</option>
+                                    <option value="81" data-tokens="Design">Design</option>
+                                    <option value="83" data-tokens="E-learning">E-learning</option>
+                                    <option value="85" data-tokens="Education Management">Education Management</option>
+                                    <option value="87" data-tokens="Electrical & Electronic Manufacturing">Electrical & Electronic Manufacturing</option>
+                                    <option value="89" data-tokens="Entertainment">Entertainment</option>
+                                    <option value="91" data-tokens="Environmental Services">Environmental Services</option>
+                                    <option value="93" data-tokens="Events Services">Events Services</option>
+                                    <option value="95" data-tokens="Executive Office">Executive Office</option>
+                                    <option value="97" data-tokens="Facilities Services">Facilities Services</option>
+                                    <option value="99" data-tokens="Farming">Farming</option>
+                                    <option value="101" data-tokens="Financial Services">Financial Services</option>
+                                    <option value="103" data-tokens="Fine Art">Fine Art</option>
+                                    <option value="105" data-tokens="Fishery">Fishery</option>
+                                    <option value="107" data-tokens="Food & Beverages">Food & Beverages</option>
+                                    <option value="109" data-tokens="Food Production">Food Production</option>
+                                    <option value="111" data-tokens="Fundraising">Fundraising</option>
+                                    <option value="113" data-tokens="Furniture">Furniture</option>
+                                    <option value="115" data-tokens="Gambling & Casinos">Gambling & Casinos</option>
+                                    <option value="117" data-tokens="Glass">Glass</option>
+                                    <option value="119" data-tokens="Ceramics & Concrete">Ceramics & Concrete</option>
+                                    <option value="121" data-tokens="Government Administration">Government Administration</option>
+                                    <option value="123" data-tokens="Government Relations">Government Relations</option>
+                                    <option value="125" data-tokens="Graphic Design">Graphic Design</option>
+                                    <option value="127" data-tokens="Health">Health</option>
+                                    <option value="129" data-tokens="Wellness & Fitness">Wellness & Fitness</option>
+                                    <option value="131" data-tokens="Higher Education">Higher Education</option>
+                                    <option value="133" data-tokens="Hospital & Health Care">Hospital & Health Care</option>
+                                    <option value="135" data-tokens="Hospitality">Hospitality</option>
+                                    <option value="137" data-tokens="Human Resources">Human Resources</option>
+                                    <option value="139" data-tokens="Import & Export">Import & Export</option>
+                                    <option value="141" data-tokens="Individual & Family Services">Individual & Family Services</option>
+                                    <option value="143" data-tokens="Industrial Automation">Industrial Automation</option>
+                                    <option value="145" data-tokens="Information Services">Information Services</option>
+                                    <option value="147" data-tokens="Information Technology & Services">Information Technology & Services</option>
+                                    <option value="149" data-tokens="Insurance">Insurance</option>
+                                    <option value="151" data-tokens="International Affairs">International Affairs</option>
+                                    <option value="153" data-tokens="International Trade & Development">International Trade & Development</option>
+                                    <option value="155" data-tokens="Internet">Internet</option>
+                                    <option value="157" data-tokens="Investment Banking">Investment Banking</option>
+                                    <option value="159" data-tokens="Investment Management">Investment Management</option>
+                                    <option value="161" data-tokens="Judiciary">Judiciary</option>
+                                    <option value="163" data-tokens="Law Enforcement">Law Enforcement</option>
+                                    <option value="165" data-tokens="Law Practice">Law Practice</option>
+                                    <option value="167" data-tokens="Legal Services">Legal Services</option>
+                                    <option value="169" data-tokens="Legislative Office">Legislative Office</option>
+                                    <option value="171" data-tokens="Leisure">Leisure</option>
+                                    <option value="173" data-tokens="Travel & Tourism">Travel & Tourism</option>
+                                    <option value="175" data-tokens="Libraries">Libraries</option>
+                                    <option value="177" data-tokens="Logistics & Supply Chain">Logistics & Supply Chain</option>
+                                    <option value="179" data-tokens="Luxury Goods & Jewelry">Luxury Goods & Jewelry</option>
+                                    <option value="181" data-tokens="Machinery">Machinery</option>
+                                    <option value="183" data-tokens="Management Consulting">Management Consulting</option>
+                                    <option value="185" data-tokens="Maritime">Maritime</option>
+                                    <option value="187" data-tokens="Market Research">Market Research</option>
+                                    <option value="189" data-tokens="Marketing & Advertising">Marketing & Advertising</option>
+                                    <option value="191" data-tokens="Mechanical Or Industrial Engineering">Mechanical Or Industrial Engineering</option>
+                                    <option value="193" data-tokens="Media Production">Media Production</option>
+                                    <option value="195" data-tokens="Medical Device">Medical Device</option>
+                                    <option value="197" data-tokens="Medical Practice">Medical Practice</option>
+                                    <option value="199" data-tokens="Mental Health Care">Mental Health Care</option>
+                                    <option value="201" data-tokens="Military">Military</option>
+                                    <option value="203" data-tokens="Mining & Metals">Mining & Metals</option>
+                                    <option value="205" data-tokens="Motion Pictures & Film">Motion Pictures & Film</option>
+                                    <option value="207" data-tokens="Museums & Institutions">Museums & Institutions</option>
+                                    <option value="209" data-tokens="Music">Music</option>
+                                    <option value="211" data-tokens="Nanotechnology">Nanotechnology</option>
+                                    <option value="213" data-tokens="Newspapers">Newspapers</option>
+                                    <option value="215" data-tokens="Non-profit Organization Management">Non-profit Organization Management</option>
+                                    <option value="217" data-tokens="Oil & Energy">Oil & Energy</option>
+                                    <option value="219" data-tokens="Online Media">Online Media</option>
+                                    <option value="221" data-tokens="Outsourcing/Offshoring">Outsourcing/Offshoring</option>
+                                    <option value="223" data-tokens="Package/Freight Delivery">Package/Freight Delivery</option>
+                                    <option value="225" data-tokens="Packaging & Containers">Packaging & Containers</option>
+                                    <option value="227" data-tokens="Paper & Forest Products">Paper & Forest Products</option>
+                                    <option value="229" data-tokens="Performing Arts">Performing Arts</option>
+                                    <option value="231" data-tokens="Pharmaceuticals">Pharmaceuticals</option>
+                                    <option value="233" data-tokens="Philanthropy">Philanthropy</option>
+                                    <option value="235" data-tokens="Photography">Photography</option>
+                                    <option value="237" data-tokens="Plastics">Plastics</option>
+                                    <option value="239" data-tokens="Political Organization">Political Organization</option>
+                                    <option value="241" data-tokens="Primary/Secondary Education">Primary/Secondary Education</option>
+                                    <option value="244" data-tokens="Printing">Printing</option>
+                                    <option value="246" data-tokens="Professional Training & Coaching">Professional Training & Coaching</option>
+                                    <option value="248" data-tokens="Program Development">Program Development</option>
+                                    <option value="250" data-tokens="Public Policy">Public Policy</option>
+                                    <option value="252" data-tokens="Public Relations & Communications">Public Relations & Communications</option>
+                                    <option value="254" data-tokens="Public Safety">Public Safety</option>
+                                    <option value="256" data-tokens="Publishing">Publishing</option>
+                                    <option value="258" data-tokens="Railroad Manufacture">Railroad Manufacture</option>
+                                    <option value="260" data-tokens="Ranching">Ranching</option>
+                                    <option value="262" data-tokens="Real Estate">Real Estate</option>
+                                    <option value="264" data-tokens="Recreational Facilities & Services">Recreational Facilities & Services</option>
+                                    <option value="266" data-tokens="Religious Institutions">Religious Institutions</option>
+                                    <option value="268" data-tokens="Renewables & Environment">Renewables & Environment</option>
+                                    <option value="270" data-tokens="Research">Research</option>
+                                    <option value="272" data-tokens="Restaurants">Restaurants</option>
+                                    <option value="274" data-tokens="Retail">Retail</option>
+                                    <option value="276" data-tokens="Security & Investigations">Security & Investigations</option>
+                                    <option value="278" data-tokens="Semiconductors">Semiconductors</option>
+                                    <option value="280" data-tokens="Shipbuilding">Shipbuilding</option>
+                                    <option value="282" data-tokens="Sporting Goods">Sporting Goods</option>
+                                    <option value="284" data-tokens="Sports">Sports</option>
+                                    <option value="286" data-tokens="Staffing & Recruiting">Staffing & Recruiting</option>
+                                    <option value="288" data-tokens="Supermarkets">Supermarkets</option>
+                                    <option value="290" data-tokens="Telecommunications">Telecommunications</option>
+                                    <option value="292" data-tokens="Textiles">Textiles</option>
+                                    <option value="294" data-tokens="Think Tanks">Think Tanks</option>
+                                    <option value="296" data-tokens="Tobacco">Tobacco</option>
+                                    <option value="298" data-tokens="Translation & Localization">Translation & Localization</option>
+                                    <option value="300" data-tokens="Trucking/Railroad">Trucking/Railroad</option>
+                                    <option value="302" data-tokens="Utilities">Utilities</option>
+                                    <option value="304" data-tokens="Venture Capital & Private Equity">Venture Capital & Private Equity</option>
+                                    <option value="306" data-tokens="Veterinary">Veterinary</option>
+                                    <option value="308" data-tokens="Warehousing">Warehousing</option>
+                                    <option value="310" data-tokens="Wholesale">Wholesale</option>
+                                    <option value="312" data-tokens="Wine & Spirits">Wine & Spirits</option>
+                                    <option value="314" data-tokens="Wireless">Wireless</option>
+                                    <option value="315" data-tokens="Writing & Editing">Writing & Editing</option>
+
+                                </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12" style="margin-top: 20px">
+                                        <button id="submit_quick_next" class="btn btn-default next-btn btn-block" style="width: 100% !important; margin-bottom: 10px">Next <i class="fas fa-long-arrow-alt-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="modal fade" id="quick_apply_modal_2" tabindex="-1" role="dialog" aria-labelledby="quick_apply_modal_2" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #f3f3f3e0 !important; background-image: url(/static/images/login_pattern.png) !important; background-blend-mode: color; background-position: inherit; background-size: cover; background-repeat: no-repeat; border-radius: 15px; margin-top: 3vh !important; height: 85vh; max-width: 40vw; margin: auto; overflow: auto">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 style="display: inline-block; float: left; width: 80%">Add a job (ILMJTCV 'quick apply')!!!</h3>
+                                <div class="post-option" data-dismiss="modal" style="display: inline-block; float: right">X</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-1"></div>
+                            <div class="col-xs-10">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="compensation_type" class="control-label compensation_type-label" style="color: #999999">Compensation Type (USD) *</label>
+                                        <select class="form-control selectpicker transparent compensation_type" style="margin-bottom: 5px" id="compensation_type" data-live-search="true" name="compensation_type" required>
+                                            <option value="1" data-tokens="Full Time">Annually</option>
+                                            <option value="2" data-tokens="Part Time">Hourly</option>
+                                            <option value="3" data-tokens="Contractor">Quarterly</option>
+                                            <option value="4" data-tokens="Temporary">Weekly</option>
+                                            <option value="5" data-tokens="Other">Bi-Weekly</option>
+                                            <option value="5" data-tokens="Other">Monthly</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="input_form_test" style="margin-top: 0">
+                                            <input class="special_input transparent" id="compensation_low" name="compensation_low" required="" type="text">
+                                            <label class="special_label" for="compensation_low">Enter Amount*</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                         <div class="input_form_test" style="margin-top: 0">
+                                            <input class="special_input transparent" id="compensation_high" name="compensation_high" required="" type="text" value="">
+                                            <label class="special_label" for="compensation_high">Max Amount *</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12" style="margin-top: 15px">
+                                        <label for="pitch" style="color: #999999;">Why work at the company? * </label>
+                                        <textarea class="form-control special_text" id="pitch" name="pitch" placeholder="Give an elevator pitch for working at your company" required="" style="height:80px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px"></textarea>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-top: 15px">
+                                        <label for="job_description_quick" style="color: #999999;">Job Description * </label>
+                                        <textarea class="form-control special_text" id="job_description_quick" name="description" placeholder="Add a description for this job posting" required="" style="height:80px; overflow:auto; resize:none; margin-top: 5px; border: 1px solid #9e9e9e; font-size: 14px !important; margin-bottom: 5px"></textarea>
+                                    </div>
+                                    <div class="col-sm-6" style="margin-top: 20px">
+                                        <button id="back_to_quick_1" class="btn btn-default next-btn btn-block" style="width: 100% !important; margin-bottom: 10px; border-color: #818181ab; color: #818181ab; margin: auto"><i class="fas fa-long-arrow-alt-left"></i> Back</button>
+                                    </div>
+                                    <div class="col-sm-6" style="margin-top: 20px">
+                                        <button id="submit_new_job_quick" class="btn btn-default next-btn btn-block" style="width: 100% !important; margin-bottom: 10px">Post Job +</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div id="goes_here" class="col-sm-12" style="min-height:85vh; margin: auto; display: block; box-shadow: 0 2px 8px rgba(0,0,0,.08);background-color: #ffffff;">
+        <div class="row" style="margin-top: 15px">
+            <div class="col-sm-7 hidden-sm hidden-md hidden-lg hidden-print" style="text-align:center">
+                 <h3>{{ partner.name }} <a href="http://{{ partner.website }}" target="_blank" class="menu-item"><i class="fas fa-link profile-ico"></i></a></h3>
+            </div>
+            <div class="col-sm-3" style="text-align: center; margin-top: 15px">
+                {% if current_user.recruiter.admin > 0 and current_user.recruiter.agency == partner %}
+                    <div class="edit-img">
+                            <img src="{{ partner.avatar(150) }}" class="img-rounded faded" id="user_img">
+                             <div class="img_hover1 hidden-xs" style="left: 0 !important;">
+                                <p class="menu-item" onclick="$('#img_upload').click()">Edit Image</p>
+                            </div>
+                        </div>
+                        <div class="row hidden-sm hidden-md hidden-lg hidden-print">
+                            <p class="menu-item" style="display: inline-block" onclick="$('#img_upload').click()">Edit Image</p>
+                        </div>
+                {% else %}
+                    <img src="{{ partner.avatar(150) }}" class="img-rounded" id="user_img">
+                {% endif %}
+            </div>
+            <div class="col-sm-7 hidden-xs" style="height: 150px">
+                 <h2 style="margin-top: 54px;">{{ partner.name }} <a href="//{{ partner.website }}" target="_blank" class="menu-item"><i class="fas fa-link profile-ico"></i></a></h2>
+                <br>
+                <h4 style="font-weight: normal"><i class="fas fa-calendar-alt profile-ico"></i> Joined: {{ moment(partner.date_joined).format('LL') }}</h4>
+                <h4 style="font-weight: normal"><i class="fas fa-search profile-ico"></i> Active Searches: {{ partner.searches.filter_by(status=1).count() }}</h4>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 15px">
+            <div class="col-sm-5 hidden-sm hidden-md hidden-lg hidden-print">
+            <h4>Info:</h4>
+                <table class="table">
+                    <tr><td><i class="fas fa-calendar-alt profile-ico"></i> Joined: {{ moment(partner.date_joined).format('LL') }}</td></tr>
+                    <tr><td><i class="fas fa-search profile-ico"></i> Active Searches: {{ partner.searches.filter_by(status=1).count() }}</td></tr>
+                </table>
+        </div>
+        </div>
+        <hr>
+        {% if current_user.recruiter.agency == partner %}
+        <div class="row">
+            <div class="col-xs-1"></div>
+            <div class="col-sm-10">
+                <h2 style="font-weight: normal; display: inline-block; margin-bottom: 0">The 'Team' </h2>
+                    {% if current_user.recruiter.admin > 0 %}
+                    <i id="info" class="fas fa-info-circle" data-toggle="popover" data-placement="bottom" data-content="Add other recruiters from your company to your shared team page and work together to identify talent" style="cursor: pointer; font-size: 30px; line-height: 33px"></i>
+                    <button data-toggle="modal" data-target="#add_recruiter" style="margin: 10px 0; width: 200px; display: inline-block" class="btn btn-default edit_item"><i class="fas fa-plus" aria-hidden="true"></i> Add New Recruiter</button>
+                    {% endif %}
+                    <div class="table-responsive" style="overflow-y:auto; height: 45vh">
+                      <table class="table table-bordered table-responsive-md table-striped text-center" style="word-break: keep-all">
+                          <thead>
+                              <tr>
+                                <th class="text-center normal-wb"></th>
+                                <th class="text-center normal-wb">Name</th>
+                                <th class="text-center normal-wb">Username</th>
+                                <th class="text-center normal-wb">Email</th>
+                                <th class="text-center normal-wb">Position Title</th>
+                                <th class="text-center normal-wb">Experience</th>
+                                <th class="text-center normal-wb">Authority</th>
+                                <th class="text-center normal-wb">Status</th>
+                                {% if current_user.recruiter.admin > 0 %}
+                                <th class="text-center normal-wb">Actions</th>
+                                {% endif %}
+                              </tr>
+                          </thead>
+                          <tbody>
+                          {% for recruiter in current_user.recruiter.agency.recruiters %}
+                                <tr>
+                                    <td class="normal-wb"><img src="{{ recruiter.user.avatar(30) }}" class="img-rounded"></td>
+                                    <td class="normal-wb">{{ recruiter.user.name }}</td>
+                                    <td class="normal-wb">{{ recruiter.user.username }}</td>
+                                    <td class="normal-wb">{{ recruiter.user.email }}</td>
+                                    <td class="normal-wb">{{ recruiter.user.position_title }}</td>
+                                    <td class="normal-wb"> {{ recruiter.user.experience.title }}</td>
+                                    {% set authority = recruiter.admin %}
+                                    <td class="normal-wb">{% if authority == 0 %}Recruiter{% elif authority == 1 %}Admin{% elif authority == 2 %}Super-Admin{% endif %}</td>
+                                    {% set status = recruiter.status %}
+                                    <td class="normal-wb">{% if status == 0 %}Invited{% elif status == 1 %}Active{% elif status == -1 %}Deactivated{% endif %}</td>
+                                    {% if current_user.recruiter.admin > 0 %}
+                                    <td class="normal-wb">
+                                      <span class="table-remove">
+                                          {% if current_user.recruiter.admin < recruiter.admin %}
+                                            <button type="button" class="btn btn-default register-submit" style="max-width: 70px" data-toggle="modal" data-target="#modal_{{ recruiter.id }}" disabled>Edit</button>
+                                          {% else %}
+                                            <button type="button" class="btn btn-default register-submit" style="max-width: 70px" data-toggle="modal" data-target="#modal_{{ recruiter.id }}">Edit</button>
+                                          {% endif %}
+                                      </span>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+            </div>
+            <div class="col-xs-1"></div>
+                {% for recruiter in current_user.recruiter.agency.recruiters %}
+                    <div class="modal fade" id="modal_{{ recruiter.id }}" tabindex="-1" role="dialog" aria-labelledby="modal_{{ recruiter.id }}" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel" style="display: contents">Edit Profile: {{ recruiter.user.name }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true" style="color: red">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                  <div class="row" style="max-height: 500px; overflow: auto; margin-bottom: 15px">
+                                      <div class="col-sm-1"></div>
+                                      <div class="col-sm-10">
+                                            <form action method="post" novalidate id="edit_recruiter_form">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group  required"><label class="control-label" for="name_{{ recruiter.id }}">Name *</label>
+                                                                <input class="form-control" id="name_{{ recruiter.id }}" name="name" placeholder="John Appleseed" required="" type="text" value="{{ recruiter.user.name }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label class="control-label" for="authority_{{ recruiter.id }}">Authority *</label>
+                                                        {% if current_user.recruiter == recruiter %}
+                                                            <select class="form-control" id="authority_{{ recruiter.id }}" name="authority" required="" disabled>
+                                                            {% if recruiter.admin == 0 %}
+                                                                <option value="0" selected>Recruiter</option>
+                                                                <option value="1">Admin</option>
+                                                            {% elif recruiter.admin == 1 %}
+                                                                <option value="0">Recruiter</option>
+                                                                <option value="1" selected>Admin</option>
+                                                            {% elif recruiter.admin == 2 %}
+                                                                <option value="2" selected>Super-Admin</option>
+                                                            {% endif %}
+                                                        </select>
+                                                        {% else %}
+                                                            <select class="form-control" id="authority_{{ recruiter.id }}" name="authority" required="">
+                                                            {% if recruiter.admin == 0 %}
+                                                                <option value="0" selected>Recruiter</option>
+                                                                <option value="1">Admin</option>
+                                                            {% elif recruiter.admin == 1 %}
+                                                                <option value="0">Recruiter</option>
+                                                                <option value="1" selected>Admin</option>
+                                                            {% elif recruiter.admin == 2 %}
+                                                                <option value="2" selected>Super-Admin</option>
+                                                            {% endif %}
+                                                        </select>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group  required"><label class="control-label" for="username_{{ recruiter.id }}">Username *</label>
+                                                                <input class="form-control" id="username_{{ recruiter.id }}" name="username" placeholder="johnappleseed" required="" type="text" value="{{ recruiter.user.username }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group  required"><label class="control-label" for="email_{{ recruiter.id }}">Email *</label>
+                                                            <input class="form-control" id="email_{{ recruiter.id }}" name="email" placeholder="johnappleseed@gmail.com" required="" type="text" value="{{ recruiter.user.email }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label class="control-label" for="experience_{{ recruiter.id }}">Years of Experience *</label>
+                                                        <select class="form-control" id="experience_{{ recruiter.id }}" name="experience" required="">
+                                                            {% if recruiter.user.experience_id == 1 %}
+                                                                <option value="1" selected>0-2 years</option>
+                                                                <option value="2">3-5 years</option>
+                                                                <option value="3">5-7 years</option>
+                                                                <option value="4">7-10 years</option>
+                                                                <option value="5">10-15 years</option>
+                                                                <option value="6">15-20 years</option>
+                                                                <option value="7">20-25 years</option>
+                                                                <option value="8">25+ years</option>
+                                                            {% elif recruiter.user.experience_id == 2 %}
+                                                                <option value="1">0-2 years</option>
+                                                                <option value="2" selected>3-5 years</option>
+                                                                <option value="3">5-7 years</option>
+                                                                <option value="4">7-10 years</option>
+                                                                <option value="5">10-15 years</option>
+                                                                <option value="6">15-20 years</option>
+                                                                <option value="7">20-25 years</option>
+                                                                <option value="8">25+ years</option>
+                                                            {% elif recruiter.user.experience_id == 3 %}
+                                                                <option value="1">0-2 years</option>
+                                                                <option value="2">3-5 years</option>
+                                                                <option value="3" selected>5-7 years</option>
+                                                                <option value="4">7-10 years</option>
+                                                                <option value="5">10-15 years</option>
+                                                                <option value="6">15-20 years</option>
+                                                                <option value="7">20-25 years</option>
+                                                                <option value="8">25+ years</option>
+                                                            {% elif recruiter.user.experience_id == 4 %}
+                                                                <option value="1">0-2 years</option>
+                                                                <option value="2">3-5 years</option>
+                                                                <option value="3">5-7 years</option>
+                                                                <option value="4" selected>7-10 years</option>
+                                                                <option value="5">10-15 years</option>
+                                                                <option value="6">15-20 years</option>
+                                                                <option value="7">20-25 years</option>
+                                                                <option value="8">25+ years</option>
+                                                            {% elif recruiter.user.experience_id == 5 %}
+                                                                <option value="1">0-2 years</option>
+                                                                <option value="2">3-5 years</option>
+                                                                <option value="3">5-7 years</option>
+                                                                <option value="4">7-10 years</option>
+                                                                <option value="5" selected>10-15 years</option>
+                                                                <option value="6">15-20 years</option>
+                                                                <option value="7">20-25 years</option>
+                                                                <option value="8">25+ years</option>
+                                                            {% elif recruiter.user.experience_id == 6 %}
+                                                                <option value="1">0-2 years</option>
+                                                                <option value="2">3-5 years</option>
+                                                                <option value="3">5-7 years</option>
+                                                                <option value="4">7-10 years</option>
+                                                                <option value="5">10-15 years</option>
+                                                                <option value="6" selected>15-20 years</option>
+                                                                <option value="7">20-25 years</option>
+                                                                <option value="8">25+ years</option>
+                                                            {% elif recruiter.user.experience_id == 7 %}
+                                                                <option value="1">0-2 years</option>
+                                                                <option value="2">3-5 years</option>
+                                                                <option value="3">5-7 years</option>
+                                                                <option value="4">7-10 years</option>
+                                                                <option value="5">10-15 years</option>
+                                                                <option value="6">15-20 years</option>
+                                                                <option value="7" selected>20-25 years</option>
+                                                                <option value="8">25+ years</option>
+                                                            {% elif recruiter.user.experience_id == 8 %}
+                                                                <option value="1">0-2 years</option>
+                                                                <option value="2">3-5 years</option>
+                                                                <option value="3">5-7 years</option>
+                                                                <option value="4">7-10 years</option>
+                                                                <option value="5">10-15 years</option>
+                                                                <option value="6">15-20 years</option>
+                                                                <option value="7">20-25 years</option>
+                                                                <option value="8" selected>25+ years</option>
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group  required"><label class="control-label" for="position_title_{{ recruiter.id }}">Position Title *</label>
+                                                            <input class="form-control" id="position_title_{{ recruiter.id }}" name="position_title" placeholder="Head of Recruiting" required="" type="text" value="{{ recruiter.user.position_title }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    {% if recruiter.user != current_user %}
+                                                    <div class="col-sm-2"></div>
+                                                    <div class="col-sm-8" style="text-align: center">
+                                                        {% if recruiter.status == 0 %}
+                                                            <a class="btn btn-default register-submit" href="{{ url_for('partnership.resend_recruiter_activation', id=recruiter.id) }}" onclick="return confirm('Are you sure you would like to re-send an invitation to this recruiter?')">Re-send invitation</a>
+                                                        {% elif recruiter.status == 1 %}
+                                                            <a class="btn btn-default register-submit remove" href="{{ url_for('partnership.deactivate_recruiter', id=recruiter.id) }}" onclick="return confirm('Are you sure you would like to de-activate the account of this recruiter to this recruiter? They will no longer be able to access the site and its features.')">De-activate</a>
+                                                        {% elif recruiter.status == -1 %}
+                                                            <a class="btn btn-default register-submit add"  href="{{ url_for('partnership.activate_recruiter', id=recruiter.id) }}" onclick="return confirm('Are you sure you would like to re-activate the account of this recruiter?')">Re-activate</a>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-sm-2"></div>
+                                                    {% endif %}
+                                                </div>
+                                    </form>
+                                      </div>
+                                      <div class="col-sm-1"></div>
+                                  </div>
+                              <div class="modal-footer">
+                                <button id="close_{{ recruiter.id }}" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button id="submit_{{ recruiter.id }}" type="button" class="btn btn-default register-submit recruiter_update" recruiter-id="{{ recruiter.id }}">Save Changes</button>
+                              </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+        <div class="modal fade" id="add_recruiter" tabindex="-1" role="dialog" aria-labelledby="add_recruiter" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="add_recruiter_header" style="display: contents">Add New Recruiter</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: red">&times;</span>
+                </button>
+              </div>
+                <div class="modal-body">
+                  <div class="row" style="max-height: 500px; overflow: auto; margin-bottom: 15px">
+                              <div class="col-sm-1"></div>
+                              <div class="col-sm-10">
+                                    <form action method="post" novalidate id="new_recruiter_form">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group  required"><label class="control-label" for="name_add}">Name *</label>
+                                                    <input class="form-control" id="name_add" name="name" placeholder="John Appleseed" required="" type="text" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group  required"><label class="control-label" for="email_add}">Email *</label>
+                                                    <input class="form-control" id="email_add" name="email" placeholder="johnappleseed@gmail.com" required="" type="text" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="control-label" for="experience_add">Years of Experience *</label>
+                                                <select class="form-control" id="experience_add" name="experience" required="">
+                                                        <option value="1" selected>0-2 years</option>
+                                                        <option value="2">3-5 years</option>
+                                                        <option value="3">5-7 years</option>
+                                                        <option value="4">7-10 years</option>
+                                                        <option value="5">10-15 years</option>
+                                                        <option value="6">15-20 years</option>
+                                                        <option value="7">20-25 years</option>
+                                                        <option value="8">25+ years</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group  required"><label class="control-label" for="position_title_add">Position Title *</label>
+                                                    <input class="form-control" id="position_title_add"  name="position_title" placeholder="Head of Recruiting" required="" type="text" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="control-label" for="authority_add">Authority *</label>
+                                                <select class="form-control" id="authority_add" name="authority" required="">
+                                                        <option value="0" selected>Recruiter</option>
+                                                        <option value="1">Admin</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                            </form>
+                              </div>
+                              <div class="col-sm-1"></div>
+                          </div>
+                </div>
+              <div class="modal-footer">
+                <button id="close_add" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="submit_add" type="button" class="btn btn-default register-submit add_recruiter_btn" >Add Recruiter</button>
+              </div>
+            </div>
+          </div>
+</div>
+    </div>
+        {% endif %}
+        </div>
+    <form id="img_upload_form" action="/p/img_upload" method="post" class="form" enctype="multipart/form-data" role="form" style="display: none">
+        <input id="img_upload" name="file" type="file">
+        <input class="btn btn-default" id="submit_img_upload" name="submit" type="submit" value="Submit">
+</form>
+    <script>
+    function FileValidation() {
+        file = document.getElementById('file');
+        var filePath = file.value;
+
+            // Allowing file type
+            var allowedExtensions =
+                    /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+
+            if (!allowedExtensions.exec(filePath)) {
+                alert('Invalid file type');
+                fileInput.value = '';
+            }
+            else
+            {
+                document.getElementById('submit').click()
+            }
+    }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover({
+                trigger : 'hover'
+            });
+        });
+</script>
+    <script>
+    function add_recruiter() {
+        var email = document.getElementById('email_add').value;
+        var name = document.getElementById('name_add').value;
+        var authority = document.getElementById('authority_add').value;
+        var experience = document.getElementById('experience_add').value;
+        var title = document.getElementById('position_title_add').value;
+        var close = document.getElementById('close_add');
+        if (email.length > 5 && name.length > 5) {
+            var recruiter = {
+                'email': email,
+                'experience': experience,
+                'title': title,
+                'authority': authority,
+                'name': name
+            };
+            close.click();
+            $.ajax({
+                type: 'POST',
+                url: "/p/add_recruiter",
+                data: recruiter,
+                success: function(data) {
+                    document.location.reload()
+                },
+                error: function () {
+                    error_popup()
+                }
+            })
+        }
+    }
+
+    function update_recruiter(id) {
+        var username = document.getElementById('username_' + id).value;
+        var name = document.getElementById('username_' + id).value;
+        var email = document.getElementById('email_' + id).value;
+        var experience = document.getElementById('experience_' + id).value;
+        var title = document.getElementById('position_title_' + id).value;
+        var authority = document.getElementById('authority_' + id).value;
+        var close = document.getElementById('close_'+id);
+        if (username.length > 3 && email.length > 5 && name.length > 3) {
+            var recruiter = {
+                'username': username,
+                'email': email,
+                'experience': experience,
+                'title': title,
+                'authority': authority,
+                'id': id,
+                'name': name
+            };
+            close.click();
+            $.ajax({
+                type: 'POST',
+                url: "/p/update_recruiter",
+                data: recruiter,
+                success: function(data) {
+                    document.location.reload()
+                },
+                error: function () {
+                    error_popup()
+                }
+            })
+        }
+    }
+    </script>
+
+{% endblock %}
+
